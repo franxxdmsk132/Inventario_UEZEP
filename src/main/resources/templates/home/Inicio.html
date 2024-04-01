@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+    <title>Navegación</title>
+    <style>
+        @keyframes slide-up {
+            from {
+                transform: translateY(100%);
+            }
+            to {
+                transform: translateY(0);
+            }
+        }
+        .thead-darkGray {
+            background-color: #4b4c4f; /* Puedes ajustar el color según tus preferencias */
+            color: white;
+        }
+
+        .body-gradient {
+            background: linear-gradient(to bottom, #ffffff, darkcyan 1800px)
+
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            width: 100%;
+            height: 100%;
+            min-height: 100%;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav {
+            background-color: darkcyan;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body class="body-gradient">
+
+<section id="header">
+    <nav class="navbar navbar navbar-expand-lg ">
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mx-auto"> <!-- mx-auto centra los elementos -->
+                <!-- Aquí se agregan las nuevas direcciones -->
+
+
+
+                <!-- Fin de las nuevas direcciones -->
+            </ul>
+            <ul class="navbar-nav"> <!-- Esta lista estará a la derecha -->
+                <li class="nav-item active"><a class="nav-link" th:href="@{/logout}">Logout <img th:src="@{/images/sign_out_32px.png}" class="d-inline-block align-text-top" width="25" height="25" alt="icon"></a></li>
+            </ul>
+        </div>
+    </nav>
+</section>
+
+
+<div style="width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+
+</div>
+<!-- El contenido de tu página va aquí -->
+
+</body>
+</html>
