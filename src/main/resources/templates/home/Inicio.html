@@ -77,21 +77,16 @@
 <body class="body-gradient">
 
 <section id="header">
-    <nav class="navbar navbar navbar-expand-lg ">
-
+    <nav class="navbar navbar-expand-lg">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mx-auto"> <!-- mx-auto centra los elementos -->
-                <!-- Aquí se agregan las nuevas direcciones -->
+            <ul class="navbar-nav mr-auto">
                 <li class="nav-item"><a class="nav-link" href="/bodegas/list">Bodegas</a></li>
                 <li class="nav-item"><a class="nav-link" href="/articulos/list">Artículos</a></li>
                 <li class="nav-item"><a class="nav-link" href="/egresosDetalles/list">Egresos</a></li>
                 <li class="nav-item"><a class="nav-link" href="/ingresoDetalles/list">Ingresos</a></li>
-
-
-                <!-- Fin de las nuevas direcciones -->
             </ul>
-            <ul class="navbar-nav"> <!-- Esta lista estará a la derecha -->
-                <li class="nav-item active"><a class="nav-link" th:href="@{/logout}">Logout <img th:src="@{/images/sign_out_32px.png}" class="d-inline-block align-text-top" width="25" height="25" alt="icon"></a></li>
+            <ul class="navbar-nav">
+                <li class="nav-item active"><a class="nav-link" href="/logout">Logout</a></li>
             </ul>
         </div>
     </nav>
@@ -99,7 +94,7 @@
 
 
 <div style="width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden;">
-    <img style="max-width: 50%; max-height: 50%; animation: slide-up 1s ease-out;" th:src="@{/images/logotec.png}" alt="Logo">
+    <img style="max-width: 50%; max-height: 50%; animation: slide-up 1s ease-out;" th:src="@{/images/Logo-NBG.png}" alt="Logo">
 </div>
 <!-- El contenido de tu página va aquí -->
 
