@@ -1,0 +1,175 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+    <style>
+        .thead-darkGray {
+            background-color: #4b4c4f; /* Puedes ajustar el color según tus preferencias */
+            color: white;
+        }
+
+        .body-gradient {
+            background: linear-gradient(to bottom, #ffffff, #4b4c4f 1800px)
+
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            width: 100%;
+            height: 100%;
+            min-height: 100%;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav {
+            background-color: #4b4c4f;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+        }
+    </style>
+    <title>Articulos</title>
+</head>
+
+<body class="body-gradient">
+
+<section id="header">
+    <nav class="navbar navbar navbar-expand-lg ">
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mx-auto"> <!-- mx-auto centra los elementos -->
+                <!-- Aquí se agregan las nuevas direcciones -->
+                <li class="nav-item"><a class="nav-link" href="/muebles/lista">Muebles</a></li>
+                <li class="nav-item"><a class="nav-link" href="/articulos/list">Artículos</a></li>
+                <li class="nav-item"><a class="nav-link" href="/egresosDetalles/list">Egresos</a></li>
+                <li class="nav-item"><a class="nav-link" href="/ingresoDetalles/list">Ingresos</a></li>
+
+
+                <!-- Fin de las nuevas direcciones -->
+            </ul>
+            <ul class="navbar-nav"> <!-- Esta lista estará a la derecha -->
+                <li class="nav-item active"><a class="nav-link" th:href="@{/logout}">Logout <img th:src="@{/images/sign_out_32px.png}" class="d-inline-block align-text-top" width="25" height="25" alt="icon"></a></li>
+            </ul>
+        </div>
+    </nav>
+</section>
+
+
+<br>
+<div class="container-fluid" align="center">
+
+    <h1 style="font-weight: bold; text-align: center; color: #545050;">
+
+        <b>
+            <img th:src="@{/images/profile_200px.png}"
+                 class="d-inline-block align-text-top" width="40" height="40"
+                 alt="icon"> LISTA DE ARTICULOS
+        </b></h1>
+    <hr>
+    <div class="d-flex justify-content-between">
+        <a th:href="@{/articulos/showFormForAdd}" class="btn btn-primary btn-sm mb-3">Agregar otro Articulo</a>
+        <br>
+    </div>
+
+
+    <table class="table  table-hover ">
+        <thead class="thead-darkGray text-center">
+        <tr>
+            <th>ID</th>
+            <th>CODIGO</th>
+            <th>NOMBRE</th>
+            <th>DESCRIPCION</th>
+            <th>FECHA INGR</th>
+            <th>ESTADO</th>
+            <th>CANTIDAD</th>
+            <th>ASIGNACION</th>
+            <th>ACCIONES</th>
+
+
+
+
+        </tr>
+        </thead>
+        <tr th:each="muebles, i: ${muebles}">
+            <td th:text="${muebles.id_mueble}"  class="text-center" ></td>
+            <td th:text="${muebles.codigoMueble}" class="text-center"/>
+            <td th:text="${muebles.nombreMueble}" class="text-center"/>
+            <td th:text="${muebles.descripcionMueble}" class="text-center"/>
+            <td th:text="${muebles.fechaIngreso}" class="text-center"/>
+            <td th:text="${muebles.estado}" class="text-center"/>
+            <td th:text="${muebles.cantidad}" class="text-center"   />
+            <td th:text="${muebles.asignacion}" class="text-center"   />
+<!--            <td>-->
+<!--                <div>-->
+<!--                    <img class="img-thumbnail rounded float-left"-->
+<!--                         th:src="@{'/images/' + ${tempArticulo.imagen}}"-->
+<!--                         th:alt="${tempArticulo.imagen}">-->
+<!--                </div>-->
+
+<!--            </td>-->
+
+
+            <td class="text-center"><a
+                    th:href="@{/muebles/showArticuloDetails(codigoA=${muebles.id_mueble})}"
+                    class="btn btn-success btn-sm"> DETALLES </a> <a
+                    th:href="@{/muebles/showFormForUpdate(codigoA=${muebles.id_mueble})}"
+                    class="btn btn-info btn-sm"> ACTUALIZACIONES </a> <a
+                    th:href="@{/muebles/delete(codigoA=${muebles.id_mueble})}"
+                    class="btn btn-danger btn-sm"
+                    onclick="if (!(confirm('¿Está seguro de eliminar la sección de ARTÍCULOS?'))) return false">
+                ELIMINAR </a></td>
+
+        </tr>
+        <tbody>
+
+        </tbody>
+
+    </table>
+    <a th:href="@{/muebles/lista}" class="btn btn-warning btn-sm mb-3">CARGAR
+    </a>
+    <p class="text-danger warning" th:if="${searchWarning}" th:text="${searchWarning}"></p>
+
+</div>
+</body>
+
+
+
+
+</html>

@@ -1,4 +1,4 @@
-package com.eabmodel.inventario_uezep.Controllers;
+package com.eabmodel.inventario_uezep.Controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
