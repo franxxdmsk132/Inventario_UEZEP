@@ -133,7 +133,7 @@
             <td th:text="${muebles.nombreMueble}" class="text-center"/>
             <td th:text="${muebles.descripcionMueble}" class="text-center"/>
             <td th:text="${muebles.fechaIngreso}" class="text-center"/>
-            <td th:text="${muebles.estado}" class="text-center"/>
+            <td th:text="${muebles.estado == true ? 'Existe' : 'No Existe'}" class="text-center"></td>
             <td th:text="${muebles.cantidad}" class="text-center"   />
             <td th:text="${muebles.asignacion}" class="text-center"   />
 <!--            <td>-->
