@@ -16,11 +16,30 @@ public class MuebleService {
     @Autowired
     private MueblesDao mueblesDao;
 
-    public List<Muebles> findAll(){
+    public List<Muebles> findAll() {
         return mueblesDao.findAll();
     }
-    public void save (Muebles mueblesxd){
-        mueblesDao.save(mueblesxd);
+
+    public Muebles findById(int id_mueble) {
+        Muebles muebles = mueblesDao.findByIdMueble(id_mueble);
+        return muebles;
     }
+
+    public void save(Muebles muebles) {
+        mueblesDao.save(muebles);
+    }
+
+    public void update(Muebles muebles) {
+        mueblesDao.update(muebles);
+    }
+
+//    public void updateEstado(Muebles muebles) {
+//        mueblesDao.updateEstado(muebles);
+//
+//    }
+    public void deleteByIdMueble(int id_mueble) {
+        mueblesDao.delete(id_mueble);
+    }
+
 
 }

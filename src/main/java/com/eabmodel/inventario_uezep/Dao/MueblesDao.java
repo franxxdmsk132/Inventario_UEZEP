@@ -30,8 +30,30 @@ public class MueblesDao {
         );
     }
 
-    public List<Muebles> findAll(){
+    public List<Muebles> findAll() {
         String sql = "SELECT * FROM `muebles` ";
         return jdbcTemplate.query(sql, new MueblesRowMapper());
     }
+
+    public Muebles findByIdMueble(int id_mueble) {
+        String sql = "SELECT * FROM muebles WHERE id_mueble = ? ";
+        return jdbcTemplate.queryForObject(sql, new MueblesRowMapper(), id_mueble);
+    }
+
+    public void update(Muebles muebles) {
+        String sql = "UPDATE `muebles` SET `asignacion` = '?', `cantidad` = '?', `codigo_mueble` = '?', `estado` = '?', `fecha_ingreso` = '?', `nombre_mueble` = '?', `descripcion_mueble` = '?' WHERE `muebles`.`id_mueble` = ? ";
+        jdbcTemplate.update(sql, muebles.getAsignacion(), muebles.getCantidad(), muebles.getCodigoMueble(), muebles.getEstado(), muebles.getFechaIngreso(), muebles.getNombreMueble(), muebles.getDescripcionMueble(), muebles.getId_mueble());
+    }
+
+//    public void updateEstado(Muebles muebles) {
+//        String sql = "UPDATE `muebles` SET `estado` = ? WHERE `muebles`.`id_mueble` = ?";
+//        jdbcTemplate.update(sql, muebles.getEstado(), muebles.getId_mueble());
+//    }
+    public void delete(int id_mueble) {
+        String sql = "DELETE FROM muebles WHERE id_mueble = " + id_mueble;
+        jdbcTemplate.update(sql);
+    }
+
+
+
 }

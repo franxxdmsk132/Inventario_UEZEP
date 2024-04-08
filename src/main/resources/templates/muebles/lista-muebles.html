@@ -85,7 +85,9 @@
                 <!-- Fin de las nuevas direcciones -->
             </ul>
             <ul class="navbar-nav"> <!-- Esta lista estará a la derecha -->
-                <li class="nav-item active"><a class="nav-link" th:href="@{/logout}">Logout <img th:src="@{/images/sign_out_32px.png}" class="d-inline-block align-text-top" width="25" height="25" alt="icon"></a></li>
+                <li class="nav-item active"><a class="nav-link" th:href="@{/logout}">Logout <img
+                        th:src="@{/images/sign_out_32px.png}" class="d-inline-block align-text-top" width="25"
+                        height="25" alt="icon"></a></li>
             </ul>
         </div>
     </nav>
@@ -123,38 +125,37 @@
             <th>ACCIONES</th>
 
 
-
-
         </tr>
         </thead>
         <tr th:each="muebles, i: ${muebles}">
-            <td th:text="${muebles.id_mueble}"  class="text-center" ></td>
+            <td th:text="${muebles.id_mueble}" class="text-center"></td>
             <td th:text="${muebles.codigoMueble}" class="text-center"/>
             <td th:text="${muebles.nombreMueble}" class="text-center"/>
             <td th:text="${muebles.descripcionMueble}" class="text-center"/>
             <td th:text="${muebles.fechaIngreso}" class="text-center"/>
             <td th:text="${muebles.estado == true ? 'Existe' : 'No Existe'}" class="text-center"></td>
-            <td th:text="${muebles.cantidad}" class="text-center"   />
-            <td th:text="${muebles.asignacion}" class="text-center"   />
-<!--            <td>-->
-<!--                <div>-->
-<!--                    <img class="img-thumbnail rounded float-left"-->
-<!--                         th:src="@{'/images/' + ${tempArticulo.imagen}}"-->
-<!--                         th:alt="${tempArticulo.imagen}">-->
-<!--                </div>-->
+            <td th:text="${muebles.cantidad}" class="text-center"/>
+            <td th:text="${muebles.asignacion}" class="text-center"/>
+            <!--            <td>-->
+            <!--                <div>-->
+            <!--                    <img class="img-thumbnail rounded float-left"-->
+            <!--                         th:src="@{'/images/' + ${tempArticulo.imagen}}"-->
+            <!--                         th:alt="${tempArticulo.imagen}">-->
+            <!--                </div>-->
 
-<!--            </td>-->
+            <!--            </td>-->
 
 
-            <td class="text-center"><a
-                    th:href="@{/muebles/showArticuloDetails(codigoA=${muebles.id_mueble})}"
-                    class="btn btn-success btn-sm"> DETALLES </a> <a
-                    th:href="@{/muebles/showFormForUpdate(codigoA=${muebles.id_mueble})}"
-                    class="btn btn-info btn-sm"> ACTUALIZACIONES </a> <a
-                    th:href="@{/muebles/delete(codigoA=${muebles.id_mueble})}"
-                    class="btn btn-danger btn-sm"
-                    onclick="if (!(confirm('¿Está seguro de eliminar la sección de ARTÍCULOS?'))) return false">
-                ELIMINAR </a></td>
+            <td class="text-center">
+
+                <a th:href="@{/muebles/masDetalles(id_mueble=${muebles.id_mueble})}"
+                   class="btn btn-success btn-sm"> DETALLES </a>
+                <a th:href="@{/muebles/showFormForUpdate(id_mueble=${muebles.id_mueble})}"
+                   class="btn btn-info btn-sm"> ACTUALIZACIONES </a>
+                <a th:href="@{/muebles/delete(id_mueble=${muebles.id_mueble})}"
+                   class="btn btn-danger btn-sm"
+                   onclick="if (!(confirm('¿Está seguro de eliminar la sección de ARTÍCULOS?'))) return false">
+                    ELIMINAR </a></td>
 
         </tr>
         <tbody>
@@ -168,8 +169,6 @@
 
 </div>
 </body>
-
-
 
 
 </html>
