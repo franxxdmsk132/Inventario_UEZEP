@@ -17,7 +17,7 @@ public class MueblesRowMapper implements RowMapper <Muebles>{
         muebles.setFechaIngreso(rs.getString("fecha_ingreso"));
         muebles.setEstado(rs.getBoolean("estado"));
         muebles.setCantidad(rs.getInt("cantidad"));
-        muebles.setAsignacion(rs.getString("asignacion"));
+        muebles.setAsignacion(rs.getInt("asignacion"));
         return muebles;
     }
 }

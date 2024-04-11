@@ -22,7 +22,7 @@ public class Muebles {
     private String fechaIngreso;
     private Boolean estado;
     private Integer cantidad;
-    private String asignacion;
+    private Integer asignacion;
 
 
 }

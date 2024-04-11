@@ -1,6 +1,8 @@
 <!DOCTYPE HTML>
 <html>
 <head>
+
+
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport"
@@ -66,6 +68,7 @@
         }
     </style>
     <title>Muebles</title>
+
 </head>
 
 <body class="body-gradient">
@@ -106,7 +109,10 @@
         </b></h1>
     <hr>
     <div class="d-flex justify-content-between">
-        <a th:href="@{/muebles/nuevoMueble}" class="btn btn-primary btn-sm mb-3">Agregar otro Articulo</a>
+        <a th:href="@{/muebles/nuevoMueble}" class="btn btn-primary btn-sm mb-3">Agregar otro Articulo <img
+                th:src="@{/images/disquete.png}"
+                class="d-inline-block align-text-top" width="25" height="25"
+                alt="icon"></a>
         <br>
     </div>
 
@@ -149,13 +155,49 @@
             <td class="text-center">
 
                 <a th:href="@{/muebles/masDetalles(id_mueble=${muebles.id_mueble})}"
-                   class="btn btn-success btn-sm"> DETALLES </a>
+                   class="btn btn-success btn-sm" title="Ver más detalles"> DETALLES
+                    <img th:src="@{/images/ver.png}" class="d-inline-block align-text-top" width="20" height="20"
+                         alt="icon">
+                </a>
+
+
                 <a th:href="@{/muebles/showFormForUpdate(id_mueble=${muebles.id_mueble})}"
-                   class="btn btn-info btn-sm"> ACTUALIZACIONES </a>
+                   class="btn btn-info btn-sm" title="Actualizar Informacion"> ACTUALIZACIONES
+                    <img th:src="@{/images/editar.png}" class="d-inline-block align-text-top" width="20" height="20"
+                         alt="icon"> </a>
+
                 <a th:href="@{/muebles/delete(id_mueble=${muebles.id_mueble})}"
-                   class="btn btn-danger btn-sm"
-                   onclick="if (!(confirm('¿Está seguro de eliminar la sección de ARTÍCULOS?'))) return false">
-                    ELIMINAR </a></td>
+                   class="btn btn-danger btn-sm" title="Eliminar"
+                   onclick="return confirmarEliminacion()">
+                    ELIMINAR
+                    <img th:src="@{/images/borrar.png}" class="d-inline-block align-text-top" width="20" height="20" alt="icon">
+                </a>
+
+                <script>
+                    function confirmarEliminacion() {
+                        Swal.fire({
+                            title: '¿Está seguro de eliminar este Articulo?',
+                            text: "Esta acción no se puede deshacer!",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#d33',
+                            cancelButtonColor: '#3085d6',
+                            confirmButtonText: 'Sí, eliminar!',
+                            cancelButtonText: 'Cancelar'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                // Si el usuario hace clic en "Sí, eliminar", se redirige al enlace de eliminación
+                                window.location.href = event.target.href;
+                            }
+                        });
+                        // Evita que se ejecute el enlace por defecto
+                        return false;
+                    }
+                </script>
+
+
+
+            </td>
 
         </tr>
         <tbody>
@@ -163,12 +205,20 @@
         </tbody>
 
     </table>
-    <a th:href="@{/muebles/lista}" class="btn btn-warning btn-sm mb-3">CARGAR
+    <div th:unless="${not #lists.isEmpty(muebles)}" class="alert alert-info" role="alert">
+        No hay muebles registrados.
+    </div>
+    <a th:href="@{/muebles/lista}" class="btn btn-warning btn-sm mb-3">CARGAR <img th:src="@{/images/recargar.png}"
+                                                                                   class="d-inline-block align-text-top"
+                                                                                   width="20" height="20"
+                                                                                   alt="icon">
     </a>
     <p class="text-danger warning" th:if="${searchWarning}" th:text="${searchWarning}"></p>
 
 </div>
 </body>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
 </html>
