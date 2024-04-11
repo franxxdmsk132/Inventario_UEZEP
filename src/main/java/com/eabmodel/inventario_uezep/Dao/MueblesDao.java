@@ -16,7 +16,7 @@ public class MueblesDao {
     private JdbcTemplate jdbcTemplate;
 
     public void save(Muebles muebles) {
-        String sql = "INSERT INTO `muebles`(codigo_mueble, nombre_mueble, descripcion_mueble, fecha_ingreso, estado, cantidad, asignacion)) VALUES ( ?, ?, ?, ?, ?, ?,?)";
+        String sql = "INSERT INTO `muebles`(codigo_mueble, nombre_mueble, descripcion_mueble, fecha_ingreso, estado, cantidad, asignacion) VALUES ( ?, ?, ?, ?, ?, ?,?)";
 
         jdbcTemplate.update(
                 sql,

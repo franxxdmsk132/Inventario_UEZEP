@@ -62,7 +62,7 @@ public class MuebleController {
     //----------------------------------------------------------------------------------------
     //Funciones
     //Guardar mueble
-    @PostMapping("/guardar")
+    @PostMapping("/save")
     public String saveMueble(@ModelAttribute("muebles") Muebles muebles) {
 
         muebleService.save(muebles);
