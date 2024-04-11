@@ -17,7 +17,7 @@ public class Aulas {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-    private Integer id_aulas;
+    private Integer id_aula;
     private String curso;
     private String encargado;
     private String ubicacion_aula;

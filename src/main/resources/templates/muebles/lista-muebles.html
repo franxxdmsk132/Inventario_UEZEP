@@ -128,6 +128,7 @@
             <th>ESTADO</th>
             <th>CANTIDAD</th>
             <th>ASIGNACION</th>
+            <th>TOTAL</th>
             <th>ACCIONES</th>
 
 
@@ -140,8 +141,11 @@
             <td th:text="${muebles.descripcionMueble}" class="text-center"/>
             <td th:text="${muebles.fechaIngreso}" class="text-center"/>
             <td th:text="${muebles.estado == true ? 'Existe' : 'No Existe'}" class="text-center"></td>
-            <td th:text="${muebles.cantidad}" class="text-center"/>
-            <td th:text="${muebles.asignacion}" class="text-center"/>
+            <td th:text="${muebles.cantidad}" class="text-center"></td>
+            <td th:text="${muebles.asignacion}" class="text-center"></td>
+            <td class="text-center"><span th:text="${muebles.cantidad + muebles.asignacion}"></span></td>
+
+
             <!--            <td>-->
             <!--                <div>-->
             <!--                    <img class="img-thumbnail rounded float-left"-->
@@ -153,51 +157,32 @@
 
 
             <td class="text-center">
+                <div class="d-flex justify-content-center">
+                    <a th:href="@{/muebles/masDetalles(id_mueble=${muebles.id_mueble})}"
+                       class="btn btn-success btn-sm mr-2" title="Ver más detalles"> DETALLES
+                        <img th:src="@{/images/ver.png}" class="d-inline-block align-text-top" width="20" height="20"
+                             alt="icon">
+                    </a>
 
-                <a th:href="@{/muebles/masDetalles(id_mueble=${muebles.id_mueble})}"
-                   class="btn btn-success btn-sm" title="Ver más detalles"> DETALLES
-                    <img th:src="@{/images/ver.png}" class="d-inline-block align-text-top" width="20" height="20"
-                         alt="icon">
-                </a>
+                    <a th:href="@{/muebles/cambiarMueble(id_mueble=${muebles.id_mueble})}"
+                       class="btn btn-info btn-sm mr-2" title="Actualizar Informacion"> ACTUALIZACIONES
+                        <img th:src="@{/images/editar.png}" class="d-inline-block align-text-top" width="20" height="20"
+                             alt="icon">
+                    </a>
 
-
-                <a th:href="@{/muebles/showFormForUpdate(id_mueble=${muebles.id_mueble})}"
-                   class="btn btn-info btn-sm" title="Actualizar Informacion"> ACTUALIZACIONES
-                    <img th:src="@{/images/editar.png}" class="d-inline-block align-text-top" width="20" height="20"
-                         alt="icon"> </a>
-
-                <a th:href="@{/muebles/delete(id_mueble=${muebles.id_mueble})}"
-                   class="btn btn-danger btn-sm" title="Eliminar"
-                   onclick="return confirmarEliminacion()">
-                    ELIMINAR
-                    <img th:src="@{/images/borrar.png}" class="d-inline-block align-text-top" width="20" height="20" alt="icon">
-                </a>
-
-                <script>
-                    function confirmarEliminacion() {
-                        Swal.fire({
-                            title: '¿Está seguro de eliminar este Articulo?',
-                            text: "Esta acción no se puede deshacer!",
-                            icon: 'warning',
-                            showCancelButton: true,
-                            confirmButtonColor: '#d33',
-                            cancelButtonColor: '#3085d6',
-                            confirmButtonText: 'Sí, eliminar!',
-                            cancelButtonText: 'Cancelar'
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                // Si el usuario hace clic en "Sí, eliminar", se redirige al enlace de eliminación
-                                window.location.href = event.target.href;
-                            }
-                        });
-                        // Evita que se ejecute el enlace por defecto
-                        return false;
-                    }
-                </script>
-
-
-
+                    <form id="eliminarMuebleForm" th:action="@{/muebles/delete2}" th:method="post">
+                        <input type="hidden" name="id_mueble" th:value="${muebles.id_mueble}">
+                        <button type="button" class="btn btn-danger btn-sm" title="Eliminar"
+                                onclick="return confirmarEliminacion(event)">
+                            ELIMINAR
+                            <img th:src="@{/images/borrar.png}" class="d-inline-block align-text-top" width="20"
+                                 height="20" alt="icon">
+                        </button>
+                    </form>
+                </div>
             </td>
+
+
 
         </tr>
         <tbody>
@@ -217,6 +202,28 @@
 
 </div>
 </body>
+
+<script>
+    function confirmarEliminacion(event) {
+        event.preventDefault(); // Evita que el formulario se envíe automáticamente
+
+        Swal.fire({
+            title: '¿Está seguro de eliminar este artículo?',
+            text: "Esta acción no se puede deshacer!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Sí, eliminar!',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Si el usuario hace clic en "Sí, eliminar", envía el formulario
+                document.getElementById('eliminarMuebleForm').submit();
+            }
+        });
+    }
+</script>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 

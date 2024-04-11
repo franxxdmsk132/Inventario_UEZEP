@@ -59,6 +59,7 @@ public class MuebleController {
         return "muebles/actualizar-muebles";
     }
 
+
     //----------------------------------------------------------------------------------------
     //Funciones
     //Guardar mueble
@@ -71,21 +72,27 @@ public class MuebleController {
     }
 
     //Actualizar mueble
-    @PostMapping("/update")
-    public String updateMuebles(@ModelAttribute("muebles") Muebles muebles) {
+//    @PostMapping("/update")
+//    public String updateMuebles(@ModelAttribute("muebles") Muebles muebles) {
+//
+//        muebleService.update(muebles);
+//
+//        return "redirect:/muebles/lista";
+//    }
+    @PostMapping("/update2")
+    public String updateMuebles2(@ModelAttribute("muebles") Muebles muebles) {
 
-        muebleService.update(muebles);
+        muebleService.update2(muebles);
 
         return "redirect:/muebles/lista";
     }
 
     //Eliminar mueble permanente
-    @GetMapping("/delete")
-    public String deleteMueble(@RequestParam("id_mueble") int id_mueble) {
-
+    @PostMapping("/delete2")
+    public String deleteMueble2(@RequestParam("id_mueble") int id_mueble) {
         muebleService.deleteByIdMueble(id_mueble);
-
         return "redirect:/muebles/lista";
     }
+
 
 }

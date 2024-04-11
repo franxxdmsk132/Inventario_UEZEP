@@ -1,10 +1,131 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
 
+<!DOCTYPE HTML>
+<html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+    <style>
+        .thead-darkGray {
+            background-color: #4b4c4f; /* Puedes ajustar el color según tus preferencias */
+            color: white;
+        }
+
+        .body-gradient {
+            background: linear-gradient(to bottom, #ffffff, #4b4c4f 1800px)
+
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            width: 100%;
+            height: 100%;
+            min-height: 100%;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav {
+            background-color: #4b4c4f;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+        }
+    </style>
+    <title>MUEBLES</title>
+</head>
+<body class="body-gradient d-flex justify-content-center align-items-center">
+
+<br>
+
+<div class="container text-center">
+
+    <h3>
+        <img th:src="@{/images/Logo-NBG.png}" class="d-inline-block align-text-top" width="40" height="40" alt="icon">
+        <b>DIRECTORIO DE MUEBLES</b>
+    </h3>
+    <h4  align="center" hidden="hidden" ><a th:href="@{/muebles/lista}" class="btn btn-warning btn-sm mb-3 d-inline-block align-text-top"  >ATRAS</a> </h4>
+<br>
+    <hr>
+
+    <p class="h4 mb-4">ACTUALIZACION DE LOS ARTICULOS</p>
+
+    <form action="#" th:action="@{/muebles/update2}"
+          th:object="${muebles}" method="POST"  class="d-flex flex-column align-items-center">
+        <!-- Add hidden form field to handle update -->
+        <input type="hidden" th:field="*{id_mueble}" class="form-control mb-2 col-5"  placeholder="ID Articulo"/>
+        <input type="text" th:field="*{codigoMueble}" class="form-control mb-2 col-5"  placeholder="Codigo Articulo"  required/>
+        <input type="text" th:field="*{nombreMueble}" class="form-control mb-2 col-5"  placeholder="Nombre Articulo" required>
+        <input type="text" th:field="*{descripcionMueble}" class="form-control mb-2 col-5"  placeholder="Stock Actual" required >
+        <div class="form-group d-flex flex-column align-items-center">
+            <label class="mb-auto"><h5><b>Fecha Ingreso</b></h5></label>
+            <div class="d-flex flex-column align-items-center">
+                <input type="date" th:field="*{fechaIngreso}" name="fechaingreso" value="" min="1997-01-01" max="2030-12-31" class="mr-2 mb-2">
+                <button type="button" onclick="seleccionarFechaActual()" class="btn btn-primary btn-sm">Seleccionar Fecha Actual</button>
+            </div>
+        </div>
+        <input type="number" th:field="*{cantidad}" class="form-control mb-3 col-5" placeholder="Cantidad" required min="1" oninput="validarCantidad(this)">
+        <select th:field="*{estado}" class="form-control mb-3 col-5" required>
+            <option value="true">Activo</option>
+            <option value="false">Inactivo</option>
+        </select>
+        <input type="number" th:field="*{asignacion}" class="form-control mb-3 col-5" placeholder="Asignacion" required min="0" oninput="validarCantidad(this)" >
+
+
+
+        <button type="submit" class="btn btn-success mb-2 col-2">GUARDAR</button>
+    </form>
+    <a th:href="@{/muebles/lista}" class="btn btn-warning mb-2 col-2">ATRAS
+    </a>
+</div>
 </body>
+<script>
+    function validarCantidad(input) {
+        if (input.value <= -1) {
+            input.value = 1; // Restablece el valor a 1 si es menor o igual a cero
+        }
+    }
+</script>
+
+
+<script>
+    function seleccionarFechaActual() {
+        var fechaActual = new Date().toISOString().split('T')[0]; // Obtener la fecha actual en formato yyyy-mm-dd
+        document.getElementById("fechaIngreso").value = fechaActual; // Establecer la fecha actual en el campo de entrada
+    }
+</script>
 </html>
