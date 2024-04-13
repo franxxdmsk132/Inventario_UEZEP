@@ -65,72 +65,56 @@
             font-weight: bold;
         }
     </style>
-    <title>DETALLES DE LOS MUEBLES</title>
+    <title>DETALLES DE AULA</title>
 </head>
 <body>
 
 
 <br>
 
-<div class="container" align="left" th:if="${muebles}">
+<div class="container" align="left" th:if="${aulas}">
     <h3 align="center">
         <img th:src="@{/images/profile_200px.png}"
              class="d-inline-block align-text-top" width="40" height="40"
-             alt="icon"> Muebles
+             alt="icon"> Aulas
     </h3>
-    <h4 align="center"><a th:href="@{/muebles/lista}"
+    <h4 align="center"><a th:href="@{/aulas/lista}"
                           class="btn btn-warning btn-sm mb-3 d-inline-block align-text-top">ATRAS</a></h4>
     <hr>
-    <p class="h4 mb-4">DETALLES DE MUEBLE</p>
+    <p class="h4 mb-4">DETALLES DE AULA</p>
 
 
     <table class="table  table-hover  table-striped">
         <thead class="thead-info">
-        <tr th:if="${muebles}">
+        <tr th:if="${aulas}">
             <th>ID Mueble</th>
-            <td th:text="${muebles.id_mueble}"></td>
+            <td th:text="${aulas.id_aula}"></td>
         </tr>
         </thead>
-        <tr th:if="${muebles}">
+        <tr th:if="${aulas}">
             <th>Codigo Mueble</th>
-            <td th:text="${muebles.codigo_mueble}"></td>
+            <td th:text="${aulas.curso}"></td>
         </tr>
-        <tr th:if="${muebles}">
+        <tr th:if="${aulas}">
             <th>Nombre</th>
-            <td th:text="${muebles.nombre_mueble}"></td>
+            <td th:text="${aulas.ubicacion_aula}"></td>
         </tr>
-        <tr th:if="${muebles}">
+        <tr th:if="${aulas}">
             <th>Descripcion</th>
-            <td th:text="${muebles.descripcion_mueble}"></td>
+            <td th:text="${aulas.encargado}"></td>
         </tr>
-        <tr th:if="${muebles}">
-            <th>Cantidad</th>
-            <td th:text="${muebles.cantidad}"></td>
-        </tr>
-        <tr th:if="${muebles}">
-            <th>Asignacion</th>
-            <td th:text="${muebles.asignacion}"></td>
-        </tr>
-        <tr th:if="${muebles}">
-            <th>Estado</th>
-            <td th:text="${muebles.estado == true ? 'Existe' : 'No Existe'}"></td>
-        </tr>
-        <tr th:if="${muebles}">
-            <th>Fecha ingreso</th>
-            <td th:text="${muebles.fecha_ingreso}"></td>
-        </tr>
-        </tr>
+
 
         <tbody>
         </tbody>
 
     </table>
     <div align="left">
-        <a th:href="@{/muebles/lista}" class="btn btn-warning btn-sm mb-3">ATRAS</a>
-        <a th:href="@{/muebles/nuevoMueble}" class="btn btn-primary btn-sm mb-3"> AGREGAR OTRO ARTICULO</a>
-        <a th:href="@{/muebles/cambiarMueble(id_mueble=${muebles.id_mueble})}" class="btn btn-info btn-sm mb-3">
+        <a th:href="@{/aulas/lista}" class="btn btn-warning btn-sm mb-3">ATRAS</a>
+        <a th:href="@{/aulas/nuevaAula}" class="btn btn-primary btn-sm mb-3"> AGREGAR OTRO ARTICULO</a>
+        <a th:href="@{/aulas/cambiarAula(id_mueble=${aulas.id_aula})}" class="btn btn-info btn-sm mb-3">
             ACTUALIZACIONES </a>
-        <a th:href="@{/muebles/delete(id_mueble=${muebles.id_mueble})}  " class="btn btn-danger  btn-sm mb-3"
+        <a th:href="@{/aulas/delete(id_aula=${aulas.id_aula})}  " class="btn btn-danger  btn-sm mb-3"
            onclick="if (!(confirm('¿Está seguro de eliminar la sección de ARTÍCULOS?'))) return false">
             ELIMINAR </a>
     </div>

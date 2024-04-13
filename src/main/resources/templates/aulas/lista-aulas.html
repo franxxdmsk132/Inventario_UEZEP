@@ -67,7 +67,7 @@
             font-weight: bold;
         }
     </style>
-    <title>Muebles</title>
+    <title>Aulas</title>
 
 </head>
 
@@ -81,8 +81,6 @@
                 <!-- Aquí se agregan las nuevas direcciones -->
                 <li class="nav-item"><a class="nav-link" href="/muebles/lista">Muebles</a></li>
                 <li class="nav-item"><a class="nav-link" href="/aulas/lista">Aulas</a></li>
-                <li class="nav-item"><a class="nav-link" href="/egresosDetalles/list">Egresos</a></li>
-                <li class="nav-item"><a class="nav-link" href="/ingresoDetalles/list">Ingresos</a></li>
 
 
                 <!-- Fin de las nuevas direcciones -->
@@ -105,11 +103,11 @@
         <b>
             <img th:src="@{/images/objetos.png}"
                  class="d-inline-block align-text-top" width="60" height="60"
-                 alt="icon"> LISTA DE MUEBLES
+                 alt="icon"> LISTA DE AULAS
         </b></h1>
     <hr>
     <div class="d-flex justify-content-between">
-        <a th:href="@{/muebles/nuevoMueble}" class="btn btn-primary btn-sm mb-3">Agregar otro Articulo <img
+        <a th:href="@{/aulas/nuevaAula}" class="btn btn-primary btn-sm mb-3">Agregar otra Aula <img
                 th:src="@{/images/disquete.png}"
                 class="d-inline-block align-text-top" width="25" height="25"
                 alt="icon"></a>
@@ -121,29 +119,20 @@
         <thead class="thead-darkGray text-center">
         <tr>
             <th>ID</th>
-            <th>CODIGO</th>
-            <th>NOMBRE</th>
-            <th>DESCRIPCION</th>
-            <th>FECHA INGR</th>
-            <th>ESTADO</th>
-            <th>CANTIDAD</th>
-            <th>ASIGNACION</th>
-            <th>TOTAL</th>
+            <th>CURSO</th>
+            <th>UBICACION</th>
+            <th>ENCARGADO</th>
             <th>ACCIONES</th>
 
 
         </tr>
         </thead>
-        <tr th:each="muebles, i: ${muebles}">
-            <td th:text="${muebles.id_mueble}" class="text-center"></td>
-            <td th:text="${muebles.codigo_mueble}" class="text-center"/>
-            <td th:text="${muebles.nombre_mueble}" class="text-center"/>
-            <td th:text="${muebles.descripcion_mueble}" class="text-center"/>
-            <td th:text="${muebles.fecha_ingreso}" class="text-center"/>
-            <td th:text="${muebles.estado == true ? 'Existe' : 'No Existe'}" class="text-center"></td>
-            <td th:text="${muebles.cantidad}" class="text-center"></td>
-            <td th:text="${muebles.asignacion}" class="text-center"></td>
-            <td class="text-center"><span th:text="${muebles.cantidad + muebles.asignacion}"></span></td>
+        <tr th:each="aulas, i: ${aula}">
+            <td th:text="${aulas.id_aula}" class="text-center"></td>
+            <td th:text="${aulas.curso}" class="text-center"/>
+            <td th:text="${aulas.ubicacion_aula}" class="text-center"/>
+            <td th:text="${aulas.encargado}" class="text-center"/>
+
 
 
             <!--            <td>-->
@@ -158,20 +147,20 @@
 
             <td class="text-center">
                 <div class="d-flex justify-content-center">
-                    <a th:href="@{/muebles/masDetalles(id_mueble=${muebles.id_mueble})}"
+                    <a th:href="@{/aulas/masDetalles(id_aula=${aulas.id_aula})}"
                        class="btn btn-success btn-sm mr-2" title="Ver más detalles"> DETALLES
                         <img th:src="@{/images/ver.png}" class="d-inline-block align-text-top" width="20" height="20"
                              alt="icon">
                     </a>
 
-                    <a th:href="@{/muebles/cambiarMueble(id_mueble=${muebles.id_mueble})}"
+                    <a th:href="@{/aulas/cambiarAula(id_aula=${aulas.id_aula})}"
                        class="btn btn-info btn-sm mr-2" title="Actualizar Informacion"> ACTUALIZACIONES
                         <img th:src="@{/images/editar.png}" class="d-inline-block align-text-top" width="20" height="20"
                              alt="icon">
                     </a>
 
-                    <form id="eliminarMuebleForm" th:action="@{/muebles/delete2}" th:method="post">
-                        <input type="hidden" name="id_mueble" th:value="${muebles.id_mueble}">
+                    <form id="eliminarAulaForm" th:action="@{/aulas/delete}" th:method="post">
+                        <input type="hidden" name="id_aula" th:value="${aulas.id_aula}">
                         <button type="button" class="btn btn-danger btn-sm" title="Eliminar"
                                 onclick="return confirmarEliminacion(event)">
                             ELIMINAR
@@ -190,10 +179,10 @@
         </tbody>
 
     </table>
-    <div th:unless="${not #lists.isEmpty(muebles)}" class="alert alert-info" role="alert">
-        No hay muebles registrados.
+    <div th:unless="${not #lists.isEmpty(aula)}" class="alert alert-info" role="alert">
+        No hay Aulas registradas.
     </div>
-    <a th:href="@{/muebles/lista}" class="btn btn-warning btn-sm mb-3">CARGAR <img th:src="@{/images/recargar.png}"
+    <a th:href="@{/aulas/lista}" class="btn btn-warning btn-sm mb-3">CARGAR <img th:src="@{/images/recargar.png}"
                                                                                    class="d-inline-block align-text-top"
                                                                                    width="20" height="20"
                                                                                    alt="icon">
@@ -219,7 +208,7 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 // Si el usuario hace clic en "Sí, eliminar", envía el formulario
-                document.getElementById('eliminarMuebleForm').submit();
+                document.getElementById('eliminarAulaForm').submit();
             }
         });
     }
