@@ -1,8 +1,11 @@
 package com.eabmodel.inventario_uezep.Controller;
 
+import com.eabmodel.inventario_uezep.Entity.Aulas;
+import com.eabmodel.inventario_uezep.Entity.AulasMuebles;
 import com.eabmodel.inventario_uezep.Service.AulasMueblesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
@@ -15,13 +18,21 @@ public class AulasMueblesController {
 
     @Autowired
     private AulasMueblesService aulasMueblesService;
+
     @GetMapping("/mostrar-formulario")
     public String mostrarFormulario() {
-        return "aulas-muebles/aulas-muebles"; // Devuelve el nombre de la plantilla HTML
+        return "aulas-muebles/aulas-muebles";
     }
 
+    //HTML
+    //Listar
+    @GetMapping("/lista")
+    public String listaAulasMuebles(Model model) {
+        List<AulasMuebles> aulasMuebles = aulasMueblesService.findAll();
+        model.addAttribute("aulasmuebles", aulasMuebles);
+        return "aulas-muebles/aulas-muebles-lista";
+    }
 
-    // Método para asignar muebles a un aula mediante una solicitud POST
     @PostMapping("/asignar-muebles-a-aula")
     @ResponseBody
     public String asignarMueblesAAula(@RequestParam("idAula") int idAula, @RequestParam("idMuebles") String idMuebles) {

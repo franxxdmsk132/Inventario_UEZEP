@@ -1,5 +1,9 @@
 package com.eabmodel.inventario_uezep.Dao;
 
+import com.eabmodel.inventario_uezep.Entity.Aulas;
+import com.eabmodel.inventario_uezep.Entity.AulasMuebles;
+import com.eabmodel.inventario_uezep.RowMapper.AulasMueblesRowMapper;
+import com.eabmodel.inventario_uezep.RowMapper.AulasRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -27,4 +31,23 @@ public class AulasMueblesDao {
             }
         }
     }
+    public List<AulasMuebles> findAllWithDetails() {
+        String sql = "SELECT am.*, a.curso AS aula_curso, m.nombre_mueble AS mueble_nombre FROM aulas_muebles am " +
+                "INNER JOIN aulas a ON am.id_aula = a.id_aula " +
+                "INNER JOIN muebles m ON am.id_mueble = m.id_mueble";
+        return jdbcTemplate.query(sql, new AulasMueblesRowMapper());
+    }
+//    SELECT
+//    a.id_aula,
+//    a.curso,
+//    GROUP_CONCAT(m.id_mueble) AS id_muebles
+//    FROM
+//    aulas_muebles am
+//    INNER JOIN aulas a ON
+//    am.id_aula = a.id_aula
+//    INNER JOIN muebles m ON
+//    am.id_mueble = m.id_mueble
+//    GROUP BY
+//    a.id_aula;
+
 }
