@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,13 +17,14 @@ public class Muebles {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id_mueble;
-    private String codigoMueble;
-    private String nombreMueble;
-    private String descripcionMueble;
-    private String fechaIngreso;
+    private String codigo_mueble;
+    private String nombre_mueble;
+    private String descripcion_mueble;
+    private String fecha_ingreso;
     private Boolean estado;
     private Integer cantidad;
     private Integer asignacion;
-
+    @OneToMany(mappedBy = "muebles")
+    private List<AulasMuebles> aulas_muebles;
 
 }

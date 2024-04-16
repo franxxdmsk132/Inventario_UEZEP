@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Asignar Muebles a Aula</title>
+</head>
+<body>
+
+<h2>Asignar Muebles a Aula</h2>
+
+<form action="/defmub/asignar-muebles-a-aula" method="post" th:object="${asignacionForm}">
+    <label for="idAula">ID del Aula:</label>
+    <input type="number" id="idAula" name="idAula" required><br><br>
+
+    <label for="idMuebles">ID de los Muebles (separados por comas):</label>
+    <input type="text" id="idMuebles" name="idMuebles" required><br><br>
+
+    <button type="submit">Asignar Muebles</button>
+</form>
+
+</body>
+</html>

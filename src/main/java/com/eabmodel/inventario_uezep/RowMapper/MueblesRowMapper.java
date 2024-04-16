@@ -11,10 +11,10 @@ public class MueblesRowMapper implements RowMapper <Muebles>{
     public Muebles mapRow(ResultSet rs, int rowNum) throws SQLException {
         Muebles muebles = new Muebles();
         muebles.setId_mueble(rs.getInt("id_mueble"));
-        muebles.setCodigoMueble(rs.getString("codigo_mueble"));
-        muebles.setNombreMueble(rs.getString("nombre_mueble"));
-        muebles.setDescripcionMueble(rs.getString("descripcion_mueble"));
-        muebles.setFechaIngreso(rs.getString("fecha_ingreso"));
+        muebles.setCodigo_mueble(rs.getString("codigo_mueble"));
+        muebles.setNombre_mueble(rs.getString("nombre_mueble"));
+        muebles.setDescripcion_mueble(rs.getString("descripcion_mueble"));
+        muebles.setFecha_ingreso(rs.getString("fecha_ingreso"));
         muebles.setEstado(rs.getBoolean("estado"));
         muebles.setCantidad(rs.getInt("cantidad"));
         muebles.setAsignacion(rs.getInt("asignacion"));

@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -22,7 +23,6 @@ public class Aulas {
     private String encargado;
     private String ubicacion_aula;
 
-    @ManyToOne
-    @JoinColumn(name = "id_mueble")
-    private Muebles muebles;
+    @OneToMany(mappedBy = "aulas")
+    private List<AulasMuebles> aulasMuebles;
 }
