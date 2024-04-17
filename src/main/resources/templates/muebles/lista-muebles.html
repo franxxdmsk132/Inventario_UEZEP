@@ -114,6 +114,7 @@
                 alt="icon"></a>
         <br>
     </div>
+    <br>
 
 
     <table class="table  table-hover ">
@@ -139,7 +140,7 @@
             <td th:text="${muebles.nombre_mueble}" class="text-center"/>
             <td th:text="${muebles.descripcion_mueble}" class="text-center"/>
             <td th:text="${muebles.fecha_ingreso}" class="text-center"/>
-            <td th:text="${muebles.estado == true ? 'Existe' : 'No Existe'}" class="text-center"></td>
+            <td th:text="${muebles.estado == true ? 'Existe' : 'No Existe'}" class="text-center"  id="estadoMuebleInput"></td>
             <td th:text="${muebles.cantidad}" class="text-center"></td>
             <td th:text="${muebles.asignacion}" class="text-center"></td>
             <td class="text-center"><span th:text="${muebles.cantidad + muebles.asignacion}"></span></td>
@@ -157,30 +158,26 @@
 
             <td class="text-center">
                 <div class="d-flex justify-content-center">
-                    <a th:href="@{/muebles/masDetalles(id_mueble=${muebles.id_mueble})}"
-                       class="btn btn-success btn-sm mr-2" title="Ver más detalles"> DETALLES
-                        <img th:src="@{/images/ver.png}" class="d-inline-block align-text-top" width="20" height="20"
-                             alt="icon">
+                    <a th:href="@{/muebles/masDetalles(id_mueble=${muebles.id_mueble})}" class="btn btn-success btn-sm mr-2 text-center" title="Ver más detalles">
+                        DETALLES
+                        <img th:src="@{/images/ver.png}" class="d-inline-block align-text-top" width="20" height="20" alt="icon">
                     </a>
 
-                    <a th:href="@{/muebles/cambiarMueble(id_mueble=${muebles.id_mueble})}"
-                       class="btn btn-info btn-sm mr-2" title="Actualizar Informacion"> ACTUALIZACIONES
-                        <img th:src="@{/images/editar.png}" class="d-inline-block align-text-top" width="20" height="20"
-                             alt="icon">
+                    <a th:href="@{/muebles/cambiarMueble(id_mueble=${muebles.id_mueble})}" class="btn btn-info btn-sm mr-2 text-center" title="Actualizar Informacion">
+                        ACTUALIZACIONES
+                        <img th:src="@{/images/editar.png}" class="d-inline-block align-text-top" width="20" height="20" alt="icon">
                     </a>
 
-                    <form id="eliminarMuebleForm" th:action="@{/muebles/delete2}" th:method="post">
+                    <form id="cambiarEstadoId" th:action="@{/muebles/cambiarEstado}" th:method="post" class="text-center">
                         <input type="hidden" name="id_mueble" th:value="${muebles.id_mueble}">
-                        <button type="button" class="btn btn-danger btn-sm" title="Eliminar"
-                                onclick="return confirmarEliminacion(event)">
-                            ELIMINAR
-                            <img th:src="@{/images/borrar.png}" class="d-inline-block align-text-top" width="20"
-                                 height="20" alt="icon">
+                        <button type="submit" class="btn btn-warning btn-sm" title="Cambiar Estado"
+                                onclick="return confirmarCambioEstado(event)">
+                            ESTADO
+                            <img th:src="@{/images/encendido-apagado.png}" class="d-inline-block align-text-top" width="20" height="20" alt="icon">
                         </button>
                     </form>
                 </div>
             </td>
-
 
 
         </tr>
@@ -202,23 +199,24 @@
 </div>
 </body>
 
+
 <script>
-    function confirmarEliminacion(event) {
+    function confirmarCambioEstado(event) {
         event.preventDefault(); // Evita que el formulario se envíe automáticamente
 
         Swal.fire({
-            title: '¿Está seguro de eliminar este artículo?',
-            text: "Esta acción no se puede deshacer!",
+            title: '¿Está seguro de Cambiar el estado de este este Mueble?',
+            text: "",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#d33',
             cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Sí, eliminar!',
+            confirmButtonText: 'Sí, Cambiar!',
             cancelButtonText: 'Cancelar'
         }).then((result) => {
             if (result.isConfirmed) {
                 // Si el usuario hace clic en "Sí, eliminar", envía el formulario
-                document.getElementById('eliminarMuebleForm').submit();
+                document.getElementById('cambiarEstadoId').submit();
             }
         });
     }

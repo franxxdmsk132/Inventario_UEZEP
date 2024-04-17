@@ -93,6 +93,11 @@ public class MuebleController {
         muebleService.deleteByIdMueble(id_mueble);
         return "redirect:/muebles/lista";
     }
+    @PostMapping("/cambiarEstado")
+    public String SetEstdo(@RequestParam("id_mueble") int id_mueble) {
+        muebleService.cambiarEstadoByIdMueble(id_mueble);
+        return "redirect:/muebles/lista";
+    }
 
 
 }

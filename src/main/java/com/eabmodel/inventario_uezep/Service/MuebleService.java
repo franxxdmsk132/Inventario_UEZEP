@@ -45,5 +45,9 @@ public class MuebleService {
         mueblesDao.delete(id_mueble);
     }
 
+    public void cambiarEstadoByIdMueble(int id_mueble) {
+        mueblesDao.cambiarEstado(id_mueble);
+    }
+
 
 }

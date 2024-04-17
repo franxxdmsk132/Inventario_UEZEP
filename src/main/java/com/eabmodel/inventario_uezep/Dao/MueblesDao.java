@@ -144,5 +144,19 @@ public class MueblesDao {
         jdbcTemplate.update(sql);
     }
 
+    public void cambiarEstado(int id_mueble) {
+        // Primero, obtén el estado actual del mueble
+        String sqlEstado = "SELECT estado FROM muebles WHERE id_mueble = ?";
+        boolean estado = jdbcTemplate.queryForObject(sqlEstado, Boolean.class, id_mueble);
+
+        // Luego, cambia el estado al opuesto
+        boolean nuevoEstado = !estado;
+
+        // Finalmente, actualiza el estado en la base de datos
+        String sqlUpdate = "UPDATE muebles SET estado = ? WHERE id_mueble = ?";
+        jdbcTemplate.update(sqlUpdate, nuevoEstado, id_mueble);
+    }
+
+
 
 }
