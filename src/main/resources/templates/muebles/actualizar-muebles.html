@@ -76,13 +76,13 @@
 
     <h3>
         <img th:src="@{/images/Logo-NBG.png}" class="d-inline-block align-text-top" width="40" height="40" alt="icon">
-        <b>DIRECTORIO DE MUEBLES</b>
+        <b>DIRECTORIOS DE LOS MUEBLES</b>
     </h3>
     <h4  align="center" hidden="hidden" ><a th:href="@{/muebles/lista}" class="btn btn-warning btn-sm mb-3 d-inline-block align-text-top"  >ATRAS</a> </h4>
 <br>
     <hr>
 
-    <p class="h4 mb-4">ACTUALIZACION DE LOS ARTICULOS</p>
+    <p class="h4 mb-4">ACTUALIZACIONES EN LOS ARTICULOS</p>
 
     <form action="#" th:action="@{/muebles/update2}"
           th:object="${muebles}" method="POST"  class="d-flex flex-column align-items-center">
@@ -95,7 +95,7 @@
             <label class="mb-auto"><h5><b>Fecha Ingreso</b></h5></label>
             <div class="d-flex flex-column align-items-center">
                 <input type="date" th:field="*{fecha_ingreso}" name="fechaingreso" value="" min="1997-01-01" max="2030-12-31" class="mr-2 mb-2">
-                <button type="button" onclick="seleccionarFechaActual()" class="btn btn-primary btn-sm">Seleccionar Fecha Actual</button>
+                <button type="button" onclick="seleccionarFechaActual()" class="btn btn-primary btn-sm">Seleccionar la Fecha Actual</button>
             </div>
         </div>
         <input type="number" th:field="*{cantidad}" class="form-control mb-3 col-5" placeholder="Cantidad" required min="1" oninput="validarCantidad(this)">

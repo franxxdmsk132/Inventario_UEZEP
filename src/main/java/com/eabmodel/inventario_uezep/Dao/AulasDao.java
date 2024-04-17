@@ -58,7 +58,7 @@ public class AulasDao {
             entityManager.persist(aulasMuebles);
         } else {
             // Manejar el caso si el aula o el mueble no existen
-            throw new RuntimeException("No se encontró el aula o el mueble");
+            throw new RuntimeException("No se encontró, el aula o el mueble");
         }
     }
 
