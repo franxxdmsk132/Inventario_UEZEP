@@ -94,8 +94,8 @@
         <div class="form-group d-flex flex-column align-items-center">
             <label class="mb-auto"><h5><b>Fecha Ingreso</b></h5></label>
             <div class="d-flex flex-column align-items-center">
-                <input type="date" th:field="*{fecha_ingreso}" name="fechaingreso" value="" min="1997-01-01" max="2030-12-31" class="mr-2 mb-2">
-                <button type="button" onclick="seleccionarFechaActual()" class="btn btn-primary btn-sm">Seleccionar la Fecha Actual</button>
+                <input type="date" th:field="*{fecha_ingreso}" name="fechaingreso" value="" min="1997-01-01" max="2030-12-31" class="mr-2 mb-2" required>
+
             </div>
         </div>
         <input type="number" th:field="*{cantidad}" class="form-control mb-3 col-5" placeholder="Cantidad" required min="1" oninput="validarCantidad(this)">
