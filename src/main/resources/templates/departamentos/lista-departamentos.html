@@ -147,7 +147,7 @@
 
       <td class="text-center">
         <div class="d-flex justify-content-center">
-          <a th:href="@{/departamentos/masDetalles(id_departamentos=${departamento.id_departamento})}"
+          <a th:href="@{/departamentos/masDetalles(id_departamento=${departamento.id_departamento})}"
              class="btn btn-success btn-sm mr-2" title="Ver más detalles"> DETALLES
             <img th:src="@{/images/ver.png}" class="d-inline-block align-text-top" width="20" height="20"
                  alt="icon">
@@ -180,7 +180,7 @@
 
   </table>
   <div th:unless="${not #lists.isEmpty(departamentos)}" class="alert alert-info" role="alert">
-    No hay Departamentos registradas.
+    No hay Departamentos registrados.
   </div>
   <a th:href="@{/departamentos/lista}" class="btn btn-warning btn-sm mb-3">CARGAR <img th:src="@{/images/recargar.png}"
                                                                                class="d-inline-block align-text-top"
