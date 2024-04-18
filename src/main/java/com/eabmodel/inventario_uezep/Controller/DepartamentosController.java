@@ -37,8 +37,8 @@ public class DepartamentosController {
     }
 
     @RequestMapping("/masDetalles")
-    public String viewDepartamento(@RequestParam("id_departamentos") int id_departamentos, Model model){
-        Departamentos departamentos = departamentoService.findById(id_departamentos);
+    public String viewDepartamento(@RequestParam("id_departamento") int id_departamento, Model model){
+        Departamentos departamentos = departamentoService.findById(id_departamento);
         model.addAttribute("departamentos", departamentos);
         return "departamentos/detalles-departamentos";
     }
@@ -55,9 +55,9 @@ public class DepartamentosController {
     }
 
     @GetMapping("/cambiarDepartamento")
-    public String showFormUpdate(@RequestParam("id_departamentos") int id_departamentos, Model theModel){
+    public String showFormUpdate(@RequestParam("id_departamento") int id_departamento, Model theModel){
 
-        Departamentos departamentos = departamentoService.findById(id_departamentos);
+        Departamentos departamentos = departamentoService.findById(id_departamento);
 
         theModel.addAttribute("departamentos", departamentos);
 
