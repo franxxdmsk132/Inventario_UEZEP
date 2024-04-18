@@ -86,15 +86,15 @@
     <form action="#" th:action="@{/departamentos/update}"
           th:object="${departamentos}" method="POST"  class="d-flex flex-column align-items-center">
         <!-- Add hidden form field to handle update -->
-        <input type="hidden" th:field="*{id_departamento}" class="form-control mb-2 col-5"  placeholder="ID Articulo"/>
-        <input type="text" th:field="*{tipo_jornada}" class="form-control mb-2 col-5"  placeholder="Curso"  required/>
-        <input type="text" th:field="*{tipo_departamento}" class="form-control mb-2 col-5"  placeholder="Ubicacion" required>
-        <input type="text" th:field="*{encargado}" class="form-control mb-2 col-5"  placeholder="Encargado" required >
+        <input type="hidden" th:field="*{id_departamento}" class="form-control mb-2 col-5"  placeholder="ID Departamento"/>
+        <input type="text" th:field="*{tipo_jornada}" class="form-control mb-2 col-5"  placeholder="TIpo de Jornada"  required/>
+        <input type="text" th:field="*{tipo_departamento}" class="form-control mb-2 col-5"  placeholder="Tipo Departamento" required>
+        <input type="text" th:field="*{encargado_departamento}" class="form-control mb-2 col-5"  placeholder="Encargado" required >
 
 
         <button type="submit" class="btn btn-success mb-2 col-2">GUARDAR</button>
     </form>
-    <a th:href="@{/aulas/lista}" class="btn btn-warning mb-2 col-2">ATRAS
+    <a th:href="@{/departamentos/lista}" class="btn btn-warning mb-2 col-2">ATRAS
     </a>
 </div>
 </body>
