@@ -119,16 +119,19 @@
       <th>TIPO DE JORNADA</th>
       <th>TIPO DE DEPARTAMENTO</th>
       <th>ENCARGADO</th>
+      <th>ACCIONES</th>
+
+
 
 
 
     </tr>
     </thead>
-    <tr th:each="departamentos, i: ${departamentos}">
-      <td th:text="${departamentos.id_departamentos}" class="text-center"></td>
-      <td th:text="${departamentos.tipo_jornada}" class="text-center"/>
-      <td th:text="${departamentos.tipo_departamento}" class="text-center"/>
-      <td th:text="${departamentos.encargado}" class="text-center"/>
+    <tr th:each="departamento, i: ${departamentos}">
+      <td th:text="${departamento.id_departamento}" class="text-center"></td>
+      <td th:text="${departamento.tipo_jornada}" class="text-center"/>
+      <td th:text="${departamento.tipo_departamento}" class="text-center"/>
+      <td th:text="${departamento.encargado_departamento}" class="text-center"/>
 
 
 
@@ -144,20 +147,20 @@
 
       <td class="text-center">
         <div class="d-flex justify-content-center">
-          <a th:href="@{/departamentos/masDetalles(id_departamentos=${departamentos.id_departamentos})}"
+          <a th:href="@{/departamentos/masDetalles(id_departamentos=${departamento.id_departamento})}"
              class="btn btn-success btn-sm mr-2" title="Ver más detalles"> DETALLES
             <img th:src="@{/images/ver.png}" class="d-inline-block align-text-top" width="20" height="20"
                  alt="icon">
           </a>
 
-          <a th:href="@{/departamentos/cambiarDepartamento(id_departamento=${departamentos.id_departamentos})}"
+          <a th:href="@{/departamentos/cambiarDepartamento(id_departamento=${departamento.id_departamento})}"
              class="btn btn-info btn-sm mr-2" title="Actualizar Informacion"> ACTUALIZACIONES
             <img th:src="@{/images/editar.png}" class="d-inline-block align-text-top" width="20" height="20"
                  alt="icon">
           </a>
 
           <form id="eliminarDepartamentosForm" th:action="@{/departamentos/delete}" th:method="post">
-            <input type="hidden" name="id_departamentos" th:value="${departamentos.id_departamentos}">
+            <input type="hidden" name="id_departamentos" th:value="${departamento.id_departamento}">
             <button type="button" class="btn btn-danger btn-sm" title="Eliminar"
                     onclick="return confirmarEliminacion(event)">
               ELIMINAR
