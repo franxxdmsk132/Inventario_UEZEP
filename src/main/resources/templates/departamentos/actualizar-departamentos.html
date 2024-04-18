@@ -1,6 +1,3 @@
-
-
-
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -86,18 +83,33 @@
 
     <p class="h4 mb-4">ACTUALIZAR LOS DEPARTAMENTOS </p>
 
-    <form action="#" th:action="@{/departamentos/update}"
-          th:object="${departamentos}" method="POST"  class="d-flex flex-column align-items-center">
+    <form action="#" th:action="@{/departamentos/update}" th:object="${departamentos}" method="POST" class="d-flex flex-column align-items-center">
         <!-- Add hidden form field to handle update -->
-        <input type="hidden" th:field="*{id_departamento}" class="form-control mb-2 col-5"  placeholder="ID Articulo"/>
-        <input type="text" th:field="*{tipo_jornada}" class="form-control mb-2 col-5"  placeholder="Curso"  required/>
-        <input type="text" th:field="*{tipo_departamento}" class="form-control mb-2 col-5"  placeholder="Ubicacion" required>
-        <input type="text" th:field="*{encargado_departamento}" class="form-control mb-2 col-5"  placeholder="Encargado" required >
+        <input type="hidden" th:field="*{id_departamento}" class="form-control mb-2 col-15" placeholder="ID Articulo"/>
 
+        <div class="form-group">
+            <label for="tipoJornada">Tipo Jornada</label>
+            <input type="text" th:field="*{tipo_jornada}" class="form-control mb-2 col-15" id="tipoJornada" placeholder="Ingrese el tipo de jornada" required/>
+        </div>
+
+        <div class="form-group">
+            <label for="tipoDepartamento">Tipo Departamento</label>
+            <input type="text" th:field="*{tipo_departamento}" class="form-control mb-2 col-15" id="tipoDepartamento" placeholder="Ingrese el tipo de departamento" required/>
+        </div>
+
+        <div class="form-group">
+            <label for="encargado">Encargado</label>
+            <input type="text" th:field="*{encargado_departamento}" class="form-control mb-2 col-15" id="encargado" placeholder="Ingrese el encargado" required/>
+        </div>
 
         <button type="submit" class="btn btn-success mb-2 col-2">GUARDAR</button>
     </form>
-    <a th:href="@{/aulas/lista}" class="btn btn-warning mb-2 col-2">ATRAS
+
+
+
+
+
+    <a th:href="@{/departamentos/lista}" class="btn btn-warning mb-2 col-2">ATRAS
     </a>
 </div>
 </body>
