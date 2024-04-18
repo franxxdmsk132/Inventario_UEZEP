@@ -13,7 +13,7 @@ public class DepartamentoRowMapper implements RowMapper<Departamentos> {
         departamentos.setId_departamento(rs.getInt("id_departamento"));
         departamentos.setTipo_jornada(rs.getString("Tipo_jornada"));
         departamentos.setTipo_departamento(rs.getString("tipo_departamento"));
-        departamentos.setEncargado(rs.getString("encargado"));
+        departamentos.setEncargado_departamento(rs.getString("encargado_departamento"));
 
         return departamentos;
     }

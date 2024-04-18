@@ -29,15 +29,15 @@ public class DepartamentosController {
     public DepartamentosController(DepartamentoService departamentoService){
         this.departamentoService = departamentoService;
     }
-    @GetMapping("lista")
+    @GetMapping("/lista")
     public String listaDepartamentos(Model model){
         List<Departamentos>departamentos = departamentoService.findAll();
-        model.addAttribute("departamento", departamentos);
-        return "departamento/lista-departamentos";
+        model.addAttribute("departamentos", departamentos);
+        return "departamentos/lista-departamentos";
     }
 
     @RequestMapping("/masDetalles")
-    public String viewDepartamento(@RequestParam("id_departamento") int id_departamentos, Model model){
+    public String viewDepartamento(@RequestParam("id_departamentos") int id_departamentos, Model model){
         Departamentos departamentos = departamentoService.findById(id_departamentos);
         model.addAttribute("departamentos", departamentos);
         return "departamentos/detalles-departamentos";
@@ -45,8 +45,12 @@ public class DepartamentosController {
 
     @GetMapping("/nuevoDepartamento")
     public String nuevoDepartamento(Model theModel){
+
+
         Departamentos departamentos = new Departamentos();
+
         theModel.addAttribute("departamentos", departamentos);
+
         return "departamentos/guardar-departamentos";
     }
 
@@ -56,19 +60,21 @@ public class DepartamentosController {
         Departamentos departamentos = departamentoService.findById(id_departamentos);
 
         theModel.addAttribute("departamentos", departamentos);
-        return  "departamentos/actualizar-aulas";
+
+        return  "departamentos/actualizar-departamentos";
     }
 
     @PostMapping("/save")
     public String saveDepartamento(@ModelAttribute("Departamentos") Departamentos departamentos){
 
         departamentoService.save(departamentos);
-        return "redirect:/departamentos/lsita";
+        return "redirect:/departamentos/lista";
     }
     @PostMapping("/update")
     public String updateDepartamentos(@ModelAttribute("departamentos")Departamentos departamentos){
 
         departamentoService.update(departamentos);
+
         return "redirect:/departamentos/lista";
     }
 

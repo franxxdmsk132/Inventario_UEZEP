@@ -26,7 +26,7 @@ public class DepartamentosDao {
 
     public void save(Departamentos departamentos) {
         String sql = "INSERT INTO departamentos (tipo_jornada, tipo_departamento, encargado_departamento) VALUES (?, ?, ?)";
-        jdbcTemplate.update(sql, departamentos.getTipo_jornada(), departamentos.getTipo_departamento(), departamentos.getEncargado());
+        jdbcTemplate.update(sql, departamentos.getTipo_jornada(), departamentos.getTipo_departamento(), departamentos.getEncargado_departamento());
     }
 
     public List<Departamentos> findAll() {
@@ -46,7 +46,7 @@ public class DepartamentosDao {
 
     public void update(Departamentos departamentos) {
         String sql = "UPDATE departamentos SET tipo_jornada = ?, tipo_departamento = ?, encargado_departamento = ? WHERE id_departamento = ?";
-        jdbcTemplate.update(sql, departamentos.getTipo_jornada(), departamentos.getTipo_departamento(), departamentos.getEncargado(), departamentos.getId_departamento());
+        jdbcTemplate.update(sql, departamentos.getTipo_jornada(), departamentos.getTipo_departamento(), departamentos.getEncargado_departamento(), departamentos.getId_departamento());
     }
 
     public void addMuebleToDepartamento(int id_departamento, int id_mueble) {

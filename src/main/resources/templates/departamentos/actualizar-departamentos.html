@@ -1,0 +1,109 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+    <style>
+        .thead-darkGray {
+            background-color: #4b4c4f; /* Puedes ajustar el color según tus preferencias */
+            color: white;
+        }
+
+        .body-gradient {
+            background: linear-gradient(to bottom, #ffffff, #4b4c4f 1800px)
+
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            width: 100%;
+            height: 100%;
+            min-height: 100%;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav {
+            background-color: #4b4c4f;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+        }
+    </style>
+    <title>DEPARTAMENTOS</title>
+</head>
+<body class="body-gradient d-flex justify-content-center align-items-center">
+
+<br>
+
+<div class="container text-center">
+
+    <h3>
+        <img th:src="@{/images/Logo-NBG.png}" class="d-inline-block align-text-top" width="40" height="40" alt="icon">
+        <b>DIRECTORIO DE LOS DEPARTAMENTOS</b>
+    </h3>
+    <h4  align="center" hidden="hidden" ><a th:href="@{/departamento/lista}" class="btn btn-warning btn-sm mb-3 d-inline-block align-text-top"  >ATRAS</a> </h4>
+    <br>
+    <hr>
+
+    <p class="h4 mb-4">ACTUALIZAR LOS DEPARTAMENTOS </p>
+
+    <form action="#" th:action="@{/departamentos/update}"
+          th:object="${departamentos}" method="POST"  class="d-flex flex-column align-items-center">
+        <!-- Add hidden form field to handle update -->
+        <input type="hidden" th:field="*{id_departamento}" class="form-control mb-2 col-5"  placeholder="ID Articulo"/>
+        <input type="text" th:field="*{tipo_jornada}" class="form-control mb-2 col-5"  placeholder="Curso"  required/>
+        <input type="text" th:field="*{tipo_departamento}" class="form-control mb-2 col-5"  placeholder="Ubicacion" required>
+        <input type="text" th:field="*{encargado}" class="form-control mb-2 col-5"  placeholder="Encargado" required >
+
+
+        <button type="submit" class="btn btn-success mb-2 col-2">GUARDAR</button>
+    </form>
+    <a th:href="@{/aulas/lista}" class="btn btn-warning mb-2 col-2">ATRAS
+    </a>
+</div>
+</body>
+<script>
+    function validarCantidad(input) {
+        if (input.value <= -1) {
+            input.value = 1; // Restablece el valor a 1 si es menor o igual a cero
+        }
+    }
+</script>
+
+</html>

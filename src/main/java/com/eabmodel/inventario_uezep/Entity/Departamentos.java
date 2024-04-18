@@ -21,7 +21,7 @@ public class Departamentos {
     private Integer id_departamento;
     private String tipo_jornada;
     private String tipo_departamento;
-    private String encargado;
+    private String encargado_departamento;
 
     @OneToMany(mappedBy = "departamentos")
     private List <DepartamentosMuebles> departamentosMuebles;
