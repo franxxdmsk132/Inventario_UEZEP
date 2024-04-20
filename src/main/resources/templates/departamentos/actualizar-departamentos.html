@@ -77,48 +77,35 @@
         <img th:src="@{/images/Logo-NBG.png}" class="d-inline-block align-text-top" width="40" height="40" alt="icon">
         <b>DIRECTORIO DE LOS DEPARTAMENTOS</b>
     </h3>
-    <h4  align="center" hidden="hidden" ><a th:href="@{/departamento/lista}" class="btn btn-warning btn-sm mb-3 d-inline-block align-text-top"  >ATRAS</a> </h4>
+    <h4 align="center" hidden="hidden"><a th:href="@{/departamento/lista}"
+                                          class="btn btn-warning btn-sm mb-3 d-inline-block align-text-top">ATRAS</a>
+    </h4>
     <br>
     <hr>
 
     <p class="h4 mb-4">ACTUALIZAR LOS DEPARTAMENTOS </p>
 
-    <form action="#" th:action="@{/departamentos/update}" th:object="${departamentos}" method="POST" class="d-flex flex-column align-items-center">
-        <!-- Add hidden form field to handle update -->
-        <input type="hidden" th:field="*{id_departamento}" class="form-control mb-2 col-15" placeholder="ID Articulo"/>
-
-        <div class="form-group">
-            <label for="tipoJornada">Tipo Jornada</label>
-            <input type="text" th:field="*{tipo_jornada}" class="form-control mb-2 col-15" id="tipoJornada" placeholder="Ingrese el tipo de jornada" required/>
-        </div>
-
-        <div class="form-group">
-            <label for="tipoDepartamento">Tipo Departamento</label>
-            <input type="text" th:field="*{tipo_departamento}" class="form-control mb-2 col-15" id="tipoDepartamento" placeholder="Ingrese el tipo de departamento" required/>
-        </div>
-
-        <div class="form-group">
-            <label for="encargado">Encargado</label>
-            <input type="text" th:field="*{encargado_departamento}" class="form-control mb-2 col-15" id="encargado" placeholder="Ingrese el encargado" required/>
-        </div>
-
-        <button type="submit" class="btn btn-success mb-2 col-2">GUARDAR</button>
+    <form action="#" th:action="@{/departamentos/update}"
+          th:object="${departamentos}" method="POST"
+          class="d-flex flex-column align-items-center">
+        <input type="hidden" th:field="*{id_departamento}" class="form-control mb-2 col-5"  placeholder="ID Departamento"/>
+        <select class="form-control mb-3 col-5" th:field="*{tipo_jornada}" required>
+            <option value="xd" disabled selected>Seleccionar Tipo de Jornada</option>
+            <option value="Matutina">Matutina</option>
+            <option value="Vespertina">Vespertina</option>
+        </select>
+        <input type="text" th:field="*{tipo_departamento}" class="form-control mb-3 col-5"
+               placeholder="Tipo de Departamento" required>
+        <input type="text" th:field="*{encargado_departamento}" class="form-control mb-3 col-5" placeholder="Encargado"
+               required>
+        <button type="submit" class="btn btn-success mb-3 col-5">GUARDAR</button>
     </form>
-
-
-
 
 
     <a th:href="@{/departamentos/lista}" class="btn btn-warning mb-2 col-2">ATRAS
     </a>
 </div>
 </body>
-<script>
-    function validarCantidad(input) {
-        if (input.value <= -1) {
-            input.value = 1; // Restablece el valor a 1 si es menor o igual a cero
-        }
-    }
-</script>
+
 
 </html>

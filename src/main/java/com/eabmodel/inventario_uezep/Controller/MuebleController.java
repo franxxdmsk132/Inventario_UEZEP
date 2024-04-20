@@ -79,7 +79,7 @@ public class MuebleController {
 //
 //        return "redirect:/muebles/lista";
 //    }
-    @PostMapping("/update2")
+    @PostMapping("/update")
     public String updateMuebles2(@ModelAttribute("muebles") Muebles muebles) {
 
         muebleService.update2(muebles);
@@ -94,7 +94,7 @@ public class MuebleController {
         return "redirect:/muebles/lista";
     }
     @PostMapping("/cambiarEstado")
-    public String SetEstdo(@RequestParam("id_mueble") int id_mueble) {
+    public String cambiarEstado(@RequestParam("id_mueble") int id_mueble) {
         muebleService.cambiarEstadoByIdMueble(id_mueble);
         return "redirect:/muebles/lista";
     }

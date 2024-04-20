@@ -14,6 +14,10 @@
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
           crossorigin="anonymous">
     <style>
+        .btn:hover {
+            transform: scale(1.2); /* Aumenta el tamaño del botón al 120% cuando se pasa el cursor sobre él */
+            transition: transform 0.2s; /* Agrega una transición suave de 0.2 segundos */
+        }
         .thead-darkGray {
             background-color: #4b4c4f; /* Puedes ajustar el color según tus preferencias */
             color: white;
@@ -65,6 +69,12 @@
             text-decoration: none;
             color: white;
             font-weight: bold;
+        }
+        .nav-link:hover {
+            transform: scale(1.25); /* Aumenta el tamaño del enlace al 120% cuando se pasa el cursor sobre él */
+            transition: transform 0.2s; /* Agrega una transición suave de 0.2 segundos */
+            color: #ffffff; /* Cambia el color del texto del enlace a rojo cuando el puntero se acerca */
+
         }
     </style>
     <title>Muebles</title>
@@ -138,7 +148,7 @@
             <td th:text="${muebles.nombre_mueble}" class="text-center"/>
             <td th:text="${muebles.descripcion_mueble}" class="text-center"/>
             <td th:text="${muebles.fecha_ingreso}" class="text-center"/>
-            <td th:text="${muebles.estado == true ? 'Existe' : 'No Existe'}" class="text-center"  id="estadoMuebleInput"></td>
+            <td th:text="${muebles.estado == true ? 'Activo' : 'Inactivo'}" class="text-center"  id="estadoMuebleInput"></td>
             <td th:text="${muebles.cantidad}" class="text-center"></td>
             <td th:text="${muebles.asignacion}" class="text-center"></td>
             <td class="text-center"><span th:text="${muebles.cantidad + muebles.asignacion}"></span></td>
@@ -166,14 +176,17 @@
                         <img th:src="@{/images/editar.png}" class="d-inline-block align-text-top" width="20" height="20" alt="icon">
                     </a>
 
-                    <form id="cambiarEstadoId" th:action="@{/muebles/cambiarEstado}" th:method="post" class="text-center">
+                    <form id="cambiarEstadoForm-${muebles.id_mueble}" th:action="@{/muebles/cambiarEstado}" th:method="post" class="text-center">
                         <input type="hidden" name="id_mueble" th:value="${muebles.id_mueble}">
-                        <button type="submit" class="btn btn-warning btn-sm" title="Cambiar Estado"
-                                onclick="return confirmarCambioEstado(event)">
+                        <button type="button" class="btn btn-warning btn-sm" title="Cambiar Estado" onclick="confirmarCambioEstado(event, this)">
                             ESTADO
                             <img th:src="@{/images/encendido-apagado.png}" class="d-inline-block align-text-top" width="20" height="20" alt="icon">
                         </button>
                     </form>
+
+
+
+
                 </div>
             </td>
 
@@ -197,13 +210,11 @@
 </div>
 </body>
 
-
 <script>
-    function confirmarCambioEstado(event) {
-        event.preventDefault(); // Evita que el formulario se envíe automáticamente
-
-        Swal.fire({
-            title: '¿Está seguro de Cambiar el estado de este este Mueble?',
+    async function confirmarCambioEstado(event, button) {
+        event.preventDefault();
+        const { value: confirmacion } = await Swal.fire({
+            title: '¿Está seguro de Cambiar el estado de este Mueble?',
             text: "",
             icon: 'warning',
             showCancelButton: true,
@@ -211,14 +222,20 @@
             cancelButtonColor: '#3085d6',
             confirmButtonText: 'Sí, Cambiar!',
             cancelButtonText: 'Cancelar'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // Si el usuario hace clic en "Sí, eliminar", envía el formulario
-                document.getElementById('cambiarEstadoId').submit();
-            }
         });
+
+        if (confirmacion) {
+            var form = button.closest('form'); // Obtener el formulario asociado al botón
+            form.submit();
+        }
     }
+
 </script>
+
+
+
+
+
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 

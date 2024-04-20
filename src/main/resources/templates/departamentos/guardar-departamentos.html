@@ -80,7 +80,11 @@
     <p class="h4 mb-4">AGREGAR Otro departamento </p>
 
     <form action="#" th:action="@{/departamentos/save}" th:object="${departamentos}" method="POST" class="d-flex flex-column align-items-center">
-        <input type="text" th:field="*{tipo_jornada}" class="form-control mb-3 col-5" placeholder="Tipo de Jornada" required>
+        <select class="form-control mb-3 col-5" th:field="*{tipo_jornada}" required>
+            <option value="xd" disabled selected>Seleccionar Tipo de Jornada</option>
+            <option value="Matutina">Matutina</option>
+            <option value="Vespertina">Vespertina</option>
+        </select>
         <input type="text" th:field="*{tipo_departamento}" class="form-control mb-3 col-5" placeholder="Tipo de Departamento" required>
         <input type="text" th:field="*{encargado_departamento}" class="form-control mb-3 col-5" placeholder="Encargado" required>
         <button type="submit" class="btn btn-success mb-3 col-5">GUARDAR</button>
