@@ -35,6 +35,32 @@ public class MueblesDao {
                 muebles.getAsignacion()
         );
     }
+    public void save2(Muebles muebles) {
+        // Consulta para verificar si el código ya existe
+        String sqlCheck = "SELECT COUNT(*) FROM muebles WHERE codigo_mueble = ?";
+        int count = jdbcTemplate.queryForObject(sqlCheck, Integer.class, muebles.getCodigo_mueble());
+
+        // Si count es mayor que 0, significa que el código ya existe
+        if (count > 0) {
+            // Manejar la situación cuando el código ya está en uso
+            // Por ejemplo, puedes lanzar una excepción o mostrar un mensaje de error
+            throw new IllegalStateException("El código de mueble ya está en uso.");
+        } else {
+            // El código es único, proceder con la inserción
+            String sqlInsert = "INSERT INTO `muebles`(codigo_mueble, nombre_mueble, descripcion_mueble, fecha_ingreso, estado, cantidad, asignacion) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            jdbcTemplate.update(
+                    sqlInsert,
+                    muebles.getCodigo_mueble(),
+                    muebles.getNombre_mueble(),
+                    muebles.getDescripcion_mueble(),
+                    muebles.getFecha_ingreso(),
+                    muebles.getEstado(),
+                    muebles.getCantidad(),
+                    muebles.getAsignacion()
+            );
+        }
+    }
+
 
     public List<Muebles> findAll() {
         String sql = "SELECT * FROM `muebles` ";

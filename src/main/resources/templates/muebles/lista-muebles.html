@@ -18,6 +18,7 @@
             transform: scale(1.2); /* Aumenta el tamaño del botón al 120% cuando se pasa el cursor sobre él */
             transition: transform 0.2s; /* Agrega una transición suave de 0.2 segundos */
         }
+
         .thead-darkGray {
             background-color: #4b4c4f; /* Puedes ajustar el color según tus preferencias */
             color: white;
@@ -70,12 +71,19 @@
             color: white;
             font-weight: bold;
         }
+
         .nav-link:hover {
             transform: scale(1.25); /* Aumenta el tamaño del enlace al 120% cuando se pasa el cursor sobre él */
             transition: transform 0.2s; /* Agrega una transición suave de 0.2 segundos */
             color: #ffffff; /* Cambia el color del texto del enlace a rojo cuando el puntero se acerca */
 
         }
+
+        .fila-inactiva {
+            background-color: rgba(230, 155, 155, 0.29); /* Cambia el color de fondo a rojo claro */
+        }
+
+
     </style>
     <title>Muebles</title>
 
@@ -87,7 +95,8 @@
     <nav class="navbar navbar-expand-lg">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav">
-                <li class="nav-item active"><a class="nav-link" href="/">Home</a></li>
+                <li class="nav-item active"><a class="nav-link" href="/">
+                    <img th:src="@{/images/home.png}" class="d-inline-block align-text-center" width="35" height="35" alt="icon"> Home </a></li>
             </ul>
             <ul class="navbar-nav mx-auto">
                 <li class="nav-item"><a class="nav-link" href="/muebles/lista">Muebles</a></li>
@@ -97,7 +106,7 @@
             </ul>
 
             <ul class="navbar-nav">
-                <li class="nav-item active"><a class="nav-link" href="/logout">Cerrar Sesión</a></li>
+                <li class="nav-item active"> <a class="nav-link" href="/logout"> <img th:src="@{/images/cerrar-sesion.png}" class="d-inline-block align-text-center" width="35" height="35" alt="icon"> Cerrar Sesión</a></li>
             </ul>
         </div>
     </nav>
@@ -115,105 +124,143 @@
                  alt="icon"> LISTADO DE LOS MUEBLES
         </b></h1>
     <hr>
-    <div class="d-flex justify-content-between">
-        <a th:href="@{/muebles/nuevoMueble}" class="btn btn-primary btn-sm mb-3">Agregar otro Mueble <img
-                th:src="@{/images/disquete.png}"
-                class="d-inline-block align-text-top" width="25" height="25"
-                alt="icon"></a>
-        <br>
-    </div>
-    <br>
-
-
-    <table class="table  table-hover ">
-        <thead class="thead-darkGray text-center">
-        <tr>
-            <th>ID</th>
-            <th>CODIGO</th>
-            <th>NOMBRE</th>
-            <th>DESCRIPCION</th>
-            <th>FECHA INGR</th>
-            <th>ESTADO</th>
-            <th>CANTIDAD</th>
-            <th>ASIGNACION</th>
-            <th>TOTAL</th>
-            <th>ACCIONES</th>
-
-
-        </tr>
-        </thead>
-        <tr th:each="muebles, i: ${muebles}">
-            <td th:text="${muebles.id_mueble}" class="text-center"></td>
-            <td th:text="${muebles.codigo_mueble}" class="text-center"/>
-            <td th:text="${muebles.nombre_mueble}" class="text-center"/>
-            <td th:text="${muebles.descripcion_mueble}" class="text-center"/>
-            <td th:text="${muebles.fecha_ingreso}" class="text-center"/>
-            <td th:text="${muebles.estado == true ? 'Activo' : 'Inactivo'}" class="text-center"  id="estadoMuebleInput"></td>
-            <td th:text="${muebles.cantidad}" class="text-center"></td>
-            <td th:text="${muebles.asignacion}" class="text-center"></td>
-            <td class="text-center"><span th:text="${muebles.cantidad + muebles.asignacion}"></span></td>
-
-
-            <!--            <td>-->
-            <!--                <div>-->
-            <!--                    <img class="img-thumbnail rounded float-left"-->
-            <!--                         th:src="@{'/images/' + ${tempArticulo.imagen}}"-->
-            <!--                         th:alt="${tempArticulo.imagen}">-->
-            <!--                </div>-->
-
-            <!--            </td>-->
-
-
-            <td class="text-center">
-                <div class="d-flex justify-content-center">
-                    <a th:href="@{/muebles/masDetalles(id_mueble=${muebles.id_mueble})}" class="btn btn-success btn-sm mr-2 text-center" title="Ver más detalles">
-                        DETALLES
-                        <img th:src="@{/images/ver.png}" class="d-inline-block align-text-top" width="20" height="20" alt="icon">
-                    </a>
-
-                    <a th:href="@{/muebles/cambiarMueble(id_mueble=${muebles.id_mueble})}" class="btn btn-info btn-sm mr-2 text-center" title="Actualizar Informacion">
-                        ACTUALIZACIONES
-                        <img th:src="@{/images/editar.png}" class="d-inline-block align-text-top" width="20" height="20" alt="icon">
-                    </a>
-
-                    <form id="cambiarEstadoForm-${muebles.id_mueble}" th:action="@{/muebles/cambiarEstado}" th:method="post" class="text-center">
-                        <input type="hidden" name="id_mueble" th:value="${muebles.id_mueble}">
-                        <button type="button" class="btn btn-warning btn-sm" title="Cambiar Estado" onclick="confirmarCambioEstado(event, this)">
-                            ESTADO
-                            <img th:src="@{/images/encendido-apagado.png}" class="d-inline-block align-text-top" width="20" height="20" alt="icon">
-                        </button>
-                    </form>
-
-
-
-
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <a th:href="@{/muebles/nuevoMueble}" class="btn btn-primary btn-sm mb-6">AGREGAR MUEBLE <img
+                    th:src="@{/images/disquete.png}"
+                    class="d-inline-block align-text-top" width="25" height="25"
+                    alt="icon">
+            </a>
+            <a th:href="@{/muebles/lista}" class="btn btn-warning btn-sm mb-6">CARGAR
+                <img th:src="@{/images/recargar.png}" class="d-inline-block align-text-top" width="25" height="25"
+                     alt="icon">
+            </a>
+        </div>
+        <div class="d-flex align-items-center">
+            <button id="filtroActivo" class="btn btn-warning custom-btn btn-sm mb-6 mr-2" onclick="alternarFiltro()">
+                <div class="d-flex align-items-center">
+                    <span class="ml-6">Filtrar Activos</span>
                 </div>
-            </td>
+            </button>
+
+            <img th:src="@{/images/lupa.png}" class="d-inline-block align-text-top" width="30" height="30" alt="icon">
+            <input type="text" id="buscar" class="form-control mb-6 ml-2" placeholder="Buscar Mueble...">
+        </div>
+
+    </div>
 
 
-        </tr>
-        <tbody>
+</div>
 
-        </tbody>
 
-    </table>
+<br>
+
+
+<table class="table  table-hover " id="tablaMuebles">
+    <thead class="thead-darkGray text-center">
+    <tr>
+        <th>ID</th>
+        <th>CODIGO</th>
+        <th>NOMBRE</th>
+        <th>DESCRIPCION</th>
+        <th>FECHA INGR</th>
+        <th>ESTADO</th>
+        <th>CANTIDAD</th>
+        <th>ASIGNACION</th>
+        <th>TOTAL</th>
+        <th>ACCIONES</th>
+
+
+    </tr>
+    </thead>
+    <tr th:each="muebles : ${muebles}" th:class="${muebles.estado == false} ? 'fila-inactiva' : ''">
+        <td th:text="${muebles.id_mueble}" class="text-center"></td>
+        <td th:text="${muebles.codigo_mueble}" class="text-center"/>
+        <td th:text="${muebles.nombre_mueble}" class="text-center"/>
+        <td th:text="${muebles.descripcion_mueble}" class="text-center"/>
+        <td th:text="${muebles.fecha_ingreso}" class="text-center"/>
+        <td class="text-center" id="estadoMuebleInput">
+            <span th:if="${muebles.estado}"> <!-- Si el estado es activo -->
+              <img src="/images/on.png" alt="Activo" width="40" height="40">
+            </span>
+
+            <span th:unless="${muebles.estado}"> <!-- Si el estado es inactivo -->
+                <img src="/images/off.png" alt="Inactivo" width="40" height="40">
+            </span>
+        </td>
+        <td th:text="${muebles.cantidad}" class="text-center"></td>
+        <td th:text="${muebles.asignacion}" class="text-center"></td>
+        <td class="text-center"><span th:text="${muebles.cantidad + muebles.asignacion}"></span></td>
+
+
+        <!--            <td>-->
+        <!--                <div>-->
+        <!--                    <img class="img-thumbnail rounded float-left"-->
+        <!--                         th:src="@{'/images/' + ${tempArticulo.imagen}}"-->
+        <!--                         th:alt="${tempArticulo.imagen}">-->
+        <!--                </div>-->
+
+        <!--            </td>-->
+
+
+        <td class="text-center">
+            <div class="d-flex justify-content-center">
+                <a th:href="@{/muebles/masDetalles(id_mueble=${muebles.id_mueble})}"
+                   class="btn btn-success btn-sm mr-2 text-center" title="Ver más detalles">
+                    DETALLES
+                    <img th:src="@{/images/ver.png}" class="d-inline-block align-text-top" width="20" height="20"
+                         alt="icon">
+                </a>
+
+                <a th:href="@{/muebles/cambiarMueble(id_mueble=${muebles.id_mueble})}"
+                   class="btn btn-info btn-sm mr-2 text-center" title="Actualizar Informacion">
+                    ACTUALIZACIONES
+                    <img th:src="@{/images/editar.png}" class="d-inline-block align-text-top" width="20" height="20"
+                         alt="icon">
+                </a>
+
+                <form id="cambiarEstadoForm-${muebles.id_mueble}" th:action="@{/muebles/cambiarEstado}"
+                      th:method="post" class="text-center">
+                    <input type="hidden" name="id_mueble" th:value="${muebles.id_mueble}">
+                    <button type="button" class="btn btn-warning btn-sm" title="Cambiar Estado"
+                            onclick="confirmarCambioEstado(event, this)">
+                        ESTADO
+                        <img th:src="@{/images/encendido-apagado.png}" class="d-inline-block align-text-top"
+                             width="20" height="20" alt="icon">
+                    </button>
+                </form>
+
+
+            </div>
+        </td>
+
+
+    </tr>
+    <tbody>
+
+    </tbody>
+
+</table>
+<div class="text-center">
     <div th:unless="${not #lists.isEmpty(muebles)}" class="alert alert-info" role="alert">
         No hay muebles registrados.
     </div>
-    <a th:href="@{/muebles/lista}" class="btn btn-warning btn-sm mb-3">CARGAR <img th:src="@{/images/recargar.png}"
-                                                                                   class="d-inline-block align-text-top"
-                                                                                   width="20" height="20"
-                                                                                   alt="icon">
+    <a th:href="@{/muebles/lista}" class="btn btn-warning btn-sm mb-3 d-block mx-auto" style="width: 150px;">
+        CARGAR
+        <img th:src="@{/images/recargar.png}" class="d-inline-block align-text-top ml-2" width="20" height="20"
+             alt="icon">
     </a>
-    <p class="text-danger warning" th:if="${searchWarning}" th:text="${searchWarning}"></p>
-
 </div>
+<br>
+<br>
+<br>
+
 </body>
 
 <script>
     async function confirmarCambioEstado(event, button) {
         event.preventDefault();
-        const { value: confirmacion } = await Swal.fire({
+        const {value: confirmacion} = await Swal.fire({
             title: '¿Está seguro de Cambiar el estado de este Mueble?',
             text: "",
             icon: 'warning',
@@ -233,8 +280,58 @@
 </script>
 
 
+<script>
+    // Función para filtrar las filas de la tabla a medida que se escribe en el cuadro de búsqueda
+    document.getElementById('buscar').addEventListener('input', function () {
+        var input, filtro, tabla, tr, td, i, txtValor;
+        input = document.getElementById("buscar");
+        filtro = input.value.toUpperCase();
+        tabla = document.getElementById("tablaMuebles");
+        tr = tabla.getElementsByTagName("tr");
 
+        // Recorre las filas de datos (a partir del índice 1) y oculta las que no coinciden con la búsqueda
+        for (i = 1; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td");
+            var encontrado = false; // Indica si se encontró coincidencia en alguna celda
+            for (var j = 0; j < td.length; j++) {
+                txtValor = td[j].textContent || td[j].innerText;
+                if (txtValor.toUpperCase().indexOf(filtro) > -1) {
+                    encontrado = true;
+                    break; // Si se encuentra una coincidencia, no es necesario continuar buscando en esta fila
+                }
+            }
+            // Muestra u oculta la fila de datos dependiendo de si se encontró coincidencia en alguna celda
+            tr[i].style.display = encontrado ? "" : "none";
+        }
+    });
+</script>
 
+<script>
+    var filtroActivo = true; // Variable para alternar el filtro de activos e inactivos
+
+    function alternarFiltro() {
+        filtroActivo = !filtroActivo; // Alternar el valor del filtro
+
+        // Obtener todas las filas de la tabla
+        var filas = document.querySelectorAll("#tablaMuebles tbody tr");
+
+        // Filtrar las filas según el valor del filtro
+        filas.forEach(function (fila) {
+            var estado = fila.querySelector("td#estadoMuebleInput img").getAttribute("alt");
+            if ((filtroActivo && estado === "Activo") || (!filtroActivo && estado === "Inactivo")) {
+                fila.style.display = ""; // Mostrar la fila si coincide con el filtro
+            } else {
+                fila.style.display = "none"; // Ocultar la fila si no coincide con el filtro
+            }
+        });
+
+        // Actualizar el texto del botón según el filtro activo/inactivo
+        var filtroBtn = document.getElementById("filtroActivo");
+        filtroBtn.textContent = filtroActivo ? "Filtrar Inactivos" : "Filtrar Activos";
+
+    }
+
+</script>
 
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

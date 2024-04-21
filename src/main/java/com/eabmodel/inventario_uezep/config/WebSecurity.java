@@ -18,7 +18,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .withUser("xd").password("{noop}xdnt").roles("manager");
     }
     @Override
-    protected void configure(HttpSecurity http) throws Exception { 
+    protected void configure(HttpSecurity http) throws Exception {
         http
         .cors().and()
         .csrf().disable().authorizeRequests()
@@ -27,5 +27,6 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         .and()
         .formLogin();
     }
+
 }
 

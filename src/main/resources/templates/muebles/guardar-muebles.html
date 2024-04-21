@@ -84,8 +84,9 @@
     <hr>
     <p class="h4 mb-4">AGREGAR OTRO MUEBLE </p>
 
+
     <form action="#" th:action="@{/muebles/save}" th:object="${muebles}" method="POST" class="d-flex flex-column align-items-center">
-        <input type="text" th:field="*{codigo_mueble}" class="form-control mb-3 col-5" placeholder="Codigo Mueble" required>
+        <input type="text" th:field="*{codigo_mueble}" id="codigo_mueble" class="form-control mb-3 col-5" placeholder="Codigo Mueble" required >
         <input type="text" th:field="*{nombre_mueble}" class="form-control mb-3 col-5" placeholder="Nombre Mueble" required>
         <input type="text" th:field="*{descripcion_mueble}" class="form-control mb-3 col-5" placeholder="Descripcion Mueble" required>
         <div class="form-group d-flex flex-column align-items-center">
@@ -124,5 +125,11 @@
         document.getElementById("fecha_ingreso").value = fechaActual; // Establecer la fecha actual en el campo de entrada
     }
 </script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+
 
 </html>

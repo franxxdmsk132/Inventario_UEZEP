@@ -86,7 +86,7 @@
 
     <form action="#" th:action="@{/muebles/update}" th:object="${muebles}" method="POST" class="d-flex flex-column align-items-center">
         <input type="hidden" th:field="*{id_mueble}" class="form-control mb-3 col-5" placeholder="Id Mueble" >
-        <input type="text" th:field="*{codigo_mueble}" class="form-control mb-3 col-5" placeholder="Codigo Mueble" required>
+        <input type="text" th:field="*{codigo_mueble}" class="form-control mb-3 col-5" placeholder="Codigo Mueble" required readonly style="background-color: rgba(0,0,0,0.1); pointer-events: none;">
         <input type="text" th:field="*{nombre_mueble}" class="form-control mb-3 col-5" placeholder="Nombre Mueble" required>
         <input type="text" th:field="*{descripcion_mueble}" class="form-control mb-3 col-5" placeholder="Descripcion Mueble" required>
         <div class="form-group d-flex flex-column align-items-center">

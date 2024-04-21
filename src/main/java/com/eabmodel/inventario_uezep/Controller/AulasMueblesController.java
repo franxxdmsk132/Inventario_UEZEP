@@ -1,6 +1,5 @@
 package com.eabmodel.inventario_uezep.Controller;
 
-import com.eabmodel.inventario_uezep.Entity.Aulas;
 import com.eabmodel.inventario_uezep.Entity.AulasMuebles;
 import com.eabmodel.inventario_uezep.Service.AulasMueblesService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +29,7 @@ public class AulasMueblesController {
     public String listaAulasMuebles(Model model) {
         List<AulasMuebles> aulasMuebles = aulasMueblesService.findAll();
         model.addAttribute("aulasmuebles", aulasMuebles);
-        return "aulas-muebles/aulas-muebles-lista";
+        return "aulas-muebles/lista-aulas-muebles";
     }
 
     @PostMapping("/asignar-muebles-a-aula")
