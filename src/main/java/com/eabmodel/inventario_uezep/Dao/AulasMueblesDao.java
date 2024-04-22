@@ -37,6 +37,16 @@ public class AulasMueblesDao {
                 "INNER JOIN muebles m ON am.id_mueble = m.id_mueble";
         return jdbcTemplate.query(sql, new AulasMueblesRowMapper());
     }
+    public List<AulasMuebles> findAllAulasMueblesWithDetailsGroupBy() {
+        String sql = "SELECT am.id, a.id_aula, m.id_mueble, GROUP_CONCAT(m.id_mueble) AS id_muebles " +
+                "FROM aulas_muebles am " +
+                "INNER JOIN aulas a ON am.id_aula = a.id_aula " +
+                "INNER JOIN muebles m ON am.id_mueble = m.id_mueble " +
+                "GROUP BY a.id_aula";
+        return jdbcTemplate.query(sql, new AulasMueblesRowMapper());
+    }
+
+
 //    SELECT
 //    a.id_aula,
 //    a.curso,

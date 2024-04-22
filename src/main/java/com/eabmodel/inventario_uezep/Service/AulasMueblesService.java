@@ -22,6 +22,10 @@ public class AulasMueblesService {
     public List<AulasMuebles> findAll() {
         return aulasMueblesDao.findAllWithDetails();
     }
+    public List<AulasMuebles> findAllGroupBy() {
+        return aulasMueblesDao.findAllAulasMueblesWithDetailsGroupBy();
+    }
+
 
 
     // Otros métodos del servicio, si es necesario

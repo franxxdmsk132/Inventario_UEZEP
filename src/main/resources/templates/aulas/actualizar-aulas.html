@@ -12,6 +12,11 @@
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
           crossorigin="anonymous">
     <style>
+        .btn:hover {
+            transform: scale(1.2); /* Aumenta el tamaño del botón al 120% cuando se pasa el cursor sobre él */
+            transition: transform 0.2s; /* Agrega una transición suave de 0.2 segundos */
+        }
+
         .thead-darkGray {
             background-color: #4b4c4f; /* Puedes ajustar el color según tus preferencias */
             color: white;
@@ -64,6 +69,19 @@
             color: white;
             font-weight: bold;
         }
+
+        .nav-link:hover {
+            transform: scale(1.25); /* Aumenta el tamaño del enlace al 120% cuando se pasa el cursor sobre él */
+            transition: transform 0.2s; /* Agrega una transición suave de 0.2 segundos */
+            color: #ffffff; /* Cambia el color del texto del enlace a rojo cuando el puntero se acerca */
+
+        }
+
+        .fila-inactiva {
+            background-color: rgba(230, 155, 155, 0.29); /* Cambia el color de fondo a rojo claro */
+        }
+
+
     </style>
     <title>AULAS</title>
 </head>

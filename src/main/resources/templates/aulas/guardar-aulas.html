@@ -12,6 +12,11 @@
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
           crossorigin="anonymous">
     <style>
+        .btn:hover {
+            transform: scale(1.2); /* Aumenta el tamaño del botón al 120% cuando se pasa el cursor sobre él */
+            transition: transform 0.2s; /* Agrega una transición suave de 0.2 segundos */
+        }
+
         .thead-darkGray {
             background-color: #4b4c4f; /* Puedes ajustar el color según tus preferencias */
             color: white;
@@ -64,6 +69,19 @@
             color: white;
             font-weight: bold;
         }
+
+        .nav-link:hover {
+            transform: scale(1.25); /* Aumenta el tamaño del enlace al 120% cuando se pasa el cursor sobre él */
+            transition: transform 0.2s; /* Agrega una transición suave de 0.2 segundos */
+            color: #ffffff; /* Cambia el color del texto del enlace a rojo cuando el puntero se acerca */
+
+        }
+
+        .fila-inactiva {
+            background-color: rgba(230, 155, 155, 0.29); /* Cambia el color de fondo a rojo claro */
+        }
+
+
     </style>
     <title>AULAS</title>
 </head>
@@ -80,8 +98,23 @@
     <p class="h4 mb-4">AGREGAR OTRA AULA </p>
 
     <form action="#" th:action="@{/aulas/save}" th:object="${aulas}" method="POST" class="d-flex flex-column align-items-center">
-        <input type="text" th:field="*{curso}" class="form-control mb-3 col-5" placeholder="Curso Aula" required>
-        <input type="text" th:field="*{ubicacion_aula}" class="form-control mb-3 col-5" placeholder="ubiciacion Aula" required>
+        <select th:field="*{curso}" class="form-control mb-3 col-5" required>
+            <option value="">Selecciona un curso</option>
+            <option value="Primero de básica">Primero de básica</option>
+            <option value="Segundo de básica">Segundo de básica</option>
+            <option value="Tercero de básica">Tercero de básica</option>
+            <option value="Cuarto de básica">Cuarto de básica</option>
+            <option value="Quinto de básica">Quinto de básica</option>
+            <option value="Sexto de básica">Sexto de básica</option>
+            <option value="Séptimo de básica">Séptimo de básica</option>
+            <option value="Octavo de básica">Octavo de básica</option>
+            <option value="Noveno de básica">Noveno de básica</option>
+            <option value="Décimo de básica">Décimo de básica</option>
+            <option value="Primero de bachillerato">Primero de bachillerato</option>
+            <option value="Segundo de bachillerato">Segundo de bachillerato</option>
+            <option value="Tercero de bachillerato">Tercero de bachillerato</option>
+        </select>
+        <input type="text" th:field="*{ubicacion_aula}" class="form-control mb-3 col-5" placeholder="Ubicacion Aula" required>
         <input type="text" th:field="*{encargado}" class="form-control mb-3 col-5" placeholder="Encargado" required>
         <button type="submit" class="btn btn-success mb-3 col-5">GUARDAR</button>
     </form>
@@ -91,11 +124,69 @@
 
 </body>
 <script>
-    function validarCantidad(input) {
-        if (input.value <= 0) {
-            input.value = 1; // Restablece el valor a 1 si es menor o igual a cero
-        }
+    var select = document.querySelector('select');
+
+    // Guardar todas las opciones en un array
+    var options = Array.from(select.options).map(option => option.value);
+
+    // Función para encontrar la opción más parecida
+    function findClosestOption(input) {
+        var minDistance = Infinity;
+        var closestOption = '';
+
+        options.forEach(option => {
+            var distance = levenshteinDistance(input, option);
+            if (distance < minDistance) {
+                minDistance = distance;
+                closestOption = option;
+            }
+        });
+
+        return closestOption;
     }
+
+    // Función para calcular la distancia de Levenshtein entre dos strings
+    function levenshteinDistance(a, b) {
+        if (a.length === 0) return b.length;
+        if (b.length === 0) return a.length;
+
+        var matrix = [];
+
+        // Inicializar la primera fila y la primera columna
+        for (var i = 0; i <= b.length; i++) {
+            matrix[i] = [i];
+        }
+
+        for (var j = 0; j <= a.length; j++) {
+            matrix[0][j] = j;
+        }
+
+        // Calcular la distancia de Levenshtein
+        for (var i = 1; i <= b.length; i++) {
+            for (var j = 1; j <= a.length; j++) {
+                if (b.charAt(i - 1) === a.charAt(j - 1)) {
+                    matrix[i][j] = matrix[i - 1][j - 1];
+                } else {
+                    matrix[i][j] = Math.min(
+                        matrix[i - 1][j - 1] + 1,
+                        matrix[i][j - 1] + 1,
+                        matrix[i - 1][j] + 1
+                    );
+                }
+            }
+        }
+
+        return matrix[b.length][a.length];
+    }
+
+    // Evento de entrada para el autocompletado
+    select.addEventListener('input', function() {
+        var inputValue = this.value;
+        if (inputValue.length > 0) {
+            var closestOption = findClosestOption(inputValue);
+            this.value = closestOption;
+        }
+    });
 </script>
 
 </html>

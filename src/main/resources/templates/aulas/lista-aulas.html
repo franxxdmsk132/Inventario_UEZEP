@@ -96,7 +96,8 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav">
                 <li class="nav-item active"><a class="nav-link" href="/">
-                    <img th:src="@{/images/home.png}" class="d-inline-block align-text-center" width="35" height="35" alt="icon"> Home </a></li>
+                    <img th:src="@{/images/home.png}" class="d-inline-block align-text-center" width="35" height="35"
+                         alt="icon"> Home </a></li>
             </ul>
             <ul class="navbar-nav mx-auto">
                 <li class="nav-item"><a class="nav-link" href="/muebles/lista">Muebles</a></li>
@@ -106,7 +107,9 @@
             </ul>
 
             <ul class="navbar-nav">
-                <li class="nav-item active"> <a class="nav-link" href="/logout"> <img th:src="@{/images/cerrar-sesion.png}" class="d-inline-block align-text-center" width="35" height="35" alt="icon"> Cerrar Sesión</a></li>
+                <li class="nav-item active"><a class="nav-link" href="/logout"> <img
+                        th:src="@{/images/cerrar-sesion.png}" class="d-inline-block align-text-center" width="35"
+                        height="35" alt="icon"> Cerrar Sesión</a></li>
             </ul>
         </div>
     </nav>
@@ -124,16 +127,28 @@
                  alt="icon"> LISTADO DE LAS AULAS
         </b></h1>
     <hr>
-    <div class="d-flex justify-content-between">
-        <a th:href="@{/aulas/nuevaAula}" class="btn btn-primary btn-sm mb-3">Agregar otra Aula <img
-                th:src="@{/images/disquete.png}"
-                class="d-inline-block align-text-top" width="25" height="25"
-                alt="icon"></a>
-        <br>
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <a th:href="@{/aulas/nuevaAula}" class="btn btn-primary btn-sm mb-6" title="Registrar una nueva aula" >AGREGAR AULA <img
+                    th:src="@{/images/disquete.png}"
+                    class="d-inline-block align-text-top" width="25" height="25"
+                    alt="icon">
+            </a>
+            <a th:href="@{/aulas/lista}" class="btn btn-warning btn-sm mb-6" title="Volver a cargar los datos" >CARGAR
+                <img th:src="@{/images/recargar.png}" class="d-inline-block align-text-top" width="25" height="25"
+                     alt="icon" >
+            </a>
+        </div>
+        <div class="d-flex align-items-center">
+            <img th:src="@{/images/lupa.png}" class="d-inline-block align-text-top" width="30" height="30" alt="icon">
+            <input type="text" id="buscar" class="form-control mb-6 ml-2" placeholder="Buscar Aula..."  title="Buscar dentro de la tabla">
+        </div>
+
     </div>
+    <br>
 
 
-    <table class="table  table-hover ">
+    <table class="table  table-hover " id="tablaAulas" >
         <thead class="thead-darkGray text-center">
         <tr>
             <th>ID</th>
@@ -150,7 +165,6 @@
             <td th:text="${aulas.curso}" class="text-center"/>
             <td th:text="${aulas.ubicacion_aula}" class="text-center"/>
             <td th:text="${aulas.encargado}" class="text-center"/>
-
 
 
             <!--            <td>-->
@@ -190,7 +204,6 @@
             </td>
 
 
-
         </tr>
         <tbody>
 
@@ -201,9 +214,9 @@
         No hay Aulas registradas.
     </div>
     <a th:href="@{/aulas/lista}" class="btn btn-warning btn-sm mb-3">CARGAR <img th:src="@{/images/recargar.png}"
-                                                                                   class="d-inline-block align-text-top"
-                                                                                   width="20" height="20"
-                                                                                   alt="icon">
+                                                                                 class="d-inline-block align-text-top"
+                                                                                 width="20" height="20"
+                                                                                 alt="icon">
     </a>
     <p class="text-danger warning" th:if="${searchWarning}" th:text="${searchWarning}"></p>
 
@@ -230,6 +243,31 @@
             }
         });
     }
+</script>
+<script>
+    // Función para filtrar las filas de la tabla a medida que se escribe en el cuadro de búsqueda
+    document.getElementById('buscar').addEventListener('input', function () {
+        var input, filtro, tabla, tr, td, i, txtValor;
+        input = document.getElementById("buscar");
+        filtro = input.value.toUpperCase();
+        tabla = document.getElementById("tablaAulas");
+        tr = tabla.getElementsByTagName("tr");
+
+        // Recorre las filas de datos (a partir del índice 1) y oculta las que no coinciden con la búsqueda
+        for (i = 1; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td");
+            var encontrado = false; // Indica si se encontró coincidencia en alguna celda
+            for (var j = 0; j < td.length; j++) {
+                txtValor = td[j].textContent || td[j].innerText;
+                if (txtValor.toUpperCase().indexOf(filtro) > -1) {
+                    encontrado = true;
+                    break; // Si se encuentra una coincidencia, no es necesario continuar buscando en esta fila
+                }
+            }
+            // Muestra u oculta la fila de datos dependiendo de si se encontró coincidencia en alguna celda
+            tr[i].style.display = encontrado ? "" : "none";
+        }
+    });
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

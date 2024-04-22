@@ -12,6 +12,11 @@
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
           crossorigin="anonymous">
     <style>
+        .btn:hover {
+            transform: scale(1.2); /* Aumenta el tamaño del botón al 120% cuando se pasa el cursor sobre él */
+            transition: transform 0.2s; /* Agrega una transición suave de 0.2 segundos */
+        }
+
         .thead-darkGray {
             background-color: #4b4c4f; /* Puedes ajustar el color según tus preferencias */
             color: white;
@@ -64,6 +69,19 @@
             color: white;
             font-weight: bold;
         }
+
+        .nav-link:hover {
+            transform: scale(1.25); /* Aumenta el tamaño del enlace al 120% cuando se pasa el cursor sobre él */
+            transition: transform 0.2s; /* Agrega una transición suave de 0.2 segundos */
+            color: #ffffff; /* Cambia el color del texto del enlace a rojo cuando el puntero se acerca */
+
+        }
+
+        .fila-inactiva {
+            background-color: rgba(230, 155, 155, 0.29); /* Cambia el color de fondo a rojo claro */
+        }
+
+
     </style>
     <title>DETALLES DE AULAS</title>
 </head>
@@ -74,9 +92,9 @@
 
 <div class="container" align="left" th:if="${aulas}">
     <h3 align="center">
-        <img th:src="@{/images/profile_200px.png}"
+        <img th:src="@{/images/aula.png}"
              class="d-inline-block align-text-top" width="40" height="40"
-             alt="icon"> Aulas
+             alt="icon"> <b>Aulas</b>
     </h3>
     <h4 align="center"><a th:href="@{/aulas/lista}"
                           class="btn btn-warning btn-sm mb-3 d-inline-block align-text-top">ATRAS</a></h4>
@@ -87,20 +105,20 @@
     <table class="table  table-hover  table-striped">
         <thead class="thead-info">
         <tr th:if="${aulas}">
-            <th>ID Mueble</th>
+            <th>ID Aula</th>
             <td th:text="${aulas.id_aula}"></td>
         </tr>
         </thead>
         <tr th:if="${aulas}">
-            <th>Codigo Mueble</th>
+            <th>Curso</th>
             <td th:text="${aulas.curso}"></td>
         </tr>
         <tr th:if="${aulas}">
-            <th>Nombre</th>
+            <th>Ubicacion</th>
             <td th:text="${aulas.ubicacion_aula}"></td>
         </tr>
         <tr th:if="${aulas}">
-            <th>Descripcion</th>
+            <th>Personal a cargo</th>
             <td th:text="${aulas.encargado}"></td>
         </tr>
 
@@ -112,7 +130,7 @@
     <div align="left">
         <a th:href="@{/aulas/lista}" class="btn btn-warning btn-sm mb-3">ATRAS</a>
         <a th:href="@{/aulas/nuevaAula}" class="btn btn-primary btn-sm mb-3"> AGREGAR OTRA AULA</a>
-        <a th:href="@{/aulas/cambiarAula(id_mueble=${aulas.id_aula})}" class="btn btn-info btn-sm mb-3">
+        <a th:href="@{/aulas/cambiarAula(id_aula=${aulas.id_aula})}" class="btn btn-info btn-sm mb-3">
             ACTUALIZACIONES </a>
         <a th:href="@{/aulas/delete(id_aula=${aulas.id_aula})}  " class="btn btn-danger  btn-sm mb-3"
            onclick="if (!(confirm('¿Estás seguro que desea eliminar la sesión de artículos?'))) return false">

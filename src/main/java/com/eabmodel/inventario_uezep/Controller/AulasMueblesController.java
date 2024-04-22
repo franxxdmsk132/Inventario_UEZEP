@@ -18,7 +18,7 @@ public class AulasMueblesController {
     @Autowired
     private AulasMueblesService aulasMueblesService;
 
-    @GetMapping("/mostrar-formulario")
+    @GetMapping("/show")
     public String mostrarFormulario() {
         return "aulas-muebles/aulas-muebles";
     }
@@ -27,12 +27,12 @@ public class AulasMueblesController {
     //Listar
     @GetMapping("/lista")
     public String listaAulasMuebles(Model model) {
-        List<AulasMuebles> aulasMuebles = aulasMueblesService.findAll();
-        model.addAttribute("aulasmuebles", aulasMuebles);
+        List<AulasMuebles> aulasMuebles = aulasMueblesService.findAllGroupBy();
+        model.addAttribute("aulasmueble", aulasMuebles);
         return "aulas-muebles/lista-aulas-muebles";
     }
 
-    @PostMapping("/asignar-muebles-a-aula")
+    @PostMapping("/save")
     @ResponseBody
     public String asignarMueblesAAula(@RequestParam("idAula") int idAula, @RequestParam("idMuebles") String idMuebles) {
         try {
