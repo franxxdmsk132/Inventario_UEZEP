@@ -70,7 +70,7 @@
             font-weight: bold;
         }
     </style>
-    <title>MUEBLES</title>
+    <title>Muebles</title>
 </head>
 <body class="body-gradient d-flex justify-content-center align-items-center">
 
@@ -78,19 +78,30 @@
 
     <h3>
         <img th:src="@{/images/Logo-NBG.png}" class="d-inline-block align-text-top" width="40" height="40" alt="icon">
-        <b>DIRECTORIO DE LOS  MUEBLES</b>
+        <b>Directorio de Mueble</b>
     </h3>
     <h4  hidden="hidden" ><a th:href="@{/muebles/lista}" class="btn btn-warning btn-sm mb-3 col-2 d-inline-block align-text-top ">ATRAS</a></h4>
     <hr>
-    <p class="h4 mb-4">AGREGAR OTRO MUEBLE </p>
+    <p class="h4 mb-4">Agregar otro Mueble </p>
 
 
     <form action="#" th:action="@{/muebles/save}" th:object="${muebles}" method="POST" class="d-flex flex-column align-items-center">
-        <input type="text" th:field="*{codigo_mueble}" id="codigo_mueble" class="form-control mb-3 col-5" placeholder="Codigo Mueble" required >
-        <input type="text" th:field="*{nombre_mueble}" class="form-control mb-3 col-5" placeholder="Nombre Mueble" required>
-        <input type="text" th:field="*{descripcion_mueble}" class="form-control mb-3 col-5" placeholder="Descripcion Mueble" required>
+        <input type="text" th:field="*{codigo_mueble}" id="codigo_mueble" class="form-control mb-3 col-5" placeholder="Código del Mueble" required >
+
+        <select th:field ="*{nombre_mueble}" id="selectMueble" class="form-control mb-3 col-5" required onchange="checkIfOther(this)">
+            <option value="">Selecciona el tipo de mueble</option>
+            <option value="Silla">Silla</option>
+            <option value="Mesa">Mesa</option>
+            <option value="Escritorio">Escritorio</option>
+            <option value="Armario">Armario</option>
+            <option value="Otro">Otro</option>
+        </select>
+
+        <input type="text" id=nombre_mueble name="nombre_mueble_otro" class="form-control mb-3 col-5" placeholder="Escribe el tipo de mueble" style="display: none;">
+
+        <input type="text" th:field="*{descripcion_mueble}" class="form-control mb-3 col-5" placeholder="Descripción del Mueble" required>
         <div class="form-group d-flex flex-column align-items-center">
-            <label class="mb-auto"><h5><b>Fecha Ingreso</b></h5></label>
+            <label class="mb-auto"><h5><b>Fecha de Ingreso</b></h5></label>
             <div class="d-flex flex-column align-items-center">
                 <input type="date" th:field="*{fecha_ingreso}" name="fechaingreso" value="" min="1997-01-01" max="2030-12-31" class="mr-2 mb-2" required>
                 <button type="button" onclick="seleccionarFechaActual()" class="btn btn-primary btn-sm">Seleccionar la Fecha Actual</button>
@@ -102,34 +113,40 @@
             <option value="true">Activo</option>
             <option value="false">Inactivo</option>
         </select>
-        <input type="number" th:field="*{asignacion}" class="form-control mb-3 col-5" placeholder="Asignacion" hidden="hidden">
+        <input type="number" th:field="*{asignacion}" class="form-control
+
+ mb-3 col-5" placeholder="Asignacion" hidden="hidden">
         <button type="submit" class="btn btn-success mb-3 col-5">GUARDAR</button>
     </form>
 
     <a th:href="@{/muebles/lista}" class="btn btn-warning mb-3 col-5">REGRESAR</a>
 </div>
 
-</body>
 <script>
     function validarCantidad(input) {
         if (input.value <= 0) {
             input.value = 1; // Restablece el valor a 1 si es menor o igual a cero
         }
     }
-</script>
 
-
-<script>
     function seleccionarFechaActual() {
         var fechaActual = new Date().toISOString().split('T')[0]; // Obtener la fecha actual en formato yyyy-mm-dd
         document.getElementById("fecha_ingreso").value = fechaActual; // Establecer la fecha actual en el campo de entrada
     }
+
+    function checkIfOther(select) {
+        var otroInput = document.getElementById("nombre_mueble");
+        if (select.value === "Otro") {
+            otroInput.style.display = "block";
+            otroInput.required = true;
+        } else {
+            otroInput.style.display = "none";
+            otroInput.required = false;
+        }
+    }
 </script>
-
-
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
-
-
+</body>
 </html>
