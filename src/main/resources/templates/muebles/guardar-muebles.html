@@ -1,4 +1,3 @@
-
 <!DOCTYPE HTML>
 <html lang="es">
 <head>
@@ -97,7 +96,7 @@
             <option value="Otro">Otro</option>
         </select>
 
-        <input type="text" id=nombre_mueble name="nombre_mueble_otro" class="form-control mb-3 col-5" placeholder="Escribe el tipo de mueble" style="display: none;">
+        <input type="text" id="otroMuebleInput" name="nombre_mueble" class="form-control mb-3 col-5" placeholder="Escribe el tipo de mueble" style="display: none;">
 
         <input type="text" th:field="*{descripcion_mueble}" class="form-control mb-3 col-5" placeholder="Descripción del Mueble" required>
         <div class="form-group d-flex flex-column align-items-center">
@@ -113,9 +112,7 @@
             <option value="true">Activo</option>
             <option value="false">Inactivo</option>
         </select>
-        <input type="number" th:field="*{asignacion}" class="form-control
-
- mb-3 col-5" placeholder="Asignacion" hidden="hidden">
+        <input type="number" th:field="*{asignacion}" class="form-control mb-3 col-5" placeholder="Asignacion" hidden="hidden">
         <button type="submit" class="btn btn-success mb-3 col-5">GUARDAR</button>
     </form>
 
@@ -135,7 +132,7 @@
     }
 
     function checkIfOther(select) {
-        var otroInput = document.getElementById("nombre_mueble");
+        var otroInput = document.getElementById("otroMuebleInput");
         if (select.value === "Otro") {
             otroInput.style.display = "block";
             otroInput.required = true;
@@ -143,7 +140,46 @@
             otroInput.style.display = "none";
             otroInput.required = false;
         }
+        generarCodigo(select.value);
     }
+
+    // Objeto para mantener el registro de códigos generados para cada tipo de mueble
+    var codigosGenerados = {
+        "Silla": new Set(),
+        "Mesa": new Set(),
+        "Escritorio": new Set(),
+        "Armario": new Set(),
+        "Otro": new Set()
+    };
+
+    function generarCodigo(tipoMueble) {
+        // Verificar el conjunto de códigos generados para el tipo de mueble
+        var codigos = codigosGenerados[tipoMueble];
+
+        // Generar un número aleatorio único del 1 al 999
+        var numeroAleatorio;
+        do {
+            numeroAleatorio = Math.floor(Math.random() * 999) + 1;
+        } while (codigos.has(numeroAleatorio));
+
+        // Construir el código aleatorio concatenando el tipo de mueble y el número aleatorio
+        var codigo = tipoMueble.substring(0, 3).toUpperCase() + "-" + numeroAleatorio.toString().padStart(3, '0');
+
+        // Agregar el código al conjunto de códigos generados
+        codigos.add(numeroAleatorio);
+
+        // Establecer el código generado en el campo correspondiente
+        document.getElementById("codigo_mueble").value = codigo;
+    }
+
+
+
+
+
+
+
+
+
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
