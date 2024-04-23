@@ -13,6 +13,7 @@ public class AulasRowMapper implements RowMapper<Aulas> {
         Aulas aulas = new Aulas();
         aulas.setId_aula(rs.getInt("id_aula"));
         aulas.setCurso(rs.getString("curso"));
+        aulas.setParalelo(rs.getString("paralelo"));
         aulas.setUbicacion_aula(rs.getString("ubicacion_aula"));
         aulas.setEncargado(rs.getString("encargado"));
         return aulas;

@@ -23,8 +23,8 @@ public class AulasDao {
     private JdbcTemplate jdbcTemplate;
 
     public void save(Aulas aulas) {
-        String sql = "INSERT INTO aulas (curso, encargado, ubicacion_aula) VALUES (?, ?, ?)";
-        jdbcTemplate.update(sql, aulas.getCurso(), aulas.getEncargado(), aulas.getUbicacion_aula());
+        String sql = "INSERT INTO aulas (curso, paralelo,  encargado, ubicacion_aula) VALUES (?, ?, ?, ?)";
+        jdbcTemplate.update(sql, aulas.getCurso(), aulas.getParalelo(), aulas.getEncargado(), aulas.getUbicacion_aula());
     }
 
     public List<Aulas> findAll() {
@@ -43,7 +43,7 @@ public class AulasDao {
     }
 
     public void update(Aulas aulas) {
-        String sql = "UPDATE aulas SET curso = ?, encargado = ?, ubicacion_aula = ? WHERE id_aula = ?";
+        String sql = "UPDATE aulas SET curso = ?,paralelo = ?,  encargado = ?, ubicacion_aula = ? WHERE id_aula = ?";
         jdbcTemplate.update(sql, aulas.getCurso(), aulas.getEncargado(), aulas.getUbicacion_aula(), aulas.getId_aula());
     }
 

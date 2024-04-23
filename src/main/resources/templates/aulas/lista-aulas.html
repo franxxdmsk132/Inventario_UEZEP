@@ -124,7 +124,7 @@
         <b>
             <img th:src="@{/images/aula.png}"
                  class="d-inline-block align-text-top" width="60" height="60"
-                 alt="icon"> Listado de Aulas
+                 alt="icon"> Listados de Aulas
         </b></h1>
     <hr>
     <div class="d-flex justify-content-between align-items-center">
@@ -179,6 +179,7 @@
         <tr>
             <th>ID</th>
             <th>Curso</th>
+            <th>Paralelo</th>
             <th>Ubicación</th>
             <th>Encargado</th>
             <th>Acciones</th>
@@ -189,6 +190,7 @@
         <tr th:each="aulas, i: ${aula}">
             <td th:text="${aulas.id_aula}" class="text-center"></td>
             <td th:text="${aulas.curso}" class="text-center"/>
+            <td th:text="${aulas.paralelo}" class="text-center"/>
             <td th:text="${aulas.ubicacion_aula}" class="text-center"/>
             <td th:text="${aulas.encargado}" class="text-center"/>
 

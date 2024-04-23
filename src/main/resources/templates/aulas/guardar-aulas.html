@@ -91,7 +91,7 @@
 
     <h3>
         <img th:src="@{/images/Logo-NBG.png}" class="d-inline-block align-text-top" width="40" height="40" alt="icon">
-        <b>Directorio de Aulas</b>
+        <b>Directorio de Aula</b>
     </h3>
     <h4  hidden="hidden" ><a th:href="@{/aulas/lista}" class="btn btn-warning btn-sm mb-3 col-2 d-inline-block align-text-top ">ATRAS</a></h4>
     <hr>
@@ -101,18 +101,18 @@
         <select id="tipoCurso" class="form-control mb-3 col-5" required onchange="mostrarOpcionesAdicionales()">
             <option value="">Selecciona un tipo de curso</option>
             <option value="inicial">Inicial</option>
-            <option value="basica_superior">Básica Superior</option>
             <option value="basica">Básica</option>
+            <option value="superior">Básica Superior</option>
             <option value="bachillerato">Bachillerato</option>
         </select>
+
         <div id="opcionesAdicionales" style="display: none;">
             <select th:field="*{curso}" class="form-control mb-3 col-5" required>
                 <option value="">Seleccionar una opción</option>
                 <!-- Opciones adicionales para cada tipo de curso -->
                 <optgroup id="opcionesInicial">
-                    <option value="Primer año">Inicial 1</option>
-                    <option value="Segundo año">Inicial 2</option>
-                </optgroup>
+                    <option value=" Inicial 1">Inicial 1</option>
+                    <option value="Inicial 2">Inicial 2</option>
                 </optgroup>
                 <optgroup id="opcionesBasica">
                     <option value="Primero de básica">Primero de básica</option>
@@ -122,27 +122,36 @@
                     <option value="Quinto de básica">Quinto de básica</option>
                     <option value="Sexto de básica">Sexto de básica</option>
                     <option value="Séptimo de básica">Séptimo de básica</option>
-
-
                 </optgroup>
-                <optgroup id="opcionesBasicaSuperior">
-                    <option value="Primero de básica superior">Primero de básica superior</option>
-                    <option value="Segundo de básica superior">Segundo de básica superior</option>
+                <optgroup id="opcionesSuperior">
                     <option value="Octavo de básica">Octavo de básica</option>
                     <option value="Noveno de básica">Noveno de básica</option>
                     <option value="Décimo de básica">Décimo de básica</option>
-
-
-
+                </optgroup>
                 <optgroup id="opcionesBachillerato">
                     <option value="Primero de bachillerato">Primero de bachillerato</option>
                     <option value="Segundo de bachillerato">Segundo de bachillerato</option>
-                <option value="Segundo de bachillerato">Tercero de bachillerato</option>
-
+                    <option value="Tercero de bachillerato">Tercero de bachillerato</option>
                 </optgroup>
             </select>
         </div>
-        <input type="text" th:field="*{ubicacion_aula}" class="form-control mb-3 col-5" placeholder="Ubicacion Aula" required>
+
+        <select th:field="*{paralelo}" class="form-control mb-3 col-5" required>
+            <option value="">Selecciona un paralelo</option>
+            <option value="A">A</option>
+            <option value="B">B</option>
+            <option value="C">C</option>
+            <option value="N/A">N/A</option>
+
+        </select>
+
+        <select th:field="*{ubicacion_aula}" class="form-control mb-3 col-5" required>
+            <option value="">Selecciona una ubicación</option>
+            <option value="Jardín">Jardín</option>
+            <option value="Ciencias">Escuela</option>
+            <option value="Contabilidad">Colegio</option>
+        </select>
+
         <input type="text" th:field="*{encargado}" class="form-control mb-3 col-5" placeholder="Encargado" required>
         <button type="submit" class="btn btn-success mb-3 col-5">GUARDAR</button>
     </form>
@@ -164,9 +173,29 @@
 
         // Muestra las opciones adicionales correspondientes al tipo de curso seleccionado
         document.getElementById("opciones" + tipoCurso.charAt(0).toUpperCase() + tipoCurso.slice(1)).style.display = "block";
+        document.getElementById("opcionesInicial" + tipoCurso.charAt(0).toUpperCase() + tipoCurso.slice(1)).style.display = "block";
+        document.getElementById("opcionesBasica" + tipoCurso.charAt(0).toUpperCase() + tipoCurso.slice(1)).style.display = "block";
+        //document.getElementById("Superior" + tipoCurso.charAt(0).toUpperCase() + tipoCurso.slice(1)).style.display = "block";
+        document.getElementById("opcionesSuperior" + tipoCurso.charAt(0).toUpperCase() + tipoCurso.slice(1)).style.display = "block";
+
+        document.getElementById("opcionesBachillerato" + tipoCurso.charAt(0).toUpperCase() + tipoCurso.slice(1)).style.display = "block";
+
     }
 
-    var select = document.querySelector('select');
+    function mostrarOpcionesParalelo() {
+        var paraleloSeleccionado = document.getElementById("paralelo").value;
+        var opcionesParalelo = document.getElementById("opcionesParalelo");
+        opcionesParalelo.style.display = paraleloSeleccionado !== "" ? "block" : "none";
+
+        // Ocultar todas las opciones adicionales de paralelo
+        document.querySelectorAll("#opcionesParalelo optgroup").forEach(function (optgroup) {
+            optgroup.style.display = "none";
+        });
+
+        // Mostrar las opciones adicionales correspondientes al paralelo seleccionado
+        document.getElementById("opciones" + paraleloSeleccionado).style.display = "block";
+    }
+
 
     // Guardar todas las opciones en un array
     var options = Array.from(select.options).map(option => option.value);
@@ -230,6 +259,23 @@
         }
     });
 
+    function alternarFiltro(tipoUbicacion) {
+        // Obtener todas las filas de la tabla
+        var filas = document.querySelectorAll("#tablaAulas tbody tr");
+
+        // Filtrar las filas según el tipo de ubicación
+        filas.forEach(function (fila) {
+            var ubicacion = fila.querySelector("td:nth-child(3)").textContent.trim().toLowerCase();
+            if (ubicacion === tipoUbicacion.toLowerCase() || tipoUbicacion === "") {
+                fila.style.display = ""; // Mostrar la fila si coincide con la ubicación seleccionada o si no se ha seleccionado ninguna ubicación
+            } else {
+                fila.style.display = "none"; // Ocultar la fila si no coincide con la ubicación seleccionada
+            }
+        });
+
+    }
 </script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
 
 </html>
