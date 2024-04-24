@@ -100,12 +100,13 @@
 
         <input type="text" th:field="*{descripcion_mueble}" class="form-control mb-3 col-5" placeholder="Descripción del Mueble" required>
         <div class="form-group d-flex flex-column align-items-center">
-            <label class="mb-auto"><h5><b>Fecha de Ingreso</b></h5></label>
+            <label class="mb-auto"><h5><b>Fecha de Ingreso (Formato: yyyy-MM-dd HH:mm:ss)</b></h5></label>
             <div class="d-flex flex-column align-items-center">
-                <input type="date" th:field="*{fecha_ingreso}" name="fechaingreso" value="" min="1997-01-01" max="2030-12-31" class="mr-2 mb-2" required>
-                <button type="button" onclick="seleccionarFechaActual()" class="btn btn-primary btn-sm">Seleccionar la Fecha Actual</button>
+                <input type="text" th:field="*{fecha_ingreso}" name="fechaingreso" placeholder="yyyy-MM-dd HH:mm:ss" class="mr-2 mb-2" required>
+                <button type="button" onclick="seleccionarFechaActual()" class="btn btn-primary btn-sm">Seleccionar la Fecha y Hora Actual</button>
             </div>
         </div>
+
         <input type="number" th:field="*{cantidad}" class="form-control mb-3 col-5" placeholder="Cantidad" required min="1" oninput="validarCantidad(this)">
 
         <select th:field="*{estado}" class="form-control mb-3 col-5" required>
@@ -127,9 +128,12 @@
     }
 
     function seleccionarFechaActual() {
-        var fechaActual = new Date().toISOString().split('T')[0]; // Obtener la fecha actual en formato yyyy-mm-dd
-        document.getElementById("fecha_ingreso").value = fechaActual; // Establecer la fecha actual en el campo de entrada
+        var fechaActual = new Date().toISOString().split('T')[0]; // Obtener la fecha actual en formato yyyy-MM-dd
+        var horaActual = new Date().toLocaleTimeString([], { hour12: false }); // Obtener la hora actual en formato HH:mm:ss
+        var fechaHoraActual = fechaActual + " " + horaActual; // Combinar fecha y hora
+        document.getElementById("fecha_ingreso").value = fechaHoraActual; // Establecer la fecha y hora actual en el campo de entrada
     }
+
 
     function checkIfOther(select) {
         var otroInput = document.getElementById("otroMuebleInput");

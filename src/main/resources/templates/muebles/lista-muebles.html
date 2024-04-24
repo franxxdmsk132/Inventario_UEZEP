@@ -164,7 +164,7 @@
         <th>Código</th>
         <th>Nombre</th>
         <th>Descripción</th>
-        <th>Fecha Ingreso</th>
+        <th onclick="ordenarPorFechaIngreso()">Fecha Ingreso</th>
         <th>Estado</th>
         <th>Cantidad</th>
         <th>Asignación</th>
@@ -279,6 +279,60 @@
     }
 
 </script>
+
+
+<script>
+    function parseFecha(fecha) {
+        // Verificar si la fecha está definida y no es nula
+        if (fecha && typeof fecha === 'string') {
+            // Separar la fecha y la hora
+            var partes = fecha.split(' ');
+            if (partes.length === 2) {
+                var fechaPartes = partes[0].split('-');
+                var horaPartes = partes[1].split(':');
+
+                // Verificar si se pudieron dividir correctamente las partes
+                if (fechaPartes.length === 3 && horaPartes.length === 3) {
+                    // El mes en JavaScript es 0-indexed, por lo que restamos 1 al mes
+                    return new Date(fechaPartes[2], fechaPartes[1] - 1, fechaPartes[0], horaPartes[0], horaPartes[1], horaPartes[2]);
+                }
+            }
+        }
+
+        // Si la fecha no está en el formato esperado, devolver null o lanzar un error, según sea adecuado para tu caso
+        return null;
+    }
+
+    // Función para ordenar la tabla por la columna "Fecha Ingreso"
+    function ordenarPorFechaIngreso() {
+        var table, rows, switching, i, x, y, shouldSwitch;
+        table = document.getElementById("tablaMuebles");
+        switching = true;
+        /* Hacer un bucle hasta que no haya cambios */
+        while (switching) {
+            switching = false;
+            rows = table.getElementsByTagName("tr");
+            /* Iterar sobre todas las filas, excepto el encabezado */
+            for (i = 1; i < (rows.length - 1); i++) {
+                shouldSwitch = false;
+                /* Obtener los elementos td de las dos filas que se comparan */
+                x = rows[i].getElementsByTagName("td")[4]; // Suponiendo que la fecha de ingreso está en la quinta columna (índice 4)
+                y = rows[i + 1].getElementsByTagName("td")[4];
+                /* Verificar si las dos filas deben cambiar de lugar, basado en el valor de la fecha */
+                if (parseFecha(x.textContent) < parseFecha(y.textContent)) {
+                    shouldSwitch = true;
+                    break;
+                }
+            }
+            if (shouldSwitch) {
+                /* Si se debe cambiar de lugar, hacerlo y marcar que se ha hecho un cambio */
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+            }
+        }
+    }
+</script>
+
 
 
 <script>
