@@ -143,9 +143,13 @@
         } else {
             otroInput.style.display = "none";
             otroInput.required = false;
+
+            // Eliminar la coma al final del valor del campo de texto si está presente
+            otroInput.value = otroInput.value.replace(/,\s*$/, '');
         }
         generarCodigo(select.value);
     }
+
 
     // Objeto para mantener el registro de códigos generados para cada tipo de mueble
     var codigosGenerados = {

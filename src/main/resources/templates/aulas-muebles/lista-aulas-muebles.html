@@ -136,65 +136,88 @@
     </div>
 
 
-    <table class="table  table-hover ">
-        <thead class="thead-darkGray text-center">
-        <tr>
-            <th>ID</th>
-            <th>ID AULA</th>
-            <th>ID MUEBLE</th>
-            <th>ACCIONES</th>
+    <div class="row">
+        <div class="col">
+            <h2>Lista de Aulas</h2>
+            <table id="tablaAulas" class="table table-hover">
+                <thead class="thead-darkGray text-center">
+                <tr>
+                    <th>ID</th>
+                    <th>ID AULA</th>
+                    <th>CURSO</th>
+                    <th>ACCIONES</th>
 
 
-        </tr>
-        </thead>
-        <tr th:each="aulasmuebles, i: ${aulasmueble}">
-            <td th:text="${aulasmuebles.id}" class="text-center"></td>
-            <td th:text="${aulasmuebles.aulas.id_aula}" class="text-center"></td>
-            <td th:text="${aulasmuebles.muebles.id_mueble}" class="text-center"></td>
+                </tr>
+                </thead>
+                <tr th:each="aulasmuebles, i: ${aulasmueble}">
+                    <td th:text="${aulasmuebles.id}" class="text-center"></td>
+                    <td th:text="${aulasmuebles.aulas.id_aula}" class="text-center"></td>
+                    <td th:text="${aulasmuebles.aulas.curso}" class="text-center"></td>
 
 
+                    <td class="text-center">
+                        <div class="d-flex justify-content-center">
+                            <a th:href="@{/defmub/masDetalles(id_aula=${aulasmuebles.aulas.id_aula})}"
+                               class="btn btn-success btn-sm mr-2" title="Ver más detalles"> DETALLES
+                                <img th:src="@{/images/ver.png}" class="d-inline-block align-text-top" width="20"
+                                     height="20"
+                                     alt="icon">
+                            </a>
 
-            <td class="text-center">
-                <div class="d-flex justify-content-center">
-                    <a th:href="@{/defmub/masDetalles(id=${aulasmuebles.id})}"
-                       class="btn btn-success btn-sm mr-2" title="Ver más detalles"> DETALLES
-                        <img th:src="@{/images/ver.png}" class="d-inline-block align-text-top" width="20" height="20"
-                             alt="icon">
-                    </a>
+                            <a th:href="@{/aulas/cambiarAula(id_aula=${aulasmuebles.id})}"
+                               class="btn btn-info btn-sm mr-2" title="Actualizar Informacion"> ACTUALIZACIONES
+                                <img th:src="@{/images/editar.png}" class="d-inline-block align-text-top" width="20"
+                                     height="20"
+                                     alt="icon">
+                            </a>
 
-                    <a th:href="@{/aulas/cambiarAula(id_aula=${aulasmuebles.id})}"
-                       class="btn btn-info btn-sm mr-2" title="Actualizar Informacion"> ACTUALIZACIONES
-                        <img th:src="@{/images/editar.png}" class="d-inline-block align-text-top" width="20" height="20"
-                             alt="icon">
-                    </a>
-
-                    <form id="eliminarAulaForm" th:action="@{/aulas/delete}" th:method="post">
-                        <input type="hidden" name="id_aula" th:value="${aulasmuebles.id}">
-                        <button type="button" class="btn btn-danger btn-sm" title="Eliminar"
-                                onclick="return confirmarEliminacion(event)">
-                            ELIMINAR
-                            <img th:src="@{/images/borrar.png}" class="d-inline-block align-text-top" width="20"
-                                 height="20" alt="icon">
-                        </button>
-                    </form>
-                </div>
-            </td>
+                            <form id="eliminarAulaForm" th:action="@{/aulas/delete}" th:method="post">
+                                <input type="hidden" name="id_aula" th:value="${aulasmuebles.id}">
+                                <button type="button" class="btn btn-danger btn-sm" title="Eliminar"
+                                        onclick="return confirmarEliminacion(event)">
+                                    ELIMINAR
+                                    <img th:src="@{/images/borrar.png}" class="d-inline-block align-text-top" width="20"
+                                         height="20" alt="icon">
+                                </button>
+                            </form>
+                        </div>
+                    </td>
 
 
-        </tr>
-        <tbody>
+                </tr>
+                <tbody>
 
-        </tbody>
+                </tbody>
 
-    </table>
+            </table>
+            <div th:unless="${not #lists.isEmpty(aulasmueble)}" class="alert alert-info" role="alert">
+                No hay registros.
+            </div>
+            <a th:href="@{/defmub/lista}" class="btn btn-warning btn-sm mb-3">CARGAR <img
+                    th:src="@{/images/recargar.png}"
+                    class="d-inline-block align-text-top"
+                    width="20" height="20"
+                    alt="icon">
+            </a>
+        </div>
+        <div class="col">
+            <h2>Muebles en el Aula Seleccionada</h2>
+            <table id="tablaMuebles" class="table table-hover">
+                <!-- Encabezado para la tabla de muebles -->
+            </table>
+        </div>
+    </div>
+
+
     <div th:unless="${not #lists.isEmpty(aulasmueble)}" class="alert alert-info" role="alert">
         No hay registros.
     </div>
-    <a th:href="@{/defmub/lista}" class="btn btn-warning btn-sm mb-3">CARGAR <img th:src="@{/images/recargar.png}"
-                                                                                  class="d-inline-block align-text-top"
-                                                                                  width="20" height="20"
-                                                                                  alt="icon">
-    </a>
+    <!--    <a th:href="@{/defmub/lista}" class="btn btn-warning btn-sm mb-3">CARGAR <img th:src="@{/images/recargar.png}"-->
+    <!--                                                                                  class="d-inline-block align-text-top"-->
+    <!--                                                                                  width="20" height="20"-->
+    <!--                                                                                  alt="icon">-->
+    <!--    </a>-->
     <p class="text-danger warning" th:if="${searchWarning}" th:text="${searchWarning}"></p>
 
 </div>
@@ -221,6 +244,7 @@
         });
     }
 </script>
+
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 

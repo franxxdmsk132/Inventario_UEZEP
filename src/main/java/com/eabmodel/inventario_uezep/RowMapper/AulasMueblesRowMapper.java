@@ -12,20 +12,39 @@ public class AulasMueblesRowMapper implements RowMapper<AulasMuebles> {
     @Override
     public AulasMuebles mapRow(ResultSet rs, int rowNum) throws SQLException {
         AulasMuebles aulasMuebles = new AulasMuebles();
-
-        // Mapeo de los campos de la tabla intermedia a los campos de la entidad AulasMuebles
         aulasMuebles.setId(rs.getInt("id"));
 
         // Mapeo de la relación con la entidad Aulas
-        Aulas aulas = new Aulas();
-        aulas.setId_aula(rs.getInt("id_aula")); // Suponiendo que el campo en la tabla intermedia es "id_aula"
+        Aulas aulas = mapAulas(rs);
         aulasMuebles.setAulas(aulas);
 
         // Mapeo de la relación con la entidad Muebles
-        Muebles muebles = new Muebles();
-        muebles.setId_mueble(rs.getInt("id_mueble")); // Suponiendo que el campo en la tabla intermedia es "id_mueble"
+        Muebles muebles = mapMuebles(rs);
         aulasMuebles.setMuebles(muebles);
 
         return aulasMuebles;
+    }
+
+    private Aulas mapAulas(ResultSet rs) throws SQLException {
+        Aulas aulas = new Aulas();
+        aulas.setId_aula(rs.getInt("id_aula"));
+        aulas.setCurso(rs.getString("curso"));
+        aulas.setParalelo(rs.getString("paralelo"));
+        aulas.setUbicacion_aula(rs.getString("ubicacion_aula"));
+        aulas.setEncargado(rs.getString("encargado"));
+        return aulas;
+    }
+
+    private Muebles mapMuebles(ResultSet rs) throws SQLException {
+        Muebles muebles = new Muebles();
+        muebles.setId_mueble(rs.getInt("id_mueble"));
+        muebles.setCodigo_mueble(rs.getString("codigo_mueble"));
+        muebles.setNombre_mueble(rs.getString("nombre_mueble"));
+        muebles.setDescripcion_mueble(rs.getString("descripcion_mueble"));
+        muebles.setFecha_ingreso(rs.getString("fecha_ingreso"));
+        muebles.setEstado(rs.getBoolean("estado"));
+        muebles.setCantidad(rs.getInt("cantidad"));
+        muebles.setAsignacion(rs.getInt("asignacion"));
+        return muebles;
     }
 }

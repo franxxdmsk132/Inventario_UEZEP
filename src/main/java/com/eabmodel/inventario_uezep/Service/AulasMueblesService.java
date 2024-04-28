@@ -19,14 +19,16 @@ public class AulasMueblesService {
     public void asignarMueblesAAula(int idAula, List<Integer> idMuebles) {
         aulasMueblesDao.asignarMueblesAAula(idAula, idMuebles);
     }
+
     public List<AulasMuebles> findAll() {
-        return aulasMueblesDao.findAllWithDetails();
+        return aulasMueblesDao.findAllWithDetails3();
     }
+
     public List<AulasMuebles> findAllGroupBy() {
         return aulasMueblesDao.findAllAulasMueblesWithDetailsGroupBy();
     }
 
-
-
-    // Otros métodos del servicio, si es necesario
+    public List<AulasMuebles> findDetailsByAulaIdWrapper(int id_aula) {
+        return aulasMueblesDao.findDetailsByAulaId(id_aula);
+    }
 }

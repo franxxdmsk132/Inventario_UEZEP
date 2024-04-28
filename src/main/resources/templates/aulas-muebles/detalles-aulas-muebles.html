@@ -1,0 +1,140 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+    <style>
+        .btn:hover {
+            transform: scale(1.2); /* Aumenta el tamaño del botón al 120% cuando se pasa el cursor sobre él */
+            transition: transform 0.2s; /* Agrega una transición suave de 0.2 segundos */
+        }
+
+        .thead-darkGray {
+            background-color: #4b4c4f; /* Puedes ajustar el color según tus preferencias */
+            color: white;
+        }
+
+        .body-gradient {
+            background: linear-gradient(to bottom, #ffffff, #4b4c4f 1800px)
+
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            width: 100%;
+            height: 100%;
+            min-height: 100%;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav {
+            background-color: #4b4c4f;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+        }
+
+        .nav-link:hover {
+            transform: scale(1.25); /* Aumenta el tamaño del enlace al 120% cuando se pasa el cursor sobre él */
+            transition: transform 0.2s; /* Agrega una transición suave de 0.2 segundos */
+            color: #ffffff; /* Cambia el color del texto del enlace a rojo cuando el puntero se acerca */
+
+        }
+
+        .fila-inactiva {
+            background-color: rgba(230, 155, 155, 0.29); /* Cambia el color de fondo a rojo claro */
+        }
+
+
+    </style>
+    <title>DETALLES</title>
+</head>
+<body>
+
+
+<br>
+
+<div class="container" align="left" th:if="${aulmue}">
+    <h3 align="center">
+        <img th:src="@{/images/aula.png}"
+             class="d-inline-block align-text-top" width="40" height="40"
+             alt="icon"> <b>Aulas</b>
+    </h3>
+    <h4 align="center"><a th:href="@{/defmub/lista}"
+                          class="btn btn-warning btn-sm mb-3 d-inline-block align-text-top">ATRAS</a></h4>
+    <hr>
+    <p class="h4 mb-4">DETALLES</p>
+
+
+    <table>
+        <thead>
+        <tr>
+            <th>ID Mueble</th>
+            <th>Nombre del Mueble</th>
+            <th>Descripción del Mueble</th>
+            <!-- Agrega más columnas según tus necesidades -->
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Iterar sobre la lista de AulasMuebles -->
+        <tr th:each="aulasmuebles : ${aulmue}">
+            <td th:text="${aulasmuebles.muebles.id_mueble}"></td>
+            <td th:text="${aulasmuebles.muebles.nombre_mueble}"></td>
+            <td th:text="${aulasmuebles.muebles.descripcion_mueble}"></td>
+            <td th:text="${aulasmuebles.aulas.id_aula}"></td>
+
+            <!-- Agrega más celdas según tus necesidades -->
+        </tr>
+        </tbody>
+    </table>
+
+<!--    <div align="left">-->
+<!--        <a th:href="@{/defmub/lista}" class="btn btn-warning btn-sm mb-3">ATRAS</a>-->
+<!--        <a th:href="@{/defmub/nuevaAula}" class="btn btn-primary btn-sm mb-3"> AGREGAR OTRA AULA</a>-->
+<!--        <a th:href="@{/defmub/cambiarAula(id_aula=${aulmue.aulas.id_aula})}" class="btn btn-info btn-sm mb-3">-->
+<!--            ACTUALIZACIONES </a>-->
+<!--        <a th:href="@{/defmub/delete(id_aula=${aulmue.aulas.id_aula})}  " class="btn btn-danger  btn-sm mb-3"-->
+<!--           onclick="if (!(confirm('¿Estás seguro que desea eliminar la sesión de artículos?'))) return false">-->
+<!--            ELIMINAR </a>-->
+<!--    </div>-->
+
+</div>
+
+</body>
+</html>
