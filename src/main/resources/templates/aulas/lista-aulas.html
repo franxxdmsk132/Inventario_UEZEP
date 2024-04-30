@@ -104,6 +104,7 @@
                 <li class="nav-item"><a class="nav-link" href="/aulas/lista">Aulas</a></li>
                 <li class="nav-item"><a class="nav-link" href="/defmub/lista">Mobiliario de Aulas</a></li>
                 <li class="nav-item"><a class="nav-link" href="/departamentos/lista">Departamentos</a></li>
+                <li class="nav-item"><a class="nav-link" href="/departamentos/lista">Mobiliario de Departamentos</a></li>
             </ul>
 
             <ul class="navbar-nav">
@@ -221,15 +222,15 @@
                              alt="icon">
                     </a>
 
-                    <form id="eliminarAulaForm" th:action="@{/aulas/delete}" th:method="post">
-                        <input type="hidden" name="id_aula" th:value="${aulas.id_aula}">
-                        <button type="button" class="btn btn-danger btn-sm" title="Eliminar"
-                                onclick="return confirmarEliminacion(event)">
-                            ELIMINAR
-                            <img th:src="@{/images/borrar.png}" class="d-inline-block align-text-top" width="20"
-                                 height="20" alt="icon">
-                        </button>
-                    </form>
+<!--                    <form id="eliminarAulaForm" th:action="@{/aulas/delete}" th:method="post">-->
+<!--                        <input type="hidden" name="id_aula" th:value="${aulas.id_aula}">-->
+<!--                        <button type="button" class="btn btn-danger btn-sm" title="Eliminar"-->
+<!--                                onclick="return confirmarEliminacion(event)">-->
+<!--                            ELIMINAR-->
+<!--                            <img th:src="@{/images/borrar.png}" class="d-inline-block align-text-top" width="20"-->
+<!--                                 height="20" alt="icon">-->
+<!--                        </button>-->
+<!--                    </form>-->
                 </div>
             </td>
 
@@ -251,27 +252,27 @@
 </div>
 </body>
 
-<script>
-    function confirmarEliminacion(event) {
-        event.preventDefault(); // Evita que el formulario se envíe automáticamente
+<!--<script>-->
+<!--    function confirmarEliminacion(event) {-->
+<!--        event.preventDefault(); // Evita que el formulario se envíe automáticamente-->
 
-        Swal.fire({
-            title: '¿Está seguro que desea eliminar la sesión de artículos?',
-            text: "Esta acción no se puede deshacer!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Sí, eliminar!',
-            cancelButtonText: 'Cancelar'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // Si el usuario hace clic en "Sí, eliminar", envía el formulario
-                document.getElementById('eliminarAulaForm').submit();
-            }
-        });
-    }
-</script>
+<!--        Swal.fire({-->
+<!--            title: '¿Está seguro que desea eliminar la sesión de artículos?',-->
+<!--            text: "Esta acción no se puede deshacer!",-->
+<!--            icon: 'warning',-->
+<!--            showCancelButton: true,-->
+<!--            confirmButtonColor: '#d33',-->
+<!--            cancelButtonColor: '#3085d6',-->
+<!--            confirmButtonText: 'Sí, eliminar!',-->
+<!--            cancelButtonText: 'Cancelar'-->
+<!--        }).then((result) => {-->
+<!--            if (result.isConfirmed) {-->
+<!--                // Si el usuario hace clic en "Sí, eliminar", envía el formulario-->
+<!--                document.getElementById('eliminarAulaForm').submit();-->
+<!--            }-->
+<!--        });-->
+<!--    }-->
+<!--</script>-->
 <script>
     // Función para filtrar las filas de la tabla a medida que se escribe en el cuadro de búsqueda
     document.getElementById('buscar').addEventListener('input', function () {

@@ -104,6 +104,7 @@
                 <li class="nav-item"><a class="nav-link" href="/aulas/lista">Aulas</a></li>
                 <li class="nav-item"><a class="nav-link" href="/defmub/lista">Mobiliario de Aulas</a></li>
                 <li class="nav-item"><a class="nav-link" href="/departamentos/lista">Departamentos</a></li>
+                <li class="nav-item"><a class="nav-link" href="/departamentos/lista">Mobiliario de Departamentos</a></li>
             </ul>
 
             <ul class="navbar-nav">
@@ -172,15 +173,15 @@
                                      alt="icon">
                             </a>
 
-                            <form id="eliminarAulaForm" th:action="@{/aulas/delete}" th:method="post">
-                                <input type="hidden" name="id_aula" th:value="${aulasmuebles.id}">
-                                <button type="button" class="btn btn-danger btn-sm" title="Eliminar"
-                                        onclick="return confirmarEliminacion(event)">
-                                    ELIMINAR
-                                    <img th:src="@{/images/borrar.png}" class="d-inline-block align-text-top" width="20"
-                                         height="20" alt="icon">
-                                </button>
-                            </form>
+<!--                            <form id="eliminarAulaForm" th:action="@{/aulas/delete}" th:method="post">-->
+<!--                                <input type="hidden" name="id_aula" th:value="${aulasmuebles.id}">-->
+<!--                                <button type="button" class="btn btn-danger btn-sm" title="Eliminar"-->
+<!--                                        onclick="return confirmarEliminacion(event)">-->
+<!--                                    ELIMINAR-->
+<!--                                    <img th:src="@{/images/borrar.png}" class="d-inline-block align-text-top" width="20"-->
+<!--                                         height="20" alt="icon">-->
+<!--                                </button>-->
+<!--                            </form>-->
                         </div>
                     </td>
 
@@ -202,11 +203,31 @@
             </a>
         </div>
         <div class="col">
-            <h2>Muebles en el Aula Seleccionada</h2>
+            <h2>Muebles en la Aula Seleccionada</h2>
             <table id="tablaMuebles" class="table table-hover">
-                <!-- Encabezado para la tabla de muebles -->
+                <thead class="thead-darkGray">
+                <tr>
+                    <th>ID Mueble</th>
+                    <th>Nombre del Mueble</th>
+                    <th>Descripción del Mueble</th>
+                    <th>ID Aula</th> <!-- Agregamos el encabezado para el ID del aula -->
+                    <!-- Agrega más encabezados de columnas según sea necesario -->
+                </tr>
+                </thead>
+                <tbody>
+                <!-- Iterar sobre la lista de AulasMuebles -->
+                <tr th:each="aulasmuebles : ${aulmue}">
+                    <td th:text="${aulasmuebles.muebles.id_mueble}"></td>
+                    <td th:text="${aulasmuebles.muebles.nombre_mueble}"></td>
+                    <td th:text="${aulasmuebles.muebles.descripcion_mueble}"></td>
+                    <td th:text="${aulasmuebles.aulas.id_aula}"></td>
+                    <!-- Agrega más celdas según tus necesidades -->
+                </tr>
+                </tbody>
             </table>
         </div>
+
+
     </div>
 
 

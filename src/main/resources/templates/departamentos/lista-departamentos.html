@@ -103,6 +103,7 @@
         <li class="nav-item"><a class="nav-link" href="/aulas/lista">Aulas</a></li>
         <li class="nav-item"><a class="nav-link" href="/defmub/lista">Mobiliario de Aulas</a></li>
         <li class="nav-item"><a class="nav-link" href="/departamentos/lista">Departamentos</a></li>
+        <li class="nav-item"><a class="nav-link" href="/departamentos/lista">Mobiliario de Departamentos</a></li>
       </ul>
 
       <ul class="navbar-nav">
@@ -178,15 +179,15 @@
                  alt="icon">
           </a>
 
-          <form id="eliminarDepartamentosForm" th:action="@{/departamentos/delete}" th:method="post">
-            <input type="hidden" name="id_departamentos" th:value="${departamento.id_departamento}">
-            <button type="button" class="btn btn-danger btn-sm" title="Eliminar"
-                    onclick="return confirmarEliminacion(event)">
-              ELIMINAR
-              <img th:src="@{/images/borrar.png}" class="d-inline-block align-text-top" width="20"
-                   height="20" alt="icon">
-            </button>
-          </form>
+<!--          <form id="eliminarDepartamentosForm" th:action="@{/departamentos/delete}" th:method="post">-->
+<!--            <input type="hidden" name="id_departamentos" th:value="${departamento.id_departamento}">-->
+<!--            <button type="button" class="btn btn-danger btn-sm" title="Eliminar"-->
+<!--                    onclick="return confirmarEliminacion(event)">-->
+<!--              ELIMINAR-->
+<!--              <img th:src="@{/images/borrar.png}" class="d-inline-block align-text-top" width="20"-->
+<!--                   height="20" alt="icon">-->
+<!--            </button>-->
+<!--          </form>-->
         </div>
       </td>
 
