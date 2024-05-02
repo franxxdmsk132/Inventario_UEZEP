@@ -6,7 +6,11 @@ import com.eabmodel.inventario_uezep.Entity.Muebles;
 import com.eabmodel.inventario_uezep.Service.AulaService;
 import com.eabmodel.inventario_uezep.Service.AulasMueblesService;
 import com.eabmodel.inventario_uezep.Service.MuebleService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.hibernate.annotations.GeneratorType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +29,8 @@ public class AulasMueblesController {
     private AulaService aulaService;
     @Autowired
     private MuebleService muebleService;
+
+
 
     @GetMapping("/show")
     public String mostrarFormulario() {
@@ -54,8 +60,11 @@ public class AulasMueblesController {
         model.addAttribute("aulmue", aulasMueblesList);
         return "aulas-muebles/detalles-aulas-muebles";
     }
-
-
+    @RequestMapping(value = "/masDetalles2", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public List<AulasMuebles> viewAula(@RequestParam("id_aula") int id_aula) {
+        return aulasMueblesService.findDetailsByAulaIdWrapper(id_aula);
+    }
 
 
     @PostMapping("/save")

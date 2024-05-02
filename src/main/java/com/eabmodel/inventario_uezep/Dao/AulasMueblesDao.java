@@ -76,6 +76,20 @@ public class AulasMueblesDao {
                 "    a.id_aula = ?";
         return jdbcTemplate.query(sql, new AulasMueblesRowMapper(), id_aula);
     }
+    public List<AulasMuebles> findMueblesOfAulasById(int id_aula) {
+        String sql = "    SELECT\n" +
+                "    m.id_mueble,\n" +
+                "    m.codigo_mueble,\n" +
+                "    m.nombre_mueble,\n" +
+                "    m.descripcion_mueble\n" +
+                "            FROM\n" +
+                "    aulas_muebles am\n" +
+                "    INNER JOIN muebles m ON\n" +
+                "    am.id_mueble = m.id_mueble\n" +
+                "            WHERE\n" +
+                "    am.id_aula = ?;";
+        return jdbcTemplate.query(sql, new AulasMueblesRowMapper(), id_aula);
+    }
 
 
 
@@ -93,5 +107,18 @@ public class AulasMueblesDao {
 //    am.id_mueble = m.id_mueble
 //    GROUP BY
 //    a.id_aula;
+
+
+//    SELECT
+//    m.id_mueble,
+//    m.codigo_mueble,
+//    m.nombre_mueble,
+//    m.descripcion_mueble
+//            FROM
+//    aulas_muebles am
+//    INNER JOIN muebles m ON
+//    am.id_mueble = m.id_mueble
+//            WHERE
+//    am.id_aula = 7;
 
 }

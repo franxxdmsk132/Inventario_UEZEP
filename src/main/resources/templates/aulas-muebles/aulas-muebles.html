@@ -1,52 +1,183 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Asiganación de los  Muebles</title>
+
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+    <style>
+        .btn:hover {
+            transform: scale(1.2); /* Aumenta el tamaño del botón al 120% cuando se pasa el cursor sobre él */
+            transition: transform 0.2s; /* Agrega una transición suave de 0.2 segundos */
+        }
+
+        .thead-darkGray {
+            background-color: #4b4c4f; /* Puedes ajustar el color según tus preferencias */
+            color: white;
+        }
+
+        .body-gradient {
+            background: linear-gradient(to bottom, #ffffff, #4b4c4f 1800px)
+
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            width: 100%;
+            height: 100%;
+            min-height: 100%;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav {
+            background-color: #4b4c4f;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+        }
+
+        .nav-link:hover {
+            transform: scale(1.25); /* Aumenta el tamaño del enlace al 120% cuando se pasa el cursor sobre él */
+            transition: transform 0.2s; /* Agrega una transición suave de 0.2 segundos */
+            color: #ffffff; /* Cambia el color del texto del enlace a rojo cuando el puntero se acerca */
+
+        }
+
+        .fila-inactiva {
+            background-color: rgba(230, 155, 155, 0.29); /* Cambia el color de fondo a rojo claro */
+        }
+
+
+    </style>
+    <title>Asignacion de Muebles</title>
+
 </head>
-<body>
 
-<h2>Asignar Muebles en una Aula</h2>
+<body class="body-gradient d-flex justify-content-center align-items-center">
 
-<form action="/defmub/save" method="post" th:object="${asignacionForm}">
-    <label for="idAula">Selecciona un Aula:</label>
-    <select id="idAula" name="idAula" required>
-        <option value="" disabled selected>Selecciona un aula</option>
-        <!-- Iterar sobre la lista de aulas disponibles -->
-        <option th:each="aula : ${allAulas}" th:value="${aula.id_aula}" th:text="${aula.curso}"></option>
-    </select><br><br>
+<div class="container text-center">
+    <div>
+    <br>
 
-    <label for="idMuebles">Selecciona los Muebles:</label>
-    <select id="idMuebles" name="idMuebles" onchange="handleSelection()" required multiple>
-        <!-- Iterar sobre la lista de muebles disponibles -->
-        <option th:each="mueble : ${allMuebles}" th:value="${mueble.id_mueble}" th:text="${mueble.nombre_mueble}"></option>
-    </select><br><br>
+    <h3>
+        <img th:src="@{/images/Logo-NBG.png}" class="d-inline-block align-text-top" width="40" height="40" alt="icon">
+        <b>Mobiliario de Aulas</b>
+    </h3>
+    <h4 hidden="hidden"><a th:href="@{/aulas/lista}"
+                           class="btn btn-warning btn-sm mb-3 col-2 d-inline-block align-text-top ">ATRAS</a></h4>
+    <hr>
 
-    <!-- Mostrar los muebles seleccionados -->
-    <label>Muebles Seleccionados:</label>
-    <div id="selectedMuebles"></div>
+    <h2>Asignar Muebles en una Aula</h2>
 
-    <!-- Input oculto para almacenar los IDs de los muebles seleccionados -->
-    <input type="hidden" id="selectedMueblesIds" name="selectedMueblesIds">
+        <form action="/defmub/save" method="post" th:object="${asignacionForm}" class="d-flex flex-column align-items-center">
+            <!-- Select de aulas centrado arriba -->
+            <div class="form-group">
+                <label for="idAula" class="h4">Selecciona un Aula:</label>
+                <select id="idAula" name="idAula" class="form-control" required>
+                    <option value="" disabled selected>Selecciona un aula</option>
+                    <!-- Iterar sobre la lista de aulas disponibles -->
+                    <option th:each="aula : ${allAulas}" th:value="${aula.id_aula}" th:text="${aula.curso + ' - ' + aula.paralelo}"></option>
+                </select>
+            </div>
 
-    <button type="submit">Asignar Muebles</button>
-</form>
+            <!-- Lista de muebles en dos columnas -->
+            <div class="form-group">
+                <label class="h4">Selecciona los Muebles:</label><br>
+                <div class="row">
+                    <div class="col-md-6">
+                        <!-- Iterar sobre la mitad de la lista de muebles disponibles y mostrar un checkbox para cada uno -->
+                        <div th:each="mueble, i: ${allMuebles}" th:if="${i.index % 2 == 0}" class="form-check form-check-lg">
+                            <input type="checkbox" name="idMuebles" th:value="${mueble.id_mueble}" class="form-check-input">
+                            <label th:for="${'mueble' + mueble.id_mueble}" class="form-check-label h5" th:text="${mueble.codigo_mueble + ' - ' + mueble.nombre_mueble }"></label><br>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <!-- Iterar sobre la otra mitad de la lista de muebles disponibles y mostrar un checkbox para cada uno -->
+                        <div th:each="mueble, i: ${allMuebles}" th:if="${i.index % 2 == 1}" class="form-check form-check-lg">
+                            <input type="checkbox" name="idMuebles" th:value="${mueble.id_mueble}" class="form-check-input">
+                            <label th:for="${'mueble' + mueble.id_mueble}" class="form-check-label h5" th:text="${mueble.codigo_mueble + ' - ' + mueble.nombre_mueble }"></label><br>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
+            <button type="submit" class="btn btn-primary">Asignar Muebles</button>
+        </form>
+
+
+
+
+
+        <br>
+
+
+    <h4 align="center"><a th:href="@{/defmub/lista}"
+                          class="btn btn-warning btn-sm mb-3 d-inline-block align-text-top">ATRAS</a></h4>
+</div>
+
+</div>
 </body>
 <script>
     // Función para manejar la selección de muebles
     function handleSelection() {
         var selectElement = document.getElementById("idMuebles");
-        var selectedMueble = selectElement.options[selectElement.selectedIndex].text;
-        var selectedMuebleId = selectElement.value;
+        var selectedMuebles = [];
 
-        // Agregar el mueble seleccionado a un label
-        var selectedMueblesLabel = document.getElementById("selectedMuebles");
-        selectedMueblesLabel.innerHTML += "<span>" + selectedMueble + "</span>, ";
+        // Reiniciar la lista de muebles seleccionados
+        document.getElementById("selectedMuebles").innerHTML = "";
 
-        // Crear un input oculto para almacenar los IDs de los muebles seleccionados
+        // Obtener todos los muebles seleccionados
+        for (var i = 0; i < selectElement.selectedOptions.length; i++) {
+            var selectedOption = selectElement.selectedOptions[i];
+            var selectedMuebleId = selectedOption.value;
+            var selectedMuebleName = selectedOption.text;
+
+            selectedMuebles.push(selectedMuebleId);
+
+            // Mostrar los muebles seleccionados
+            var selectedMueblesLabel = document.getElementById("selectedMuebles");
+            selectedMueblesLabel.innerHTML += "<span>" + selectedMuebleName + "</span>, ";
+        }
+
+        // Actualizar el valor del campo de texto oculto
         var hiddenInput = document.getElementById("selectedMueblesIds");
-        hiddenInput.value += selectedMuebleId + ",";
+        hiddenInput.value = selectedMuebles.join(",");
     }
 </script>
 </html>

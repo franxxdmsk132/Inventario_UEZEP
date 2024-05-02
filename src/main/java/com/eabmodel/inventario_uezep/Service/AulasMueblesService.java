@@ -31,4 +31,7 @@ public class AulasMueblesService {
     public List<AulasMuebles> findDetailsByAulaIdWrapper(int id_aula) {
         return aulasMueblesDao.findDetailsByAulaId(id_aula);
     }
+    public List<AulasMuebles> findMueblesByIdAula(int id_aula) {
+        return aulasMueblesDao.findMueblesOfAulasById(id_aula);
+    }
 }
