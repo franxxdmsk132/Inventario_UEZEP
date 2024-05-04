@@ -89,70 +89,105 @@
 
 </head>
 
-<body class="body-gradient d-flex justify-content-center align-items-center">
-
-<div class="container text-center">
-    <div>
-    <br>
-
-    <h3>
-        <img th:src="@{/images/Logo-NBG.png}" class="d-inline-block align-text-top" width="40" height="40" alt="icon">
-        <b>Mobiliario de Aulas</b>
-    </h3>
-    <h4 hidden="hidden"><a th:href="@{/aulas/lista}"
-                           class="btn btn-warning btn-sm mb-3 col-2 d-inline-block align-text-top ">ATRAS</a></h4>
-    <hr>
-
-    <h2>Asignar Muebles en una Aula</h2>
-
-        <form action="/defmub/save" method="post" th:object="${asignacionForm}" class="d-flex flex-column align-items-center">
-            <!-- Select de aulas centrado arriba -->
-            <div class="form-group">
-                <label for="idAula" class="h4">Selecciona un Aula:</label>
-                <select id="idAula" name="idAula" class="form-control" required>
-                    <option value="" disabled selected>Selecciona un aula</option>
-                    <!-- Iterar sobre la lista de aulas disponibles -->
-                    <option th:each="aula : ${allAulas}" th:value="${aula.id_aula}" th:text="${aula.curso + ' - ' + aula.paralelo}"></option>
-                </select>
+<body class="body-gradient">
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="text-center">
+                <br>
+                <h3>
+                    <img th:src="@{/images/Logo-NBG.png}" class="d-inline-block align-text-top" width="40" height="40"
+                         alt="icon">
+                    <b>Mobiliario de Aulas</b>
+                </h3>
+                <h4><a th:href="@{/defmub/lista}" class="btn btn-warning btn-sm mb-3 d-inline-block align-text-top">ATRAS</a></h4>
+                <hr>
+                <h2>Asignar Muebles en una Aula</h2>
             </div>
+            <form action="/defmub/save2" method="post" th:object="${asignacionForm}"
+                  class="d-flex flex-column align-items-center">
+                <!-- Select de aulas -->
+                <div class="form-group">
+                    <label for="id_aula" class="h4">Selecciona un Aula:</label>
+                    <select id="id_aula" name="id_aula" class="form-control" required>
+                        <option value="" disabled selected>Selecciona un aula</option>
+                        <!-- Iterar sobre la lista de aulas disponibles -->
+                        <option th:each="aula : ${allAulas}" th:value="${aula.id_aula}"
+                                th:text="${aula.curso + ' - ' + aula.paralelo}"></option>
+                    </select>
+                </div>
 
-            <!-- Lista de muebles en dos columnas -->
-            <div class="form-group">
-                <label class="h4">Selecciona los Muebles:</label><br>
-                <div class="row">
-                    <div class="col-md-6">
-                        <!-- Iterar sobre la mitad de la lista de muebles disponibles y mostrar un checkbox para cada uno -->
-                        <div th:each="mueble, i: ${allMuebles}" th:if="${i.index % 2 == 0}" class="form-check form-check-lg">
-                            <input type="checkbox" name="idMuebles" th:value="${mueble.id_mueble}" class="form-check-input">
-                            <label th:for="${'mueble' + mueble.id_mueble}" class="form-check-label h5" th:text="${mueble.codigo_mueble + ' - ' + mueble.nombre_mueble }"></label><br>
+                <!-- Lista de muebles -->
+                <div class="form-group">
+                    <label class="h4">Selecciona los Muebles:</label>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <table class="table">
+                                    <tbody>
+                                    <!-- Iterar sobre la mitad de la lista de muebles disponibles -->
+                                    <tr th:each="mueble, i: ${allMuebles}" th:if="${i.index % 2 == 0}">
+                                        <td>
+                                            <div class="form-check">
+                                                <input type="checkbox" name="id_mueble" th:value="${mueble.id_mueble}"
+                                                       class="form-check-input" onclick="habilitarCantidad(this)">
+                                                <label th:for="${'mueble' + mueble.id_mueble}"
+                                                       class="form-check-label h5"
+                                                       th:text="${mueble.codigo_mueble + ' - ' + mueble.nombre_mueble }"></label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <input type="number" name="cantidad" class="form-control cantidad"
+                                                   placeholder="Cantidad" disabled>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <!-- Iterar sobre la otra mitad de la lista de muebles disponibles y mostrar un checkbox para cada uno -->
-                        <div th:each="mueble, i: ${allMuebles}" th:if="${i.index % 2 == 1}" class="form-check form-check-lg">
-                            <input type="checkbox" name="idMuebles" th:value="${mueble.id_mueble}" class="form-check-input">
-                            <label th:for="${'mueble' + mueble.id_mueble}" class="form-check-label h5" th:text="${mueble.codigo_mueble + ' - ' + mueble.nombre_mueble }"></label><br>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <table class="table">
+                                    <tbody>
+                                    <!-- Iterar sobre la otra mitad de la lista de muebles disponibles -->
+                                    <tr th:each="mueble, i: ${allMuebles}" th:if="${i.index % 2 == 1}">
+                                        <td>
+                                            <div class="form-check">
+                                                <input type="checkbox" name="id_mueble" th:value="${mueble.id_mueble}"
+                                                       class="form-check-input" onclick="habilitarCantidad(this)">
+                                                <label th:for="${'mueble' + mueble.id_mueble}"
+                                                       class="form-check-label h5"
+                                                       th:text="${mueble.codigo_mueble + ' - ' + mueble.nombre_mueble }"></label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <input type="number" name="cantidad" class="form-control cantidad"
+                                                   placeholder="Cantidad" disabled>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <button type="submit" class="btn btn-primary">Asignar Muebles</button>
-        </form>
-
-
-
-
-
-        <br>
-
-
-    <h4 align="center"><a th:href="@{/defmub/lista}"
-                          class="btn btn-warning btn-sm mb-3 d-inline-block align-text-top">ATRAS</a></h4>
-</div>
-
+                <button type="submit" class="btn btn-primary">Asignar Muebles</button>
+            </form>
+            <br>
+        </div>
+    </div>
 </div>
 </body>
+<script>
+    function habilitarCantidad(checkbox) {
+        // Obtener el campo de cantidad asociado al checkbox actual
+        var cantidadInput = checkbox.parentElement.parentElement.nextElementSibling.querySelector('input[name="cantidad"]');
+        // Habilitar o deshabilitar el campo de cantidad según el estado del checkbox
+        cantidadInput.disabled = !checkbox.checked;
+    }
+
+</script>
 <script>
     // Función para manejar la selección de muebles
     function handleSelection() {
@@ -178,6 +213,22 @@
         // Actualizar el valor del campo de texto oculto
         var hiddenInput = document.getElementById("selectedMueblesIds");
         hiddenInput.value = selectedMuebles.join(",");
+    }
+</script>
+<script>
+    function validarFormulario() {
+        // Obtener todos los campos de cantidad
+        var cantidades = document.getElementsByName("cantidad");
+
+        // Iterar sobre los campos de cantidad
+        for (var i = 0; i < cantidades.length; i++) {
+            // Si algún campo de cantidad está vacío y su correspondiente checkbox está marcado, mostrar un mensaje de error y detener el envío del formulario
+            if (cantidades[i].value === "" && cantidades[i].previousElementSibling.checked) {
+                alert("Por favor, ingresa la cantidad para todos los muebles seleccionados.");
+                return false; // Detener el envío del formulario
+            }
+        }
+        return true; // Permitir el envío del formulario si todas las validaciones pasan
     }
 </script>
 </html>

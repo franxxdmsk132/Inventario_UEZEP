@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 @Transactional
@@ -32,6 +33,44 @@ public class AulasMueblesDao {
             }
         }
     }
+    public void asignarMueblesAAulaConCantidad(int idAula, Map<Integer, Integer> mueblesConCantidad) {
+        for (Map.Entry<Integer, Integer> entry : mueblesConCantidad.entrySet()) {
+            Integer idMueble = entry.getKey();
+            Integer cantidad = entry.getValue();
+
+            // Validar que la cantidad no sea negativa
+            if (cantidad < 0) {
+                cantidad = 0; // Establecer la cantidad como cero si es negativa
+            }
+
+            // Verificar si hay suficientes muebles disponibles para asignar al aula
+            String sqlMueblesDisponibles = "SELECT cantidad FROM muebles WHERE id_mueble = ?";
+            Integer cantidadDisponible = jdbcTemplate.queryForObject(sqlMueblesDisponibles, Integer.class, idMueble);
+
+            if (cantidadDisponible >= cantidad) {
+                // Verificar si ya existe una asignación para este aula y mueble
+                String sqlExisteAsignacion = "SELECT COUNT(*) FROM aulas_muebles WHERE id_aula = ? AND id_mueble = ?";
+                int count = jdbcTemplate.queryForObject(sqlExisteAsignacion, Integer.class, idAula, idMueble);
+
+                if (count == 0) {
+                    // Si no existe, realizar la asignación
+                    String sqlAsignarMueble = "INSERT INTO aulas_muebles (id_aula, id_mueble, cantidad) VALUES (?, ?, ?)";
+                    jdbcTemplate.update(sqlAsignarMueble, idAula, idMueble, cantidad);
+
+                    // Actualizar la cantidad y asignación de muebles en la tabla 'muebles'
+                    String sqlActualizarMuebles = "UPDATE muebles SET cantidad = cantidad - ?, asignacion = asignacion + ? WHERE id_mueble = ?";
+                    jdbcTemplate.update(sqlActualizarMuebles, cantidad, cantidad, idMueble);
+                }
+            } else {
+                // Manejar el caso en el que no haya suficientes muebles disponibles
+                throw new IllegalArgumentException("No hay suficientes muebles disponibles para asignar al aula.");
+            }
+        }
+    }
+
+
+
+
     public List<AulasMuebles> findAllWithDetails() {
         String sql = "SELECT am.*, a.curso AS aula_curso, m.nombre_mueble AS mueble_nombre FROM aulas_muebles am " +
                 "INNER JOIN aulas a ON am.id_aula = a.id_aula " +
@@ -89,6 +128,10 @@ public class AulasMueblesDao {
                 "            WHERE\n" +
                 "    am.id_aula = ?;";
         return jdbcTemplate.query(sql, new AulasMueblesRowMapper(), id_aula);
+    }
+    public AulasMuebles findAsignacionByIdAulaAndIdMueble(int id_aula, int id_mueble) {
+        String sql = "SELECT * FROM aulas_muebles WHERE id_aula = ? AND id_mueble = ?";
+        return jdbcTemplate.queryForObject(sql, new Object[]{id_aula, id_mueble}, new AulasMueblesRowMapper());
     }
 
 

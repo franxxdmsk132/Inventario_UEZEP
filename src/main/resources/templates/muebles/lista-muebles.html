@@ -92,7 +92,7 @@
 <body class="body-gradient">
 
 <section id="header">
-    <nav class="navbar navbar-expand-lg">
+    <nav class="navbar navbar-expand-lg fixed-top" >
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav">
                 <li class="nav-item active"><a class="nav-link" href="/">
@@ -113,7 +113,9 @@
     </nav>
 </section>
 
-
+<br>
+<br>
+<br>
 <br>
 <div class="container-fluid" align="center">
 
@@ -164,10 +166,10 @@
         <th>Código</th>
         <th>Nombre</th>
         <th>Descripción</th>
-        <th onclick="ordenarPorFechaIngreso()">Fecha Ingreso</th>
+        <th  hidden="hidden" onclick="ordenarPorFechaIngreso()">Fecha Ingreso</th>
         <th>Estado</th>
-        <th>Cantidad</th>
-        <th>Asignación</th>
+        <th hidden="hidden" >Cantidad</th>
+        <th hidden="hidden" >Asignación</th>
         <th>Total</th>
         <th>Acciones</th>
 
@@ -179,7 +181,7 @@
         <td th:text="${muebles.codigo_mueble}" class="text-center"/>
         <td th:text="${muebles.nombre_mueble}" class="text-center"/>
         <td th:text="${muebles.descripcion_mueble}" class="text-center"/>
-        <td th:text="${muebles.fecha_ingreso}" class="text-center"/>
+        <td hidden="hidden" th:text="${muebles.fecha_ingreso}" class="text-center"/>
         <td class="text-center" id="estadoMuebleInput">
             <span th:if="${muebles.estado}"> <!-- Si el estado es activo -->
               <img src="/images/on.png" alt="Activo" width="40" height="40">
@@ -189,8 +191,8 @@
                 <img src="/images/off.png" alt="Inactivo" width="40" height="40">
             </span>
         </td>
-        <td th:text="${muebles.cantidad}" class="text-center"></td>
-        <td th:text="${muebles.asignacion}" class="text-center"></td>
+        <td hidden="hidden" th:text="${muebles.cantidad}" class="text-center"></td>
+        <td hidden="hidden" th:text="${muebles.asignacion}" class="text-center"></td>
         <td class="text-center"><span th:text="${muebles.cantidad + muebles.asignacion}"></span></td>
 
 

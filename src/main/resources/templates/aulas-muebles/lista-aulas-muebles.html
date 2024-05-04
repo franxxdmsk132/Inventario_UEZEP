@@ -159,13 +159,17 @@
 
                     <td class="text-center">
                         <div class="d-flex justify-content-center">
-                            <a th:href="@{/defmub/masDetalles(id_aula=${aulasmuebles.aulas.id_aula})}"
-                               class="btn btn-success btn-sm mr-2" title="Ver más detalles"> DETALLES
+<!--                            <a th:href="@{/defmub/masDetalles(id_aula=${aulasmuebles.aulas.id_aula})}"-->
+<!--                               class="btn btn-success btn-sm mr-2" title="Ver más detalles"> DETALLES-->
+<!--                                <img th:src="@{/images/ver.png}" class="d-inline-block align-text-top" width="20"-->
+<!--                                     height="20"-->
+<!--                                     alt="icon">-->
+<!--                            </a>-->
+                            <a th:href="@{/defmub/masDetalles(id_aula=${aulasmuebles.aulas.id_aula})}" onclick="cargarDetalles(event)" class="btn btn-success btn-sm mr-2"
+                               title="Ver más detalles">VER MUEBLES
                                 <img th:src="@{/images/ver.png}" class="d-inline-block align-text-top" width="20"
                                      height="20"
-                                     alt="icon">
-                            </a>
-                            <a th:href="@{/defmub/masDetalles(id_aula=${aulasmuebles.aulas.id_aula})}" onclick="cargarDetalles(event)" class="btn btn-success btn-sm mr-2" title="Ver más detalles">DETALLES</a>
+                                     alt="icon"></a>
 
 
                             <a th:href="@{/aulas/cambiarAula(id_aula=${aulasmuebles.id})}"

@@ -84,6 +84,49 @@ public class AulasMueblesController {
             return "Error al asignar los muebles al aula: " + e.getMessage();
         }
     }
+//    @PostMapping("/save2")
+//    @ResponseBody
+//    public String asignarMueblesAAulaConCantidad(@RequestParam("id_aula") int idAula,
+//                                                 @RequestParam("cantidad") int cantidadTotal,
+//                                                 @RequestParam("id_mueble") String idMuebles) {
+//        try {
+//            // Convertir la cadena de IDs de muebles a una lista de enteros
+//            List<Integer> mueblesIds = Arrays.stream(idMuebles.split(","))
+//                    .map(Integer::parseInt)
+//                    .collect(Collectors.toList());
+//
+//            // Llamar al método del servicio para asignar los muebles al aula con la cantidad total
+//            aulasMueblesService.asignarMueblesAAulaConCantidad(idAula, cantidadTotal, mueblesIds);
+//
+//            return "Muebles asignados correctamente al aula.";
+//        } catch (Exception e) {
+//            // Manejar cualquier excepción que pueda ocurrir durante la asignación de muebles al aula
+//            return "Error al asignar los muebles al aula: " + e.getMessage();
+//        }
+//    }
+@PostMapping("/save2")
+@ResponseBody
+public String asignarMueblesAAulaConCantidad(@RequestParam("id_aula") int idAula,
+                                             @RequestParam("id_mueble") String[] idMuebles,
+                                             @RequestParam("cantidad") String[] cantidades) {
+    try {
+        // Llamar al método del servicio para asignar los muebles al aula con las cantidades correspondientes
+        aulasMueblesService.asignarMueblesAAulaConCantidad2(idAula, idMuebles, cantidades);
+
+        // Devolver mensaje de éxito solo si no hay excepciones
+        return "Muebles asignados correctamente al aula.";
+    } catch (NumberFormatException e) {
+        // Manejar el error de conversión de cadenas a enteros
+        return "Error: Las cantidades deben ser números enteros válidos.";
+    } catch (Exception e) {
+        // Manejar cualquier otra excepción que pueda ocurrir durante la asignación de muebles al aula
+        return "Error al asignar los muebles al aula: " + e.getMessage();
+    }
+}
+
+
+
+
 
     // Otros métodos del controlador, si es necesario
 }

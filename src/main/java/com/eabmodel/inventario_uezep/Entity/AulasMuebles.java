@@ -15,6 +15,8 @@ public class AulasMuebles {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    private Integer cantidad;
+
 
     @ManyToOne
     @JoinColumn(name = "id_aula")

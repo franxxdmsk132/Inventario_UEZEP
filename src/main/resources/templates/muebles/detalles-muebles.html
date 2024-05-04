@@ -116,14 +116,19 @@
             <td th:text="${muebles.asignacion}"></td>
         </tr>
         <tr th:if="${muebles}">
+            <th>Total</th>
+            <td th:text="${muebles.cantidad + muebles.asignacion}"></td>
+        </tr>
+        <tr th:if="${muebles}">
             <th>Estado</th>
             <td th:text="${muebles.estado == true ? 'Activo' : 'Inactivo'}"></td>
         </tr>
+
         <tr th:if="${muebles}">
             <th>Fecha de ingreso</th>
             <td th:text="${muebles.fecha_ingreso}"></td>
         </tr>
-        </tr>
+
 
         <tbody>
         </tbody>
