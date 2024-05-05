@@ -82,7 +82,7 @@ public class MuebleController {
     @PostMapping("/update")
     public String updateMuebles2(@ModelAttribute("muebles") Muebles muebles) {
 
-        muebleService.update2(muebles);
+        muebleService.update(muebles);
 
         return "redirect:/muebles/lista";
     }

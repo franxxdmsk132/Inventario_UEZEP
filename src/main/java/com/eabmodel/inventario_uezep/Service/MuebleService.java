@@ -32,8 +32,8 @@ public class MuebleService {
 //    public void update(Muebles muebles) {
 //        mueblesDao.update(muebles);
 //    }
-    public void update2(Muebles muebles) {
-        mueblesDao.update(muebles);
+    public void update(Muebles muebles) {
+        mueblesDao.update3(muebles);
     }
 
 
