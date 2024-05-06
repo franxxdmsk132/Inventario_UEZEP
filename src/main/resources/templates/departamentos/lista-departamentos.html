@@ -165,6 +165,10 @@
       <!--            </td>-->
 
 
+
+
+
+
       <td class="text-center">
         <div class="d-flex justify-content-center">
           <a th:href="@{/departamentos/masDetalles(id_departamento=${departamento.id_departamento})}"
@@ -198,6 +202,20 @@
 
     </tbody>
 
+    <div class="d-flex justify-content-center">
+      <button class="btn btn-info custom-btn btn-sm mb-6 mr-2" onclick="filtrarTabla('Matutino', 'Matutina')">
+        <div class="d-flex align-items-center">
+          <span class="ml-6">Matutino</span>
+        </div>
+      </button>
+      <button class="btn btn-info custom-btn btn-sm mb-6 mr-2" onclick="filtrarTabla('Vespertino', 'Vespertina')">
+        <div class="d-flex align-items-center">
+          <span class="ml-6">Vespertino</span>
+        </div>
+      </button>
+    </div>
+
+
   </table>
   <div th:unless="${not #lists.isEmpty(departamentos)}" class="alert alert-info" role="alert">
     No hay Departamentos registrados.
@@ -206,6 +224,7 @@
                                                                                class="d-inline-block align-text-top"
                                                                                width="20" height="20"
                                                                                alt="icon">
+
   </a>
   <p class="text-danger warning" th:if="${searchWarning}" th:text="${searchWarning}"></p>
 
@@ -213,25 +232,34 @@
 </body>
 
 <script>
-  function confirmarEliminacion(event) {
-    event.preventDefault(); // Evita que el formulario se envíe automáticamente
+  function filtrarTabla(turno, tipoJornada) {
+    console.log("Filtrando por turno:", turno);
+    console.log("Filtrando por tipo de jornada:", tipoJornada);
 
-    Swal.fire({
-      title: '¿Está seguro que desea eliminar la sesión de artículos?',
-      text: "Esta acción no se puede deshacer!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#d33',
-      cancelButtonColor: '#3085d6',
-      confirmButtonText: 'Sí, eliminar!',
-      cancelButtonText: 'Cancelar'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        // Si el usuario hace clic en "Sí, eliminar", envía el formulario
-        document.getElementById('eliminarDepartamentosForm').submit();
+    // Obtener todas las filas de la tabla
+    var filas = document.querySelectorAll("table tbody tr");
+
+    // Iterar sobre todas las filas y mostrar u ocultar según el tipo de jornada y turno
+    filas.forEach(function(fila) {
+      var tipoJornadaFila = fila.dataset.jornada;
+      var turnoFila = fila.dataset.turno;
+
+      // Mostrar la fila si coincide con el tipo de jornada y turno seleccionados, de lo contrario, ocultarla
+      if (tipoJornadaFila === tipoJornada && turnoFila === turno) {
+        fila.style.display = "table-row";
+      } else {
+        fila.style.display = "none";
       }
     });
   }
+
+
+
+
+
+
+
+
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
