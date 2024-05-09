@@ -17,7 +17,6 @@ public class AulasMuebles {
     private Integer id;
     private Integer cantidad;
 
-
     @ManyToOne
     @JoinColumn(name = "id_aula")
     private Aulas aulas;

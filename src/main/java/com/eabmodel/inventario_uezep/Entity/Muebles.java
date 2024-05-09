@@ -26,5 +26,4 @@ public class Muebles {
     private Integer asignacion;
     @OneToMany(mappedBy = "muebles")
     private List<AulasMuebles> aulas_muebles;
-
 }

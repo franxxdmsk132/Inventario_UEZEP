@@ -1,0 +1,94 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Meta etiquetas necesarias -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>Actualizar Muebles en Aula</title>
+</head>
+<body>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h2 class="text-center">Actualizar Muebles en Aula</h2>
+            <!-- Mostrar el nombre del aula -->
+
+            <div class="text-center mb-3">
+                <h4>Aula: <span th:text="${aulasmue[0].aulas.curso} + ' - ' + ${aulasmue[0].aulas.paralelo}"></span></h4>
+            </div>
+            <!-- Formulario para actualizar los muebles -->
+            <form action="/defmub/update" method="post">
+                <!-- Campo oculto para almacenar el ID del aula -->
+                <input type="hidden" name="id_aula" th:value="${aulasmue[0].aulas.id_aula}" />
+                <br>
+                <!-- Lista de muebles -->
+                <div class="form-group">
+                    <div class="text-left mb-3">
+                        <h4>Muebles en el aula: <span th:text="${aulasmue[0].aulas.curso} + ' - ' + ${aulasmue[0].aulas.paralelo}"></span></h4>
+                    </div>
+                    <table class="table">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th>Código</th>
+                            <th>Nombre</th>
+                            <th>Cantidad</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!-- Iterar sobre los muebles en el aula -->
+                        <tr th:each="mueble : ${aulasmue}">
+                            <td th:text="${mueble.muebles.codigo_mueble}"></td>
+                            <td th:text="${mueble.muebles.nombre_mueble}"></td>
+                            <td>
+                                <!-- Campo para actualizar la cantidad -->
+                                <input type="number" name="cantidades" th:value="${mueble.cantidad}" />
+                            </td>
+<!--                            <td>-->
+<!--                                <form id="eliminarAsignacion" th:action="@{/defmub/eliminarAsignacion}" th:method="delete">-->
+<!--                                    <input type="hidden" name="id" th:value="${mueble.id}">-->
+<!--                                    <button type="submit" class="btn btn-danger btn-sm" title="Eliminar" onclick="return confirm('¿Estás seguro de eliminar esta asignación?');">-->
+<!--                                        ELIMINAR-->
+<!--                                        <img th:src="@{/images/borrar.png}" class="d-inline-block align-text-top" width="20" height="20" alt="icon">-->
+<!--                                    </button>-->
+<!--                                </form>-->
+<!--                            </td>-->
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Botón para enviar el formulario -->
+                <button type="submit" class="btn btn-primary">Actualizar Muebles</button>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('form#eliminarAsignacion').submit(function(e) {
+            e.preventDefault();
+            var form = $(this);
+            var url = form.attr('action');
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: form.serialize(),
+                success: function(data) {
+                    alert(data);
+                    // Aquí puedes actualizar la vista o realizar otras acciones necesarias
+                },
+                error: function(xhr, status, error) {
+                    console.error(xhr.responseText);
+                }
+            });
+        });
+    });
+</script>
+
+</body>
+</html>

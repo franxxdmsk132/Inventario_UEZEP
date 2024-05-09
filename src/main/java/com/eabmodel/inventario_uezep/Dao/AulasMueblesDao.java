@@ -67,9 +67,32 @@ public class AulasMueblesDao {
             }
         }
     }
+    public void actualizarAsignacionMuebleAula(int idAula, int idMueble, int nuevaCantidad) {
+        // Verificar si ya existe una asignación para este aula y mueble
+        String sqlExisteAsignacion = "SELECT COUNT(*) FROM aulas_muebles WHERE id_aula = ? AND id_mueble = ?";
+        int count = jdbcTemplate.queryForObject(sqlExisteAsignacion, Integer.class, idAula, idMueble);
 
+        if (count > 0) {
+            // Si existe una asignación, actualizar la cantidad de muebles asignados
+            String sqlActualizarCantidad = "UPDATE aulas_muebles SET cantidad = ? WHERE id_aula = ? AND id_mueble = ?";
+            jdbcTemplate.update(sqlActualizarCantidad, nuevaCantidad, idAula, idMueble);
+        } else {
+            // Si no existe una asignación, puedes manejar diferentes casos según tus necesidades
+            // Por ejemplo, puedes agregar una nueva asignación o lanzar una excepción si no deseas permitir agregar una nueva asignación automáticamente.
+            // Aquí te muestro cómo podrías agregar una nueva asignación con la nueva cantidad:
+            String sqlAgregarAsignacion = "INSERT INTO aulas_muebles (id_aula, id_mueble, cantidad) VALUES (?, ?, ?)";
+            jdbcTemplate.update(sqlAgregarAsignacion, idAula, idMueble, nuevaCantidad);
+        }
+    }
 
-
+    public void eliminarAsignacionMuebleAula(int idAula, int idMueble) {
+        String sqlEliminarAsignacion = "DELETE FROM aulas_muebles WHERE id_aula = ? AND id_mueble = ?";
+        jdbcTemplate.update(sqlEliminarAsignacion, idAula, idMueble);
+    }
+    public void eliminarAsignacionMuebleAulaById(int id) {
+        String sqlEliminarAsignacion = "DELETE FROM aulas_muebles WHERE id = ?";
+        jdbcTemplate.update(sqlEliminarAsignacion, id);
+    }
 
     public List<AulasMuebles> findAllWithDetails() {
         String sql = "SELECT am.*, a.curso AS aula_curso, m.nombre_mueble AS mueble_nombre FROM aulas_muebles am " +

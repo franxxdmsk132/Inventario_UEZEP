@@ -93,25 +93,44 @@
     <table class="table">
         <thead class="thead-darkGray">
         <tr>
-            <th>ID Mueble</th>
-            <th>Nombre del Mueble</th>
-            <th>Descripción del Mueble</th>
-            <th>ID Aula</th> <!-- Agregamos el encabezado para el ID del aula -->
+            <th>ID M.</th>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Codigo M.</th> <!-- Agregamos el encabezado para el ID del aula -->
+            <th>Cantidad</th>
+            <th id="cEliminar" >Eliminar</th>
+
             <!-- Agrega más encabezados de columnas según sea necesario -->
         </tr>
         </thead>
         <tbody>
         <!-- Iterar sobre la lista de AulasMuebles -->
-        <tr th:each="aulasmuebles : ${aulmue}">
-            <td th:text="${aulasmuebles.muebles.id_mueble}"></td>
-            <td th:text="${aulasmuebles.muebles.nombre_mueble}"></td>
-            <td th:text="${aulasmuebles.muebles.descripcion_mueble}"></td>
-            <td th:text="${aulasmuebles.aulas.id_aula}"></td>
+        <tr th:each="aulmue : ${aulmue}">
+            <td th:text="${aulmue.muebles.id_mueble}"></td>
+            <td th:text="${aulmue.muebles.nombre_mueble}"></td>
+            <td th:text="${aulmue.muebles.descripcion_mueble}"></td>
+            <td th:text="${aulmue.muebles.codigo_mueble}"></td>
+            <td th:text="${aulmue.cantidad}"></td>
+
             <!-- Agrega más celdas según tus necesidades -->
+
+            <td>
+                <form id="eliminarAsignacion" th:action="@{/defmub/eliminarAsignacion}" th:method="post">
+                    <input type="hidden" name="id" th:value="${aulmue.id}">
+                    <button type="submit" class="btn btn-danger btn-sm" title="Eliminar" onclick="return confirm('¿Estás seguro de eliminar esta asignación?');">
+                        ELIMINAR
+                        <img th:src="@{/images/borrar.png}" class="d-inline-block align-text-top" width="20" height="20" alt="icon">
+                    </button>
+                </form>
+            </td>
+
+
         </tr>
+
         </tbody>
     </table>
 </div>
+
 
 </body>
 </html>

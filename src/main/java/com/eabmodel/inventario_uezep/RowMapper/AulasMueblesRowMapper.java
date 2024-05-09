@@ -13,6 +13,8 @@ public class AulasMueblesRowMapper implements RowMapper<AulasMuebles> {
     public AulasMuebles mapRow(ResultSet rs, int rowNum) throws SQLException {
         AulasMuebles aulasMuebles = new AulasMuebles();
         aulasMuebles.setId(rs.getInt("id"));
+        aulasMuebles.setCantidad(rs.getInt("cantidad"));
+
 
         // Mapeo de la relación con la entidad Aulas
         Aulas aulas = mapAulas(rs);

@@ -104,18 +104,20 @@
                 <hr>
                 <h2>Asignar Muebles en una Aula</h2>
             </div>
-            <form action="/defmub/save2" method="post" th:object="${asignacionForm}"
-                  class="d-flex flex-column align-items-center">
+            <form action="/defmub/save" method="post" th:object="${asignacionForm}" onsubmit="validarFormulario(event)" class="d-flex flex-column align-items-center">
+
                 <!-- Select de aulas -->
                 <div class="form-group">
                     <label for="id_aula" class="h4">Selecciona un Aula:</label>
-                    <select id="id_aula" name="id_aula" class="form-control" required>
+                    <select id="id_aula" name="id_aula" class="form-control">
                         <option value="" disabled selected>Selecciona un aula</option>
                         <!-- Iterar sobre la lista de aulas disponibles -->
                         <option th:each="aula : ${allAulas}" th:value="${aula.id_aula}"
                                 th:text="${aula.curso + ' - ' + aula.paralelo}"></option>
                     </select>
+                    <div id="selectError" class="invalid-feedback" style="display: none;">Por favor, selecciona un aula para continuar</div>
                 </div>
+
 
                 <!-- Lista de muebles -->
                 <div class="form-group">
@@ -128,12 +130,13 @@
                                     <!-- Iterar sobre la mitad de la lista de muebles disponibles -->
                                     <tr th:each="mueble, i: ${allMuebles}" th:if="${i.index % 2 == 0}">
                                         <td>
-                                            <div class="form-check">
+                                            <div class="form-check" onclick="activarCheckbox(this)">
                                                 <input type="checkbox" name="id_mueble" th:value="${mueble.id_mueble}"
                                                        class="form-check-input" onclick="habilitarCantidad(this)">
                                                 <label th:for="${'mueble' + mueble.id_mueble}"
                                                        class="form-check-label h5"
                                                        th:text="${mueble.codigo_mueble + ' - ' + mueble.nombre_mueble }"></label>
+                                                <span class="cantidad-disponible" th:text="'Cantidad Disponible: ' + ${mueble.cantidad}"></span>
                                             </div>
                                         </td>
                                         <td>
@@ -152,12 +155,13 @@
                                     <!-- Iterar sobre la otra mitad de la lista de muebles disponibles -->
                                     <tr th:each="mueble, i: ${allMuebles}" th:if="${i.index % 2 == 1}">
                                         <td>
-                                            <div class="form-check">
+                                            <div class="form-check" onclick="activarCheckbox(this)">
                                                 <input type="checkbox" name="id_mueble" th:value="${mueble.id_mueble}"
                                                        class="form-check-input" onclick="habilitarCantidad(this)">
                                                 <label th:for="${'mueble' + mueble.id_mueble}"
                                                        class="form-check-label h5"
                                                        th:text="${mueble.codigo_mueble + ' - ' + mueble.nombre_mueble }"></label>
+                                                <span class="cantidad-disponible" th:text="'Cantidad Disponible: ' + ${mueble.cantidad}"></span>
                                             </div>
                                         </td>
                                         <td>
@@ -165,6 +169,7 @@
                                                    placeholder="Cantidad" disabled>
                                         </td>
                                     </tr>
+
                                     </tbody>
                                 </table>
                             </div>
@@ -181,13 +186,51 @@
 </body>
 <script>
     function habilitarCantidad(checkbox) {
-        // Obtener el campo de cantidad asociado al checkbox actual
-        var cantidadInput = checkbox.parentElement.parentElement.nextElementSibling.querySelector('input[name="cantidad"]');
-        // Habilitar o deshabilitar el campo de cantidad según el estado del checkbox
-        cantidadInput.disabled = !checkbox.checked;
+    // Obtener el campo de cantidad asociado al checkbox actual
+    var cantidadInput = checkbox.parentElement.parentElement.nextElementSibling.querySelector('input[name="cantidad"]');
+    // Obtener la cantidad disponible del span
+    var cantidadDisponible = checkbox.parentElement.querySelector('.cantidad-disponible').innerText;
+    // Quitar "Cantidad Disponible: " del texto y convertirlo a número
+    cantidadDisponible = parseInt(cantidadDisponible.replace('Cantidad Disponible: ', ''));
+    // Habilitar o deshabilitar el campo de cantidad según el estado del checkbox
+    cantidadInput.disabled = !checkbox.checked;
+    // Si el checkbox está marcado, limitar el valor del input al valor disponible
+    if (checkbox.checked) {
+        cantidadInput.max = cantidadDisponible;
+        // Validar el valor ingresado
+        cantidadInput.addEventListener('input', function() {
+            var valorIngresado = parseInt(this.value);
+            if (valorIngresado > cantidadDisponible) {
+                // Si el valor ingresado es mayor que la cantidad disponible, cambiar el estilo del input y mostrar un mensaje
+                this.style.borderColor = 'red';
+                this.setCustomValidity('No puede superar la cantidad disponible');
+            } else {
+                // Si el valor ingresado es válido, restaurar el estilo y quitar el mensaje de error
+                this.style.borderColor = '';
+                this.setCustomValidity('');
+            }
+        });
+        // Validar si el campo está vacío cuando se marca el checkbox
+        if (cantidadInput.value === "") {
+            cantidadInput.style.borderColor = 'red'; // Marcar en rojo el campo de cantidad
+            cantidadInput.setCustomValidity('Este campo no puede estar vacío'); // Mostrar mensaje de error
+        }
+    } else {
+        // Si el checkbox está desmarcado, quitar la limitación de valor y restaurar el estilo del input
+        cantidadInput.max = '';
+        cantidadInput.style.borderColor = '';
+        cantidadInput.setCustomValidity('');
+    }
+}
+
+function activarCheckbox(div) {
+        var checkbox = div.querySelector('input[type="checkbox"]');
+        checkbox.checked = !checkbox.checked;
+        habilitarCantidad(checkbox);
     }
 
 </script>
+
 <script>
     // Función para manejar la selección de muebles
     function handleSelection() {
@@ -215,20 +258,32 @@
         hiddenInput.value = selectedMuebles.join(",");
     }
 </script>
-<script>
-    function validarFormulario() {
-        // Obtener todos los campos de cantidad
-        var cantidades = document.getElementsByName("cantidad");
 
-        // Iterar sobre los campos de cantidad
-        for (var i = 0; i < cantidades.length; i++) {
-            // Si algún campo de cantidad está vacío y su correspondiente checkbox está marcado, mostrar un mensaje de error y detener el envío del formulario
-            if (cantidades[i].value === "" && cantidades[i].previousElementSibling.checked) {
-                alert("Por favor, ingresa la cantidad para todos los muebles seleccionados.");
-                return false; // Detener el envío del formulario
-            }
+<script>
+    // Función para validar el formulario
+    function validarFormulario(event) {
+        // Obtener el select de aula
+        var selectAula = document.getElementById("id_aula");
+        var mueblesSeleccionados = document.querySelectorAll('input[name="id_mueble"]:checked');
+
+        // Verificar si se ha seleccionado un aula válida
+        if (selectAula.value === "") {
+            selectAula.setCustomValidity("Por favor, selecciona un aula para continuar"); // Establecer mensaje personalizado
+            event.preventDefault(); // Evitar el envío del formulario
+        } else if (mueblesSeleccionados.length === 0) {
+            alert("Por favor, selecciona al menos un mueble."); // Mostrar mensaje de alerta
+            event.preventDefault(); // Evitar el envío del formulario
+        } else {
+            selectAula.setCustomValidity(""); // Restablecer mensaje de validación
         }
-        return true; // Permitir el envío del formulario si todas las validaciones pasan
     }
 </script>
+
+
+
+
+
+
+
+
 </html>

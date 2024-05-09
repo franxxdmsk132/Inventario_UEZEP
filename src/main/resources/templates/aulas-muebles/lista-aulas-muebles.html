@@ -129,7 +129,7 @@
         </b></h1>
     <hr>
     <div class="d-flex justify-content-between">
-        <a th:href="@{/defmub/show}" class="btn btn-primary btn-sm mb-3">Agregar otra Aula <img
+        <a th:href="@{/defmub/nuevoMuebleAula}" class="btn btn-primary btn-sm mb-3">Agregar otra Aula <img
                 th:src="@{/images/disquete.png}"
                 class="d-inline-block align-text-top" width="25" height="25"
                 alt="icon"></a>
@@ -172,7 +172,7 @@
                                      alt="icon"></a>
 
 
-                            <a th:href="@{/aulas/cambiarAula(id_aula=${aulasmuebles.id})}"
+                            <a th:href="@{/defmub/cambiarMueblesAulas(id_aula=${aulasmuebles.aulas.id_aula})}"
                                class="btn btn-info btn-sm mr-2" title="Actualizar Informacion"> ACTUALIZACIONES
                                 <img th:src="@{/images/editar.png}" class="d-inline-block align-text-top" width="20"
                                      height="20"
