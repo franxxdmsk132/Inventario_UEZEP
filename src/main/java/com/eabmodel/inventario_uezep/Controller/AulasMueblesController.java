@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Controller
@@ -41,7 +43,7 @@ public class AulasMueblesController {
     }
 
     //HTML
-    //Listar
+    //Mostrar Listado
     @GetMapping("/lista")
     public String listaAulasMuebles(Model model) {
         List<AulasMuebles> aulasMuebles = aulasMueblesService.findAll();
@@ -49,7 +51,7 @@ public class AulasMueblesController {
         return "aulas-muebles/lista-aulas-muebles";
     }
 
-    //Formulario para guardar
+    //Mostrar Formulario para guardar
     @GetMapping("/nuevoMuebleAula")
     public String mostrarFormulario() {
         return "aulas-muebles/guardar-aulas-muebles";
@@ -63,15 +65,11 @@ public class AulasMueblesController {
         System.out.println("Aulas con cantidad" + aulasMueblesList);
         return "aulas-muebles/detalles-aulas-muebles";
     }
-
-    //Formulario para Actualizar
+    //Mostrar Formulario para Actualizar
     @GetMapping("/cambiarMueblesAulas")
     public String showFormForUpdate(@RequestParam("id_aula") int id_aula, Model theModel) {
-
-        List<AulasMuebles> aulasMuebles = aulasMueblesService.findMueblesByIdAula(id_aula);
-
+        List<AulasMuebles> aulasMuebles = aulasMueblesService.findDetailsByAulaIdWrapper(id_aula);
         theModel.addAttribute("aulasmue", aulasMuebles);
-
         return "aulas-muebles/actualizar-aulas-muebles";
     }
 
@@ -98,47 +96,12 @@ public class AulasMueblesController {
         }
     }
 
-    //Actualizar muebles en aula
-    @PostMapping("/update")
-    @ResponseBody
-    public String actualizarAsignacionMueblesAula(@RequestParam("id_aula") int idAula,
-                                                  @RequestParam("id_mueble") int[] idMuebles,
-                                                  @RequestParam("cantidad") int[] cantidades) {
-        try {
-            // Verificar si se están agregando, quitando o actualizando la cantidad de muebles asignados
-            for (int i = 0; i < idMuebles.length; i++) {
-                int idMueble = idMuebles[i];
-                int cantidad = cantidades[i];
-
-                // Si la cantidad es cero, eliminar la asignación del mueble en el aula
-                if (cantidad == 0) {
-                    aulasMueblesService.eliminarAsignacionMuebleAula(idAula, idMueble);
-                } else {
-                    // Si la cantidad es mayor que cero, actualizar o agregar la asignación del mueble en el aula
-                    aulasMueblesService.updateAulasMueblesAsignacion(idAula, idMueble, cantidad);
-                }
-            }
-
-            // Devolver mensaje de éxito
-            return "Asignación de muebles actualizada correctamente.";
-        } catch (Exception e) {
-            // Manejar cualquier error que pueda ocurrir durante la actualización de la asignación de muebles en el aula
-            return "Error al actualizar la asignación de muebles en el aula: " + e.getMessage();
-        }
-    }
-
-    //Eliminar
-//    @PostMapping("/eliminarAsignacion")
-//    public ResponseEntity<String> eliminarAsignacionPorId(@RequestParam("id") int id) {
-//        aulasMueblesService.eliminarAsignacionMuebleAulaById(id);
-//        return ResponseEntity.ok("Asignación eliminada exitosamente");
-//    }
+    //Eliminar Muebles Asignados
     @PostMapping("/eliminarAsignacion")
     public RedirectView eliminarAsignacionPorId(@RequestParam("id") int id) {
         aulasMueblesService.eliminarAsignacionMuebleAulaById(id);
         return new RedirectView("/defmub/lista", true);
     }
-
 
 
     //

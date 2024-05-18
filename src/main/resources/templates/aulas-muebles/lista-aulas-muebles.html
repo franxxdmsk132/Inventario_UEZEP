@@ -230,45 +230,6 @@
 </body>
 
 <script>
-    function confirmarEliminacion(event) {
-        event.preventDefault(); // Evita que el formulario se envíe automáticamente
-
-        Swal.fire({
-            title: '¿Está seguro de eliminar este artículo?',
-            text: "Esta acción no se puede deshacer!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Sí, eliminar!',
-            cancelButtonText: 'Cancelar'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // Si el usuario hace clic en "Sí, eliminar", envía el formulario
-                document.getElementById('eliminarAulaForm').submit();
-            }
-        });
-    }
-    function cargarDetalless(id_aula) {
-        $.ajax({
-            url: '/masDetalles2?id_aula=' + id_aula,
-            type: 'GET',
-            success: function(data) {
-                // Renderiza el contenido de la página de detalles en el contenedor
-                $('#detallesContainer').html(data);
-            },
-            error: function() {
-                alert('Error al cargar los detalles del aula.');
-            }
-        });
-    }
-
-
-
-
-
-</script>
-<script>
     function cargarDetalles(event) {
         // Cancela el comportamiento predeterminado del enlace
         event.preventDefault();
@@ -288,15 +249,6 @@
         xhttp.send();
     }
 </script>
-
-
-
-
-<!-- Agrega este script al final del cuerpo de tu HTML -->
-
-
-
-
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 

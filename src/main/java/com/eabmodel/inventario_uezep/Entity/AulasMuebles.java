@@ -24,4 +24,5 @@ public class AulasMuebles {
     @ManyToOne
     @JoinColumn(name = "id_mueble")
     private Muebles muebles;
+
 }

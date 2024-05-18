@@ -20,19 +20,8 @@ public class AulasMueblesDao {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    public void asignarMueblesAAula(int idAula, List<Integer> idMuebles) {
-        for (Integer idMueble : idMuebles) {
-            // Verificar si ya existe una asignación para este aula y mueble
-            String sqlExisteAsignacion = "SELECT COUNT(*) FROM aulas_muebles WHERE id_aula = ? AND id_mueble = ?";
-            int count = jdbcTemplate.queryForObject(sqlExisteAsignacion, Integer.class, idAula, idMueble);
 
-            if (count == 0) {
-                // Si no existe, realizar la asignación
-                String sqlAsignarMueble = "INSERT INTO aulas_muebles (id_aula, id_mueble) VALUES (?, ?)";
-                jdbcTemplate.update(sqlAsignarMueble, idAula, idMueble);
-            }
-        }
-    }
+    //Guardar Muebles Con Cantidad
     public void asignarMueblesAAulaConCantidad(int idAula, Map<Integer, Integer> mueblesConCantidad) {
         for (Map.Entry<Integer, Integer> entry : mueblesConCantidad.entrySet()) {
             Integer idMueble = entry.getKey();
@@ -67,62 +56,32 @@ public class AulasMueblesDao {
             }
         }
     }
-    public void actualizarAsignacionMuebleAula(int idAula, int idMueble, int nuevaCantidad) {
-        // Verificar si ya existe una asignación para este aula y mueble
-        String sqlExisteAsignacion = "SELECT COUNT(*) FROM aulas_muebles WHERE id_aula = ? AND id_mueble = ?";
-        int count = jdbcTemplate.queryForObject(sqlExisteAsignacion, Integer.class, idAula, idMueble);
 
-        if (count > 0) {
-            // Si existe una asignación, actualizar la cantidad de muebles asignados
-            String sqlActualizarCantidad = "UPDATE aulas_muebles SET cantidad = ? WHERE id_aula = ? AND id_mueble = ?";
-            jdbcTemplate.update(sqlActualizarCantidad, nuevaCantidad, idAula, idMueble);
-        } else {
-            // Si no existe una asignación, puedes manejar diferentes casos según tus necesidades
-            // Por ejemplo, puedes agregar una nueva asignación o lanzar una excepción si no deseas permitir agregar una nueva asignación automáticamente.
-            // Aquí te muestro cómo podrías agregar una nueva asignación con la nueva cantidad:
-            String sqlAgregarAsignacion = "INSERT INTO aulas_muebles (id_aula, id_mueble, cantidad) VALUES (?, ?, ?)";
-            jdbcTemplate.update(sqlAgregarAsignacion, idAula, idMueble, nuevaCantidad);
-        }
-    }
-
-    public void eliminarAsignacionMuebleAula(int idAula, int idMueble) {
-        String sqlEliminarAsignacion = "DELETE FROM aulas_muebles WHERE id_aula = ? AND id_mueble = ?";
-        jdbcTemplate.update(sqlEliminarAsignacion, idAula, idMueble);
-    }
+    //Eliminar Asignacion de Mueble
     public void eliminarAsignacionMuebleAulaById(int id) {
         String sqlEliminarAsignacion = "DELETE FROM aulas_muebles WHERE id = ?";
         jdbcTemplate.update(sqlEliminarAsignacion, id);
     }
 
-    public List<AulasMuebles> findAllWithDetails() {
-        String sql = "SELECT am.*, a.curso AS aula_curso, m.nombre_mueble AS mueble_nombre FROM aulas_muebles am " +
-                "INNER JOIN aulas a ON am.id_aula = a.id_aula " +
-                "INNER JOIN muebles m ON am.id_mueble = m.id_mueble";
+    //Listar
+    public List<AulasMuebles> findAllWithDetails3() {
+        String sql = "SELECT \n" +
+                "\t*,\n" +
+                "    a.*,\n" +
+                "    m.*\n" +
+                "FROM\n" +
+                "    aulas_muebles am\n" +
+                "JOIN aulas a ON\n" +
+                "    am.id_aula = a.id_aula\n" +
+                "JOIN muebles m ON\n" +
+                "    am.id_mueble = m.id_mueble\n" +
+                "GROUP BY\n" +
+                "    a.id_aula;\n";
         return jdbcTemplate.query(sql, new AulasMueblesRowMapper());
     }
-        public List<AulasMuebles> findAllWithDetails3() {
-            String sql = "SELECT \n" +
-                    "\t*,\n" +
-                    "    a.*,\n" +
-                    "    m.*\n" +
-                    "FROM\n" +
-                    "    aulas_muebles am\n" +
-                    "JOIN aulas a ON\n" +
-                    "    am.id_aula = a.id_aula\n" +
-                    "JOIN muebles m ON\n" +
-                    "    am.id_mueble = m.id_mueble\n" +
-                    "GROUP BY\n" +
-                    "    a.id_aula;\n";
-            return jdbcTemplate.query(sql, new AulasMueblesRowMapper());
-        }
-    public List<AulasMuebles> findAllAulasMueblesWithDetailsGroupBy() {
-        String sql = "SELECT am.id, a.id_aula, m.id_mueble, GROUP_CONCAT(m.id_mueble) AS id_muebles " +
-                "FROM aulas_muebles am " +
-                "INNER JOIN aulas a ON am.id_aula = a.id_aula " +
-                "INNER JOIN muebles m ON am.id_mueble = m.id_mueble " +
-                "GROUP BY a.id_aula";
-        return jdbcTemplate.query(sql, new AulasMueblesRowMapper());
-    }
+
+
+    //Mas Detalles
     public List<AulasMuebles> findDetailsByAulaId(int id_aula) {
         String sql = "SELECT\n" +
                 "    am.*,\n" +
@@ -138,53 +97,5 @@ public class AulasMueblesDao {
                 "    a.id_aula = ?";
         return jdbcTemplate.query(sql, new AulasMueblesRowMapper(), id_aula);
     }
-    public List<AulasMuebles> findMueblesOfAulasById(int id_aula) {
-        String sql = "    SELECT\n" +
-                "    m.id_mueble,\n" +
-                "    m.codigo_mueble,\n" +
-                "    m.nombre_mueble,\n" +
-                "    m.descripcion_mueble\n" +
-                "            FROM\n" +
-                "    aulas_muebles am\n" +
-                "    INNER JOIN muebles m ON\n" +
-                "    am.id_mueble = m.id_mueble\n" +
-                "            WHERE\n" +
-                "    am.id_aula = ?;";
-        return jdbcTemplate.query(sql, new AulasMueblesRowMapper(), id_aula);
-    }
-    public AulasMuebles findAsignacionByIdAulaAndIdMueble(int id_aula, int id_mueble) {
-        String sql = "SELECT * FROM aulas_muebles WHERE id_aula = ? AND id_mueble = ?";
-        return jdbcTemplate.queryForObject(sql, new Object[]{id_aula, id_mueble}, new AulasMueblesRowMapper());
-    }
-
-
-
-
-
-//    SELECT
-//    a.id_aula,
-//    a.curso,
-//    GROUP_CONCAT(m.id_mueble) AS id_muebles
-//    FROM
-//    aulas_muebles am
-//    INNER JOIN aulas a ON
-//    am.id_aula = a.id_aula
-//    INNER JOIN muebles m ON
-//    am.id_mueble = m.id_mueble
-//    GROUP BY
-//    a.id_aula;
-
-
-//    SELECT
-//    m.id_mueble,
-//    m.codigo_mueble,
-//    m.nombre_mueble,
-//    m.descripcion_mueble
-//            FROM
-//    aulas_muebles am
-//    INNER JOIN muebles m ON
-//    am.id_mueble = m.id_mueble
-//            WHERE
-//    am.id_aula = 7;
 
 }
