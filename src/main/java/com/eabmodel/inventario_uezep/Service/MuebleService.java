@@ -29,20 +29,12 @@ public class MuebleService {
         mueblesDao.save(muebles);
     }
 
-//    public void update(Muebles muebles) {
-//        mueblesDao.update(muebles);
-//    }
     public void update(Muebles muebles) {
         mueblesDao.update3(muebles);
     }
 
-
-    //    public void updateEstado(Muebles muebles) {
-//        mueblesDao.updateEstado(muebles);
-//
-//    }
     public void deleteByIdMueble(int id_mueble) {
-        mueblesDao.delete(id_mueble);
+        mueblesDao.delete2(id_mueble);
     }
 
     public void cambiarEstadoByIdMueble(int id_mueble) {

@@ -21,7 +21,6 @@ public class AulasMueblesDao {
     private JdbcTemplate jdbcTemplate;
 
 
-    //Guardar Muebles Con Cantidad
     public void asignarMueblesAAulaConCantidad(int idAula, Map<Integer, Integer> mueblesConCantidad) {
         for (Map.Entry<Integer, Integer> entry : mueblesConCantidad.entrySet()) {
             Integer idMueble = entry.getKey();
@@ -45,11 +44,15 @@ public class AulasMueblesDao {
                     // Si no existe, realizar la asignación
                     String sqlAsignarMueble = "INSERT INTO aulas_muebles (id_aula, id_mueble, cantidad) VALUES (?, ?, ?)";
                     jdbcTemplate.update(sqlAsignarMueble, idAula, idMueble, cantidad);
-
-                    // Actualizar la cantidad y asignación de muebles en la tabla 'muebles'
-                    String sqlActualizarMuebles = "UPDATE muebles SET cantidad = cantidad - ?, asignacion = asignacion + ? WHERE id_mueble = ?";
-                    jdbcTemplate.update(sqlActualizarMuebles, cantidad, cantidad, idMueble);
+                } else {
+                    // Si ya existe, actualizar la cantidad asignada
+                    String sqlActualizarAsignacion = "UPDATE aulas_muebles SET cantidad = cantidad + ? WHERE id_aula = ? AND id_mueble = ?";
+                    jdbcTemplate.update(sqlActualizarAsignacion, cantidad, idAula, idMueble);
                 }
+
+                // Actualizar la cantidad y asignación de muebles en la tabla 'muebles'
+                String sqlActualizarMuebles = "UPDATE muebles SET cantidad = cantidad - ?, asignacion = asignacion + ? WHERE id_mueble = ?";
+                jdbcTemplate.update(sqlActualizarMuebles, cantidad, cantidad, idMueble);
             } else {
                 // Manejar el caso en el que no haya suficientes muebles disponibles
                 throw new IllegalArgumentException("No hay suficientes muebles disponibles para asignar al aula.");
@@ -57,11 +60,32 @@ public class AulasMueblesDao {
         }
     }
 
+
+
+
     //Eliminar Asignacion de Mueble
     public void eliminarAsignacionMuebleAulaById(int id) {
         String sqlEliminarAsignacion = "DELETE FROM aulas_muebles WHERE id = ?";
         jdbcTemplate.update(sqlEliminarAsignacion, id);
     }
+    //Eliminar Asignacion de Mueble y regresear Cantidad
+    public void eliminarAsignacionMuebleAulaByIdAndReturnQuantity(int id) {
+        // Obtener la cantidad y el id del mueble asignado
+        String sqlObtenerAsignacion = "SELECT id_mueble, cantidad FROM aulas_muebles WHERE id = ?";
+        Map<String, Object> asignacion = jdbcTemplate.queryForMap(sqlObtenerAsignacion, id);
+
+        Integer idMueble = (Integer) asignacion.get("id_mueble");
+        Integer cantidad = (Integer) asignacion.get("cantidad");
+
+        // Devolver la cantidad al inventario de muebles
+        String sqlActualizarMuebles = "UPDATE muebles SET cantidad = cantidad + ?, asignacion = asignacion - ? WHERE id_mueble = ?";
+        jdbcTemplate.update(sqlActualizarMuebles, cantidad, cantidad, idMueble);
+
+        // Eliminar la asignación de la tabla aulas_muebles
+        String sqlEliminarAsignacion = "DELETE FROM aulas_muebles WHERE id = ?";
+        jdbcTemplate.update(sqlEliminarAsignacion, id);
+    }
+
 
     //Listar
     public List<AulasMuebles> findAllWithDetails3() {

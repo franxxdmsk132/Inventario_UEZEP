@@ -12,6 +12,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 @Transactional
@@ -41,6 +42,32 @@ public class AulasDao {
         String sql = "DELETE FROM aulas WHERE id_aula = ?";
         jdbcTemplate.update(sql, id_aula);
     }
+
+    public void deleteAula(int id_aula) {
+        // Obtener todas las asignaciones de muebles en el aula
+        String sqlObtenerAsignaciones = "SELECT id_mueble, cantidad FROM aulas_muebles WHERE id_aula = ?";
+        List<Map<String, Object>> asignaciones = jdbcTemplate.queryForList(sqlObtenerAsignaciones, id_aula);
+
+        // Devolver la cantidad de cada mueble al inventario y eliminar cada asignación
+        for (Map<String, Object> asignacion : asignaciones) {
+            Integer id_mueble = (Integer) asignacion.get("id_mueble");
+            Integer cantidad = (Integer) asignacion.get("cantidad");
+
+        // Actualizar la cantidad en la tabla 'muebles'
+            String sqlActualizarMuebles = "UPDATE muebles SET cantidad = cantidad + ?, asignacion = asignacion - ? WHERE id_mueble = ?";
+            jdbcTemplate.update(sqlActualizarMuebles, cantidad, cantidad, id_mueble);
+
+
+            // Eliminar la asignación de la tabla 'aulas_muebles'
+            String sqlEliminarAsignacion = "DELETE FROM aulas_muebles WHERE id_aula = ? AND id_mueble = ?";
+            jdbcTemplate.update(sqlEliminarAsignacion, id_aula, id_mueble);
+        }
+
+        // Finalmente, eliminar el aula de la tabla 'aulas'
+        String sqlEliminarAula = "DELETE FROM aulas WHERE id_aula = ?";
+        jdbcTemplate.update(sqlEliminarAula, id_aula);
+    }
+
 
     public void update(Aulas aulas) {
         String sql = "UPDATE aulas SET curso = ?,paralelo = ?,  encargado = ?, ubicacion_aula = ? WHERE id_aula = ?";

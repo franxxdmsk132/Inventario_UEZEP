@@ -136,12 +136,35 @@
         <a th:href="@{/aulas/nuevaAula}" class="btn btn-primary btn-sm mb-3"> AGREGAR OTRA AULA</a>
         <a th:href="@{/aulas/cambiarAula(id_aula=${aulas.id_aula})}" class="btn btn-info btn-sm mb-3">
             ACTUALIZACIONES </a>
-        <a th:href="@{/aulas/delete(id_aula=${aulas.id_aula})}  " class="btn btn-danger  btn-sm mb-3"
-           onclick="if (!(confirm('¿Estás seguro que desea eliminar la sesión de artículos?'))) return false">
-            ELIMINAR </a>
+        <form th:action="@{/aulas/delete}" method="post" style="display: inline;">
+            <input type="hidden" name="id_aula" th:value="${aulas.id_aula}" />
+            <button type="button" class="btn btn-danger btn-sm mb-3" onclick="confirmarEliminar()">
+                ELIMINAR
+            </button>
+        </form>
     </div>
 
 </div>
 
 </body>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script>
+    function confirmarEliminar() {
+        Swal.fire({
+            title: '¿Está seguro que desea eliminar esta Aula?',
+            text: 'Esta acción no se puede deshacer',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Si se confirma la eliminación, enviar el formulario
+                document.querySelector('form').submit();
+            }
+        });
+    }
+</script>
 </html>

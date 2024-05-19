@@ -85,20 +85,28 @@
 
 
     <form action="#" th:action="@{/muebles/save}" th:object="${muebles}" method="POST" class="d-flex flex-column align-items-center">
-        <input type="text" th:field="*{codigo_mueble}" id="codigo_mueble" class="form-control mb-3 col-5" placeholder="Código del Mueble" required >
+        <input type="text" th:field="*{codigo_mueble}" id="codigo_mueble" class="form-control mb-3 col-4" placeholder="Código del Mueble" required >
 
-        <select th:field ="*{nombre_mueble}" id="selectMueble" class="form-control mb-3 col-5" required onchange="checkIfOther(this)">
-            <option value="">Selecciona el tipo de mueble</option>
-            <option value="Silla">Silla</option>
-            <option value="Mesa">Mesa</option>
-            <option value="Escritorio">Escritorio</option>
-            <option value="Armario">Armario</option>
-            <option value="Otro">Otro</option>
-        </select>
+        <div class="form-row ">
+            <div class="col-ld-12 mb-3">
+                <select th:field ="*{nombre_mueble}" id="selectMueble" class="form-control" required onchange="checkIfOther(this)">
+                    <option value="">Selecciona el tipo de mueble</option>
+                    <option value="Silla">Silla</option>
+                    <option value="Mesa">Mesa</option>
+                    <option value="Escritorio">Escritorio</option>
+                    <option value="Armario">Armario</option>
+                    <option value="Otro">Otro</option>
+                </select>
+            </div>
+            <div class="col-mb-4">
+                <button type="button" onclick="limpiarOtroInput()" class="btn btn-secondary"  title="Solo cuando se seleciona 'Otro' " >Limpiar</button>
+            </div>
+        </div>
 
-        <input type="text" id="otroMuebleInput" name="nombre_mueble" class="form-control mb-3 col-5" placeholder="Escribe el tipo de mueble" style="display: none;">
 
-        <input type="text" th:field="*{descripcion_mueble}" class="form-control mb-3 col-5" placeholder="Descripción del Mueble" required>
+        <input type="text" id="otroMuebleInput" name="nombre_mueble" class="form-control mb-3 col-4" placeholder="Escribe el tipo de mueble" style="display: none;">
+
+        <input type="text" th:field="*{descripcion_mueble}" class="form-control mb-3 col-4" placeholder="Descripción del Mueble" required>
         <div class="form-group d-flex flex-column align-items-center">
             <label class="mb-auto"><h5><b>Fecha de Ingreso</b></h5></label>
             <div class="d-flex flex-column align-items-center">
@@ -107,17 +115,17 @@
             </div>
         </div>
 
-        <input type="number" th:field="*{cantidad}" class="form-control mb-3 col-5" placeholder="Cantidad" required min="1" oninput="validarCantidad(this)">
+        <input type="number" th:field="*{cantidad}" class="form-control mb-3 col-4" placeholder="Cantidad" required min="1" oninput="validarCantidad(this)">
 
-        <select th:field="*{estado}" class="form-control mb-3 col-5" required>
+        <select th:field="*{estado}" class="form-control mb-3 col-4" required>
             <option value="true">Activo</option>
             <option value="false">Inactivo</option>
         </select>
-        <input type="number" th:field="*{asignacion}" class="form-control mb-3 col-5" placeholder="Asignacion" hidden="hidden">
-        <button type="submit" class="btn btn-success mb-3 col-5">GUARDAR</button>
+        <input type="number" th:field="*{asignacion}" class="form-control mb-3 col-4" placeholder="Asignacion" hidden="hidden">
+        <button type="submit" class="btn btn-success mb-3 col-4">GUARDAR</button>
     </form>
 
-    <a th:href="@{/muebles/lista}" class="btn btn-warning mb-3 col-5">REGRESAR</a>
+    <a th:href="@{/muebles/lista}" class="btn btn-warning mb-3 col-4">REGRESAR</a>
 </div>
 
 <script>
@@ -137,18 +145,36 @@
 
     function checkIfOther(select) {
         var otroInput = document.getElementById("otroMuebleInput");
+        var selectMueble = document.getElementById("selectMueble");
+
         if (select.value === "Otro") {
             otroInput.style.display = "block";
             otroInput.required = true;
+            selectMueble.disabled = true; // Desactiva el select de nombres de muebles
+            otroInput.disabled = false; // Activa el campo "Otro"
         } else {
             otroInput.style.display = "none";
             otroInput.required = false;
-
-            // Eliminar la coma al final del valor del campo de texto si está presente
-            otroInput.value = otroInput.value.replace(/,\s*$/, '');
+            selectMueble.disabled = false; // Activa el select de nombres de muebles
+            otroInput.disabled = true; // Desactiva el campo "Otro"
         }
         generarCodigo(select.value);
     }
+
+
+
+    function limpiarOtroInput() {
+        var otroInput = document.getElementById("otroMuebleInput");
+        var selectMueble = document.getElementById("selectMueble");
+
+        otroInput.value = ""; // Limpiar el valor del campo "Otro"
+        otroInput.style.display = "none"; // Ocultar el campo "Otro"
+        selectMueble.disabled = false; // Activar el select de nombres de muebles
+    }
+
+
+
+
 
 
     // Objeto para mantener el registro de códigos generados para cada tipo de mueble

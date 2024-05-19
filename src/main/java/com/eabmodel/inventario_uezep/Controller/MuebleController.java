@@ -88,7 +88,7 @@ public class MuebleController {
     }
 
     //Eliminar mueble permanente
-    @PostMapping("/delete2")
+    @PostMapping("/delete")
     public String deleteMueble2(@RequestParam("id_mueble") int id_mueble) {
         muebleService.deleteByIdMueble(id_mueble);
         return "redirect:/muebles/lista";

@@ -11,6 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 @Transactional
@@ -22,7 +23,7 @@ public class MueblesDao {
 
 
     public void save(Muebles muebles) {
-        String sql = "INSERT INTO `muebles`(codigo_mueble, nombre_mueble, descripcion_mueble, fecha_ingreso, estado, cantidad, asignacion) VALUES ( ?, ?, ?, ?, ?, ?,?)";
+        String sql = "INSERT INTO `muebles`(codigo_mueble, nombre_mueble, descripcion_mueble, fecha_ingreso, estado, cantidad, asignacion) VALUES ( ?, ?, ?, ?, ?, ?,0)";
 
         jdbcTemplate.update(
                 sql,
@@ -31,8 +32,7 @@ public class MueblesDao {
                 muebles.getDescripcion_mueble(),
                 muebles.getFecha_ingreso(),
                 muebles.getEstado(),
-                muebles.getCantidad(),
-                muebles.getAsignacion()
+                muebles.getCantidad()
         );
     }
     public void save2(Muebles muebles) {
@@ -167,9 +167,33 @@ public class MueblesDao {
 //        jdbcTemplate.update(sql, muebles.getEstado(), muebles.getId_mueble());
 //    }
     public void delete(int id_mueble) {
-        String sql = "DELETE FROM muebles WHERE id_mueble = " + id_mueble;
-        jdbcTemplate.update(sql);
+        String sql = "DELETE FROM muebles WHERE id_mueble = ?";
+        jdbcTemplate.update(sql, id_mueble);
     }
+    public void delete2(int id_mueble) {
+        // Obtener todas las asignaciones del mueble
+        String sqlObtenerAsignaciones = "SELECT id, cantidad FROM aulas_muebles WHERE id_mueble = ?";
+        List<Map<String, Object>> asignaciones = jdbcTemplate.queryForList(sqlObtenerAsignaciones, id_mueble);
+
+        // Devolver la cantidad al inventario de muebles y eliminar cada asignación
+        for (Map<String, Object> asignacion : asignaciones) {
+            Integer idAsignacion = (Integer) asignacion.get("id");
+            Integer cantidad = (Integer) asignacion.get("cantidad");
+
+            // Actualizar la cantidad en la tabla 'muebles'
+            String sqlActualizarMuebles = "UPDATE muebles SET cantidad = cantidad + ?, asignacion = asignacion - ? WHERE id_mueble = ?";
+            jdbcTemplate.update(sqlActualizarMuebles, cantidad, cantidad, id_mueble);
+
+            // Eliminar la asignación de la tabla 'aulas_muebles'
+            String sqlEliminarAsignacion = "DELETE FROM aulas_muebles WHERE id = ?";
+            jdbcTemplate.update(sqlEliminarAsignacion, idAsignacion);
+        }
+
+        // Finalmente, eliminar el mueble de la tabla 'muebles'
+        String sqlEliminarMueble = "DELETE FROM muebles WHERE id_mueble = ?";
+        jdbcTemplate.update(sqlEliminarMueble, id_mueble);
+    }
+
 
     public void cambiarEstado(int id_mueble) {
         // Primero, obtén el estado actual del mueble

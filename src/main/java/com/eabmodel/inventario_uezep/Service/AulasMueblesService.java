@@ -37,6 +37,10 @@ public class AulasMueblesService {
     public void eliminarAsignacionMuebleAulaById(int id) {
         aulasMueblesDao.eliminarAsignacionMuebleAulaById(id);
     }
+    //Eliminar Muebles Asignados y regresar Cantidad
+    public void eliminarAsignacionMuebleAulaByIdYRegresarCantidad(int id) {
+        aulasMueblesDao.eliminarAsignacionMuebleAulaByIdAndReturnQuantity(id);
+    }
 
     //Listar
     public List<AulasMuebles> findAll() {

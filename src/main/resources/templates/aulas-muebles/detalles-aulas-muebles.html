@@ -122,6 +122,13 @@
                         <img th:src="@{/images/borrar.png}" class="d-inline-block align-text-top" width="20" height="20" alt="icon">
                     </button>
                 </form>
+                <form id="eliminarAsignacion2" th:action="@{/defmub/eliminar}" th:method="post">
+                    <input type="hidden" name="id" th:value="${aulmue.id}">
+                    <button type="submit" class="btn btn-danger btn-sm" title="Eliminar" onclick="return confirm('¿Estás seguro de eliminar esta asignación?');">
+                        ELIMINARCa
+                        <img th:src="@{/images/borrar.png}" class="d-inline-block align-text-top" width="20" height="20" alt="icon">
+                    </button>
+                </form>
             </td>
 
 

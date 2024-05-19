@@ -143,18 +143,21 @@
             <table id="tablaAulas" class="table table-hover">
                 <thead class="thead-darkGray text-center">
                 <tr>
-                    <th>ID</th>
+                    <th hidden="hidden">ID</th>
                     <th>ID AULA</th>
                     <th>CURSO</th>
+                    <th>PARALELO</th>
                     <th>ACCIONES</th>
 
 
                 </tr>
                 </thead>
                 <tr th:each="aulasmuebles, i: ${aulasmueble}">
-                    <td th:text="${aulasmuebles.id}" class="text-center"></td>
+                    <td hidden="hidden" th:text="${aulasmuebles.id}" class="text-center"></td>
                     <td th:text="${aulasmuebles.aulas.id_aula}" class="text-center"></td>
                     <td th:text="${aulasmuebles.aulas.curso}" class="text-center"></td>
+                    <td th:text="${aulasmuebles.aulas.paralelo}" class="text-center"></td>
+
 
 
                     <td class="text-center">

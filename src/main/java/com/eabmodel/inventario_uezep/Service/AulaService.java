@@ -28,7 +28,7 @@ public class AulaService {
         aulasDao.update(aulas);
     }
     public void deleteByIdAula(int id_aula) {
-        aulasDao.delete(id_aula);
+        aulasDao.deleteAula(id_aula);
     }
 
 }
