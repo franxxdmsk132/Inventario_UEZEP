@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+    <style>
+        .btn:hover {
+            transform: scale(1.2); /* Aumenta el tamaño del botón al 120% cuando se pasa el cursor sobre él */
+            transition: transform 0.2s; /* Agrega una transición suave de 0.2 segundos */
+        }
+
+        .thead-darkGray {
+            background-color: #4b4c4f; /* Puedes ajustar el color según tus preferencias */
+            color: white;
+        }
+
+        .body-gradient {
+            background: linear-gradient(to bottom, #ffffff, #4b4c4f 1800px)
+
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body, html {
+            width: 100%;
+            height: 100%;
+            min-height: 100%;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav {
+            background-color: #4b4c4f;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+        }
+
+        .nav-link:hover {
+            transform: scale(1.25); /* Aumenta el tamaño del enlace al 120% cuando se pasa el cursor sobre él */
+            transition: transform 0.2s; /* Agrega una transición suave de 0.2 segundos */
+            color: #ffffff; /* Cambia el color del texto del enlace a rojo cuando el puntero se acerca */
+
+        }
+
+        .fila-inactiva {
+            background-color: rgba(230, 155, 155, 0.29); /* Cambia el color de fondo a rojo claro */
+        }
+
+
+    </style>
+    <title>Departamentos Muebles</title>
+</head>
+</head>
+
+<body class="body-gradient">
+
+<section id="header">
+    <nav class="navbar navbar-expand-lg">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav">
+                <li class="nav-item active"><a class="nav-link" href="/">
+                    <img th:src="@{/images/home.png}" class="d-inline-block align-text-center" width="35" height="35"
+                         alt="icon"> Home </a></li>
+            </ul>
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item"><a class="nav-link" href="/muebles/lista">Muebles</a></li>
+                <li class="nav-item"><a class="nav-link" href="/aulas/lista">Aulas</a></li>
+                <li class="nav-item"><a class="nav-link" href="/defmub/lista">Mobiliario de Aulas</a></li>
+                <li class="nav-item"><a class="nav-link" href="/departamentos/lista">Departamentos</a></li>
+                <li class="nav-item"><a class="nav-link" href="/departamentos/lista">Mobiliario de Departamentos</a></li>
+            </ul>
+
+            <ul class="navbar-nav">
+                <li class="nav-item active"><a class="nav-link" href="/logout"> <img
+                        th:src="@{/images/cerrar-sesion.png}" class="d-inline-block align-text-center" width="35"
+                        height="35" alt="icon"> Cerrar Sesión</a></li>
+            </ul>
+        </div>
+    </nav>
+</section>
+
+
+<br>
+<div class="container-fluid" align="center">
+
+    <h1 style="font-weight: bold; text-align: center; color: #545050;">
+
+        <b>
+            <img th:src="@{/images/objetos.png}"
+                 class="d-inline-block align-text-top" width="60" height="60"
+                 alt="icon"> Mobiliario de Departamentos
+        </b></h1>
+    <hr>
+    <div class="d-flex justify-content-between">
+        <a th:href="@{/defmub/show}" class="btn btn-primary btn-sm mb-3">Agregar otro Departamento <img
+                th:src="@{/images/disquete.png}"
+                class="d-inline-block align-text-top" width="25" height="25"
+                alt="icon"></a>
+        <br>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <h2>Lista de Departamentos</h2>
+            <table id="tablaDepartamentos" class="table table-hover">
+                <thead class="thead-darkGray text-center">
+                <tr>
+                    <th>ID</th>
+                    <th>TIPO DE JORNADA</th>
+                    <th>TIPO DE DEPARTAMENTO</th>
+                    <th>ENCARGADO</th>
+                    <th>ACCIONES</th>
+
+                </tr>
+                </thead>
+                <tr th:each="departamentosmuebles, i: ${departamentosmuebles}">
+                    <td th:text="${departamentosmuebles.id}" class="text-center"></td>
+                    <td th:text="${departamentosmuebles.tipo_jornada}" class="text-center"></td>
+                    <td th:text="${departamentosmuebles.}" class="text-center"></td>
+
+
+
+                    <body>
+
+</body>
+</html>

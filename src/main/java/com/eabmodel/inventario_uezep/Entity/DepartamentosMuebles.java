@@ -1,6 +1,5 @@
 package com.eabmodel.inventario_uezep.Entity;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,24 +10,18 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "Departamentos_muebles")
+@Table(name = "departamento_mueble")
 public class DepartamentosMuebles {
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "id_departamentos")
-    private Departamentos departamentos;
+    @JoinColumn(name = "id_departamento")
+    private Departamentos departamento;
 
     @ManyToOne
     @JoinColumn(name = "id_mueble")
-    private Muebles muebles;
-
-
-
-
-
+    private Muebles mueble;
 }

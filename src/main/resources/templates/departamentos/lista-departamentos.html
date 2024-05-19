@@ -132,7 +132,7 @@
     <br>
   </div>
 
-  <table class="table  table-hover ">
+  <table class="table  table-hover " id="tabladepartamentos">
     <thead class="thead-darkGray text-center">
     <tr>
       <th>ID</th>
@@ -203,17 +203,18 @@
     </tbody>
 
     <div class="d-flex justify-content-center">
-      <button class="btn btn-info custom-btn btn-sm mb-6 mr-2" onclick="filtrarTabla('Matutino', 'Matutina')">
+      <button class="btn btn-info custom-btn btn-sm mb-6 mr-2" onclick="filtrarTabla('Matutin')">
         <div class="d-flex align-items-center">
           <span class="ml-6">Matutino</span>
         </div>
       </button>
-      <button class="btn btn-info custom-btn btn-sm mb-6 mr-2" onclick="filtrarTabla('Vespertino', 'Vespertina')">
+      <button class="btn btn-info custom-btn btn-sm mb-6 mr-2" onclick="filtrarTabla('Vespertin')">
         <div class="d-flex align-items-center">
           <span class="ml-6">Vespertino</span>
         </div>
       </button>
     </div>
+    <br>
 
 
   </table>
@@ -232,35 +233,29 @@
 </body>
 
 <script>
-  function filtrarTabla(turno, tipoJornada) {
-    console.log("Filtrando por turno:", turno);
-    console.log("Filtrando por tipo de jornada:", tipoJornada);
+  // Función para filtrar las filas de la tabla según el botón de filtro presionado
+  function filtrarTabla(filtro) {
+    var tabla, tr, td, i, txtValor;
+    tabla = document.getElementById("tabladepartamentos");
+    tr = tabla.getElementsByTagName("tr");
 
-    // Obtener todas las filas de la tabla
-    var filas = document.querySelectorAll("table tbody tr");
-
-    // Iterar sobre todas las filas y mostrar u ocultar según el tipo de jornada y turno
-    filas.forEach(function(fila) {
-      var tipoJornadaFila = fila.dataset.jornada;
-      var turnoFila = fila.dataset.turno;
-
-      // Mostrar la fila si coincide con el tipo de jornada y turno seleccionados, de lo contrario, ocultarla
-      if (tipoJornadaFila === tipoJornada && turnoFila === turno) {
-        fila.style.display = "table-row";
-      } else {
-        fila.style.display = "none";
+    // Recorre las filas de datos (a partir del índice 1) y muestra u oculta las que coinciden con el filtro
+    for (i = 1; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("td");
+      var encontrado = false; // Indica si se encontró coincidencia en alguna celda
+      for (var j = 0; j < td.length; j++) {
+        txtValor = td[j].textContent || td[j].innerText;
+        if (txtValor.toUpperCase().indexOf(filtro.toUpperCase()) > -1) {
+          encontrado = true;
+          break; // Si se encuentra una coincidencia, no es necesario continuar buscando en esta fila
+        }
       }
-    });
+      // Muestra u oculta la fila de datos dependiendo de si se encontró coincidencia en alguna celda
+      tr[i].style.display = encontrado ? "" : "none";
+    }
   }
-
-
-
-
-
-
-
-
 </script>
+
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
