@@ -88,7 +88,8 @@
             <ul class="navbar-nav">
                 <li class="nav-item active">
                     <a class="nav-link" href="/">
-                        <img th:src="@{/images/home.png}" class="d-inline-block align-text-center" width="35" height="35" alt="icon"> Home
+                        <img th:src="@{/images/home.png}" class="d-inline-block align-text-center" width="35"
+                             height="35" alt="icon"> Home
                     </a>
                 </li>
             </ul>
@@ -102,7 +103,8 @@
             <ul class="navbar-nav">
                 <li class="nav-item active">
                     <a class="nav-link" href="/logout">
-                        <img th:src="@{/images/cerrar-sesion.png}" class="d-inline-block align-text-center" width="35" height="35" alt="icon"> Cerrar Sesión
+                        <img th:src="@{/images/cerrar-sesion.png}" class="d-inline-block align-text-center" width="35"
+                             height="35" alt="icon"> Cerrar Sesión
                     </a>
                 </li>
             </ul>
@@ -113,11 +115,14 @@
 <br>
 <div class="container-fluid text-center">
     <h1 style="font-weight: bold; color: #545050;">
-        <img th:src="@{/images/objetos.png}" class="d-inline-block align-text-top" width="60" height="60" alt="icon"> Mobiliario de Departamentos
+        <img th:src="@{/images/objetos.png}" class="d-inline-block align-text-top" width="60" height="60" alt="icon">
+        Mobiliario de Departamentos
     </h1>
     <hr>
     <div class="d-flex justify-content-between mb-3">
-        <a th:href="@{/depmub/nuevoMuebleDepartamento}" class="btn btn-primary btn-sm">Agregar otro Departamento <img th:src="@{/images/disquete.png}" class="d-inline-block align-text-top" width="25" height="25" alt="icon"></a>
+        <a th:href="@{/depmub/nuevoMuebleDepartamento}" class="btn btn-primary btn-sm">Agregar otro Departamento <img
+                th:src="@{/images/disquete.png}" class="d-inline-block align-text-top" width="25" height="25"
+                alt="icon"></a>
     </div>
 
     <div class="row">
@@ -140,11 +145,16 @@
                     <td th:text="${departamentosMuebles.departamentos.tipo_departamento}" class="text-center"></td>
                     <td th:text="${departamentosMuebles.departamentos.encargado_departamento}" class="text-center"></td>
                     <td class="text-center">
-                        <a th:href="@{/depmub/masDetalles(id_departamento=${departamentosMuebles.departamentos.id_departamento})}" onclick="cargarDetalles(event)" class="btn btn-success btn-sm mr-2" title="Ver más detalles">VER MUEBLES
-                            <img th:src="@{/images/ver.png}" class="d-inline-block align-text-top" width="20" height="20" alt="icon">
+                        <a th:href="@{/depmub/masDetalles(id_departamento=${departamentosMuebles.departamentos.id_departamento})}"
+                           onclick="cargarDetalles(event)" class="btn btn-success btn-sm mr-2" title="Ver más detalles">VER
+                            MUEBLES
+                            <img th:src="@{/images/ver.png}" class="d-inline-block align-text-top" width="20"
+                                 height="20" alt="icon">
                         </a>
-                        <a th:href="@{/depmub/cambiarMueblesDepartamentos(id_departamento=${departamentosMuebles.departamentos.id_departamento})}" class="btn btn-info btn-sm mr-2" title="Actualizar Informacion"> ACTUALIZACIONES
-                            <img th:src="@{/images/editar.png}" class="d-inline-block align-text-top" width="20" height="20" alt="icon">
+                        <a th:href="@{/depmub/cambiarMueblesDepartamentos(id_departamento=${departamentosMuebles.departamentos.id_departamento})}"
+                           class="btn btn-info btn-sm mr-2" title="Actualizar Informacion"> ACTUALIZACIONES
+                            <img th:src="@{/images/editar.png}" class="d-inline-block align-text-top" width="20"
+                                 height="20" alt="icon">
                         </a>
                     </td>
                 </tr>
@@ -153,11 +163,31 @@
             <div th:if="${#lists.isEmpty(departamentosmuebles)}" class="alert alert-info" role="alert">
                 No hay registros.
             </div>
-            <a th:href="@{/depmub/lista}" class="btn btn-warning btn-sm mb-3">CARGAR <img th:src="@{/images/recargar.png}" class="d-inline-block align-text-top" width="20" height="20" alt="icon"></a>
+            <a th:href="@{/depmub/lista}" class="btn btn-warning btn-sm mb-3">CARGAR <img
+                    th:src="@{/images/recargar.png}" class="d-inline-block align-text-top" width="20" height="20"
+                    alt="icon"></a>
         </div>
         <div class="col">
             <h2>Muebles en el departamento seleccionado</h2>
+            <div class="container" align="left" >
+            <table class="table" id="tablaTemporal">
+                <thead class="thead-darkGray">
+                <tr>
+                    <th>ID M.</th>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Codigo M.</th> <!-- Agregamos el encabezado para el ID del aula -->
+                    <th>Cantidad</th>
+                    <th id="cEliminar">Eliminar</th>
+
+                    <!-- Agrega más encabezados de columnas según sea necesario -->
+                </tr>
+                </thead>
+            </table>
+            </div>
             <div id="detallesDepaContainer"></div>
+
+
         </div>
     </div>
 
@@ -175,8 +205,10 @@
 
         // Realiza una solicitud AJAX para cargar los detalles del aula
         var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
+        xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
+                // Oculta la tabla temporal
+                document.getElementById("tablaTemporal").style.display = "none";
                 // Actualiza el contenido de detalles del aula con la respuesta
                 document.getElementById("detallesDepaContainer").innerHTML = this.responseText;
             }
