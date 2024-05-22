@@ -61,13 +61,6 @@ public class AulasMueblesDao {
     }
 
 
-
-
-    //Eliminar Asignacion de Mueble
-    public void eliminarAsignacionMuebleAulaById(int id) {
-        String sqlEliminarAsignacion = "DELETE FROM aulas_muebles WHERE id = ?";
-        jdbcTemplate.update(sqlEliminarAsignacion, id);
-    }
     //Eliminar Asignacion de Mueble y regresear Cantidad
     public void eliminarAsignacionMuebleAulaByIdAndReturnQuantity(int id) {
         // Obtener la cantidad y el id del mueble asignado

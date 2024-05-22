@@ -21,6 +21,7 @@ public class DepartamentoMuebleService {
         this.departamentosMueblesDao = departamentosMueblesDao;
     }
 
+    //Guardar Muebles Con Cantidad
     public void asignarMueblesADepartamentoConCantidad(int idDepartamento, String[] idMuebles, String[] cantidades) {
         Map<Integer, Integer> mueblesConCantidad = new HashMap<>();
         for (int i = 0; i < idMuebles.length; i++) {
@@ -31,18 +32,18 @@ public class DepartamentoMuebleService {
         departamentosMueblesDao.asignarMueblesADepartamentosConCantidad(idDepartamento, mueblesConCantidad);
     }
 
-    public void eliminarAsignacionMuebleDepartamentoById(int id) {
-        departamentosMueblesDao.eliminarAsignacionMuebleDepartamentoById(id);
-    }
 
+    //Eliminar Muebles Asignados y regresar Cantidad
     public void eliminarAsignacionMuebleDepartamentoByIdRegresarCantidad(int id) {
         departamentosMueblesDao.eliminarAsignacionMueblesDepartamentosByIdAndReturnQuantity(id);
     }
 
+    //Listar
     public List<DepartamentosMuebles> findAll() {
         return departamentosMueblesDao.findAllWithDetails3();
     }
 
+    //Mas detalles
     public List<DepartamentosMuebles> findDetailsByDepartamentoIdWrapper(int idDepartamento) {
         return departamentosMueblesDao.findDetailsByDepartamentoId(idDepartamento);
     }

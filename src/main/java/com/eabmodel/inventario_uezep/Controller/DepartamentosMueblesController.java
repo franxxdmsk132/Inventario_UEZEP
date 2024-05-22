@@ -21,10 +21,8 @@ public class DepartamentosMueblesController {
 
     @Autowired
     private DepartamentoMuebleService departamentoMuebleService;
-
     @Autowired
     private DepartamentoService departamentoService;
-
     @Autowired
     private MuebleService muebleService;
 
@@ -38,25 +36,30 @@ public class DepartamentosMueblesController {
         return muebleService.findAll();
     }
 
+    //HTML
+    //Mostrar Listado
     @GetMapping("/lista")
     public String listaDepartamentosMuebles(Model model) {
         List<DepartamentosMuebles> departamentosMuebles = departamentoMuebleService.findAll();
-        model.addAttribute("departamentosmueble", departamentosMuebles);
+        model.addAttribute("departamentosmuebles", departamentosMuebles);
         return "departamentos-muebles/lista-departamentos-muebles";
     }
 
+    //Mostrar Formulario para guardar
     @GetMapping("/nuevoMuebleDepartamento")
     public String mostrarFormulario() {
         return "departamentos-muebles/guardar-departamentos-muebles";
     }
 
+    //Mostrar Muebles Asignados
     @RequestMapping("/masDetalles")
-    public String viewAula(@RequestParam("id_departamento") int id_departamento, Model model) {
+    public String viewDepart(@RequestParam("id_departamento") int id_departamento, Model model) {
         List<DepartamentosMuebles> departamentosMueblesList = departamentoMuebleService.findDetailsByDepartamentoIdWrapper(id_departamento);
-        model.addAttribute("deparmueb", departamentosMueblesList);
+        model.addAttribute("depamueb", departamentosMueblesList);
         return "departamentos-muebles/detalles-departamentos-muebles";
     }
 
+    //Mostrar Formulario para Actualizar
     @GetMapping("/cambiarMueblesDepartamentos")
     public String showFormForUpdate(@RequestParam("id_departamento") int id_departamento, Model theModel) {
         List<DepartamentosMuebles> departamentosMuebles = departamentoMuebleService.findDetailsByDepartamentoIdWrapper(id_departamento);
@@ -64,6 +67,9 @@ public class DepartamentosMueblesController {
         return "departamentos-muebles/actualizar-departamentos-muebles";
     }
 
+    //----------------------------------------------------------------------------------------
+    //Funciones
+    //Guardar muebles en aula
     @PostMapping("/save")
     public String asignarMueblesAAulaConCantidad2(@RequestParam("id_departamento") int idDepartamento,
                                                   @RequestParam("id_mueble") String[] idMuebles,
@@ -78,14 +84,7 @@ public class DepartamentosMueblesController {
         }
     }
 
-
-
-    @PostMapping("/eliminarAsignacion")
-    public RedirectView eliminarAsignacionPorId(@RequestParam("id") int id) {
-        departamentoMuebleService.eliminarAsignacionMuebleDepartamentoById(id);
-        return new RedirectView("/depmub/lista", true);
-    }
-
+    //Eliminar Muebles Asignados y regresar Cantidad
     @PostMapping("/eliminar")
     public RedirectView eliminarAsignacionPorIdRegresarCantidad(@RequestParam("id") int id) {
         departamentoMuebleService.eliminarAsignacionMuebleDepartamentoByIdRegresarCantidad(id);

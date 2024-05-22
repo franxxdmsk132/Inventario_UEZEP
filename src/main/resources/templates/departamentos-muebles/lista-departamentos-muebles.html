@@ -127,8 +127,8 @@
                 <thead class="thead-darkGray text-center">
                 <tr>
                     <th>ID</th>
-                    <th>TIPO DE JORNADA</th>
-                    <th>TIPO DE DEPARTAMENTO</th>
+                    <th>JORNADA</th>
+                    <th>DEPARTAMENTO</th>
                     <th>ENCARGADO</th>
                     <th>ACCIONES</th>
                 </tr>
@@ -140,7 +140,7 @@
                     <td th:text="${departamentosMuebles.departamentos.tipo_departamento}" class="text-center"></td>
                     <td th:text="${departamentosMuebles.departamentos.encargado_departamento}" class="text-center"></td>
                     <td class="text-center">
-                        <a th:href="@{/depmub/masDetalles(id_departamento=${departamentosMuebles.departamentos.id_departamento})}" class="btn btn-success btn-sm mr-2" title="Ver más detalles">VER MUEBLES
+                        <a th:href="@{/depmub/masDetalles(id_departamento=${departamentosMuebles.departamentos.id_departamento})}" onclick="cargarDetalles(event)" class="btn btn-success btn-sm mr-2" title="Ver más detalles">VER MUEBLES
                             <img th:src="@{/images/ver.png}" class="d-inline-block align-text-top" width="20" height="20" alt="icon">
                         </a>
                         <a th:href="@{/depmub/cambiarMueblesDepartamentos(id_departamento=${departamentosMuebles.departamentos.id_departamento})}" class="btn btn-info btn-sm mr-2" title="Actualizar Informacion"> ACTUALIZACIONES
@@ -157,7 +157,7 @@
         </div>
         <div class="col">
             <h2>Muebles en el departamento seleccionado</h2>
-            <div id="detallesAulaContainer"></div>
+            <div id="detallesDepaContainer"></div>
         </div>
     </div>
 
@@ -165,6 +165,27 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    function cargarDetalles(event) {
+        // Cancela el comportamiento predeterminado del enlace
+        event.preventDefault();
+
+        // Obtiene la URL del atributo href
+        var url = event.currentTarget.getAttribute('href');
+
+        // Realiza una solicitud AJAX para cargar los detalles del aula
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                // Actualiza el contenido de detalles del aula con la respuesta
+                document.getElementById("detallesDepaContainer").innerHTML = this.responseText;
+            }
+        };
+        xhttp.open("GET", url, true);
+        xhttp.send();
+    }
+</script>
+
 
 </body>
 </html>

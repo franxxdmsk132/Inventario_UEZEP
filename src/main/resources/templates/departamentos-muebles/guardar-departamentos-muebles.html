@@ -1,7 +1,9 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <!-- Etiquetas meta requeridas -->
+
+
+    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport"
           content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -12,11 +14,81 @@
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
           crossorigin="anonymous">
     <style>
-        /* Estilos CSS aquí */
+        .btn:hover {
+            transform: scale(1.2); /* Aumenta el tamaño del botón al 120% cuando se pasa el cursor sobre él */
+            transition: transform 0.2s; /* Agrega una transición suave de 0.2 segundos */
+        }
+
+        .thead-darkGray {
+            background-color: #4b4c4f; /* Puedes ajustar el color según tus preferencias */
+            color: white;
+        }
+
+        .body-gradient {
+            background: linear-gradient(to bottom, #ffffff, #4b4c4f 1800px)
+
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            width: 100%;
+            height: 100%;
+            min-height: 100%;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav {
+            background-color: #4b4c4f;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+        }
+
+        .nav-link:hover {
+            transform: scale(1.25); /* Aumenta el tamaño del enlace al 120% cuando se pasa el cursor sobre él */
+            transition: transform 0.2s; /* Agrega una transición suave de 0.2 segundos */
+            color: #ffffff; /* Cambia el color del texto del enlace a rojo cuando el puntero se acerca */
+
+        }
+
+        .fila-inactiva {
+            background-color: rgba(230, 155, 155, 0.29); /* Cambia el color de fondo a rojo claro */
+        }
+
+
     </style>
     <title>Asignacion de Muebles</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
 </head>
+
 <body class="body-gradient">
 <div class="container">
     <div class="row justify-content-center">
@@ -24,27 +96,29 @@
             <div class="text-center">
                 <br>
                 <h3>
-                    <img th:src="@{/images/Logo-NBG.png}" class="d-inline-block align-text-top" width="40" height="40" alt="icon">
+                    <img th:src="@{/images/Logo-NBG.png}" class="d-inline-block align-text-top" width="40" height="40"
+                         alt="icon">
                     <b>Mobiliario de Departamentos</b>
                 </h3>
-                <h4>
-                    <a th:href="@{/depmub/lista}" class="btn btn-warning btn-sm mb-3 d-inline-block align-text-top">ATRAS</a>
-                </h4>
+                <h4><a th:href="@{/depmub/lista}" class="btn btn-warning btn-sm mb-3 d-inline-block align-text-top">ATRAS</a></h4>
                 <hr>
-                <h2>Asignar Muebles en un Departamento</h2>
+                <h2>Asignar Muebles en una Departamento</h2>
             </div>
             <form action="/depmub/save" method="post" th:object="${asignacionForm}" onsubmit="validarFormulario(event)" class="d-flex flex-column align-items-center">
-                <!-- Selección de departamentos -->
+
+                <!-- Select de aulas -->
                 <div class="form-group">
                     <label for="id_departamento" class="h4">Selecciona un Departamento:</label>
                     <select id="id_departamento" name="id_departamento" class="form-control">
-                        <option value="" disabled selected>Seleccione un departamento</option>
-                        <!-- Iteración sobre la lista de departamentos disponibles -->
-                        <option th:each="departamento : ${allDepartamentos}" th:value="${departamento.id_departamento}"
+                        <option value="" disabled selected>Selecciona un Departamento</option>
+                        <!-- Iterar sobre la lista de Departamentos disponibles -->
+                        <option th:each=" departamento : ${allDepartamentos}" th:value="${departamento.id_departamento}"
                                 th:text="${departamento.tipo_departamento + ' - ' + departamento.tipo_jornada}"></option>
                     </select>
-                    <div id="selectError" class="invalid-feedback" style="display: none;">Por favor, selecciona un departamento para continuar</div>
+                    <div id="selectError" class="invalid-feedback" style="display: none;">Por favor, selecciona un Departamento para continuar</div>
                 </div>
+
+
                 <!-- Lista de muebles -->
                 <div class="form-group">
                     <label class="h4">Selecciona los Muebles:</label>
@@ -53,11 +127,11 @@
                             <div class="form-group">
                                 <table class="table">
                                     <tbody>
-                                    <!-- Iteración sobre la mitad de la lista de muebles disponibles -->
+                                    <!-- Iterar sobre la mitad de la lista de muebles disponibles -->
                                     <tr th:each="mueble, i: ${allMuebles}" th:if="${i.index % 2 == 0}">
                                         <td>
-                                            <div class="form-check">
-                                                <input type="checkbox" name="id_mueble[]" th:value="${mueble.id_mueble}"
+                                            <div class="form-check" onclick="activarCheckbox(this)">
+                                                <input type="checkbox" name="id_mueble" th:value="${mueble.id_mueble}"
                                                        class="form-check-input" onclick="habilitarCantidad(this)">
                                                 <label th:for="${'mueble' + mueble.id_mueble}"
                                                        class="form-check-label h5"
@@ -66,7 +140,7 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <input type="number" name="cantidad[]" class="form-control cantidad"
+                                            <input type="number" name="cantidad" class="form-control cantidad"
                                                    placeholder="Cantidad" disabled>
                                         </td>
                                     </tr>
@@ -78,11 +152,11 @@
                             <div class="form-group">
                                 <table class="table">
                                     <tbody>
-                                    <!-- Iteración sobre la otra mitad de la lista de muebles disponibles -->
+                                    <!-- Iterar sobre la otra mitad de la lista de muebles disponibles -->
                                     <tr th:each="mueble, i: ${allMuebles}" th:if="${i.index % 2 == 1}">
                                         <td>
-                                            <div class="form-check">
-                                                <input type="checkbox" name="id_mueble[]" th:value="${mueble.id_mueble}"
+                                            <div class="form-check" onclick="activarCheckbox(this)">
+                                                <input type="checkbox" name="id_mueble" th:value="${mueble.id_mueble}"
                                                        class="form-check-input" onclick="habilitarCantidad(this)">
                                                 <label th:for="${'mueble' + mueble.id_mueble}"
                                                        class="form-check-label h5"
@@ -91,16 +165,18 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <input type="number" name="cantidad[]" class="form-control cantidad"
+                                            <input type="number" name="cantidad" class="form-control cantidad"
                                                    placeholder="Cantidad" disabled>
                                         </td>
                                     </tr>
+
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
                 </div>
+
                 <button type="submit" class="btn btn-primary">Asignar Muebles</button>
             </form>
             <br>
@@ -186,13 +262,13 @@
 <script>
     // Función para validar el formulario
     function validarFormulario(event) {
-        // Obtener el select de departamento
-        var selectDepartamento = document.getElementById("id_departamento");
+        // Obtener el select de aula
+        var selectAula = document.getElementById("id_departamento");
         var mueblesSeleccionados = document.querySelectorAll('input[name="id_mueble"]:checked');
 
         // Verificar si se ha seleccionado un aula válida
-        if (selectDepartamento.value === "") {
-            selectDepartamento.setCustomValidity("Por favor, selecciona un departamento para continuar"); // Establecer mensaje personalizado
+        if (selectAula.value === "") {
+            selectAula.setCustomValidity("Por favor, selecciona un aula para continuar"); // Establecer mensaje personalizado
             event.preventDefault(); // Evitar el envío del formulario
         } else if (mueblesSeleccionados.length === 0) {
             alert("Por favor, selecciona al menos un mueble."); // Mostrar mensaje de alerta

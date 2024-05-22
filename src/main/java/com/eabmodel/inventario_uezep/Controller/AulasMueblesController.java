@@ -93,12 +93,6 @@ public class AulasMueblesController {
         }
     }
 
-    //Eliminar Muebles Asignados
-    @PostMapping("/eliminarAsignacion")
-    public RedirectView eliminarAsignacionPorId(@RequestParam("id") int id) {
-        aulasMueblesService.eliminarAsignacionMuebleAulaById(id);
-        return new RedirectView("/defmub/lista", true);
-    }
     //Eliminar Muebles Asignados y regresar Cantidad
     @PostMapping("/eliminar")
     public RedirectView eliminarAsignacionPorIdRegresarCantidad(@RequestParam("id") int id) {

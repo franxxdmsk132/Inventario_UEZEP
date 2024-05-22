@@ -1,10 +1,143 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE HTML>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+    <style>
+        .btn:hover {
+            transform: scale(1.2); /* Aumenta el tamaño del botón al 120% cuando se pasa el cursor sobre él */
+            transition: transform 0.2s; /* Agrega una transición suave de 0.2 segundos */
+        }
+
+        .thead-darkGray {
+            background-color: #4b4c4f; /* Puedes ajustar el color según tus preferencias */
+            color: white;
+        }
+
+        .body-gradient {
+            background: linear-gradient(to bottom, #ffffff, #4b4c4f 1800px)
+
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            width: 100%;
+            height: 100%;
+            min-height: 100%;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav {
+            background-color: #4b4c4f;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+        }
+
+        .nav-link:hover {
+            transform: scale(1.25); /* Aumenta el tamaño del enlace al 120% cuando se pasa el cursor sobre él */
+            transition: transform 0.2s; /* Agrega una transición suave de 0.2 segundos */
+            color: #ffffff; /* Cambia el color del texto del enlace a rojo cuando el puntero se acerca */
+
+        }
+
+        .fila-inactiva {
+            background-color: rgba(230, 155, 155, 0.29); /* Cambia el color de fondo a rojo claro */
+        }
+    </style>
+    <title>DETALLES</title>
 </head>
 <body>
+
+
+
+<div class="container" align="left" th:if="${depamueb}">
+
+
+    <table class="table">
+        <thead class="thead-darkGray">
+        <tr>
+            <th>ID M.</th>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Codigo M.</th> <!-- Agregamos el encabezado para el ID del aula -->
+            <th>Cantidad</th>
+            <th id="cEliminar" >Eliminar</th>
+
+            <!-- Agrega más encabezados de columnas según sea necesario -->
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Iterar sobre la lista de AulasMuebles -->
+        <tr th:each="depamueb : ${depamueb}">
+            <td th:text="${depamueb.muebles.id_mueble}"></td>
+            <td th:text="${depamueb.muebles.nombre_mueble}"></td>
+            <td th:text="${depamueb.muebles.descripcion_mueble}"></td>
+            <td th:text="${depamueb.muebles.codigo_mueble}"></td>
+            <td th:text="${depamueb.cantidad}"></td>
+
+            <!-- Agrega más celdas según tus necesidades -->
+
+            <td>
+                <form id="eliminarAsignacion" th:action="@{/depmub/eliminarAsignacion}" th:method="post">
+                    <input type="hidden" name="id" th:value="${depamueb.id}">
+                    <button type="submit" class="btn btn-danger btn-sm" title="Eliminar" onclick="return confirm('¿Estás seguro de eliminar esta asignación?');">
+                        ELIMINAR
+                        <img th:src="@{/images/borrar.png}" class="d-inline-block align-text-top" width="20" height="20" alt="icon">
+                    </button>
+                </form>
+                <form id="eliminarAsignacion2" th:action="@{/depmub/eliminar}" th:method="post">
+                    <input type="hidden" name="id" th:value="${depamueb.id}">
+                    <button type="submit" class="btn btn-danger btn-sm" title="Eliminar" onclick="return confirm('¿Estás seguro de eliminar esta asignación?');">
+                        ELIMINARCa
+                        <img th:src="@{/images/borrar.png}" class="d-inline-block align-text-top" width="20" height="20" alt="icon">
+                    </button>
+                </form>
+            </td>
+
+
+        </tr>
+
+        </tbody>
+    </table>
+</div>
+
 
 </body>
 </html>
