@@ -90,7 +90,8 @@
         }
 
     </style>
-    <title>Muebles</title>
+    <title><strong>Muebles</strong></title>
+
 
 </head>
 
@@ -109,7 +110,7 @@
                 <li class="nav-item"><a class="nav-link" href="/aulas/lista">Aulas</a></li>
                 <li class="nav-item"><a class="nav-link" href="/defmub/lista">Mobiliario de Aulas</a></li>
                 <li class="nav-item"><a class="nav-link" href="/departamentos/lista">Departamentos</a></li>
-                <li class="nav-item"><a class="nav-link" href="/departamentos/lista">Mobiliario de Departamentos</a>
+                <li class="nav-item"><a class="nav-link" href="/defmub/lista">Mobiliario de Departamentos</a>
                 </li>
             </ul>
 
@@ -129,34 +130,38 @@
 <div class="container-fluid" align="center">
 
     <h1 style="font-weight: bold; text-align: center; color: #545050;">
-
-        <b>
+        <b><i>
             <img th:src="@{/images/estante-de-libros.png}"
                  class="d-inline-block align-text-top" width="60" height="60"
-                 alt="icon"> Listado de Muebles
-        </b></h1>
+                 alt="icon"> Listados De Muebles
+        </i></b>
+    </h1>
+
+
     <hr>
     <div class="d-flex justify-content-between align-items-center">
-        <div>
-            <a th:href="@{/muebles/nuevoMueble}" class="btn btn-primary btn-sm mb-6">Agregar otro Mueble <img
-                    th:src="@{/images/disquete.png}"
-                    class="d-inline-block align-text-top" width="25" height="25"
-                    alt="icon">
+        <div class="text-center">
+            <a th:href="@{/muebles/nuevoMueble}" class="btn btn-primary btn-sm mb-6">
+                <b>Agregar Mueble</b>
+                <img th:src="@{/images/disquete.png}" class="d-inline-block align-text-top" width="25" height="25" alt="icon">
             </a>
-            <a th:href="@{/muebles/lista}" class="btn btn-warning btn-sm mb-6">Cargar
-                <img th:src="@{/images/recargar.png}" class="d-inline-block align-text-top" width="25" height="25"
-                     alt="icon">
+
+            <a th:href="@{/muebles/lista}" class="btn btn-warning btn-sm mb-6">
+                <b>Cargar</b>
+                <img th:src="@{/images/recargar.png}" class="d-inline-block align-text-top" width="25" height="25" alt="icon">
             </a>
         </div>
+
         <div class="d-flex align-items-center">
             <button id="filtroActivo" class="btn btn-warning custom-btn btn-sm mb-6 mr-2" onclick="alternarFiltro()">
                 <div class="d-flex align-items-center">
-                    <span class="ml-6">Filtrar Inactivos</span>
+                    <span class="ml-6"><b>Filtrar Inactivos</b></span>
                 </div>
+
             </button>
 
             <img th:src="@{/images/lupa.png}" class="d-inline-block align-text-top" width="30" height="30" alt="icon">
-            <input type="text" id="buscar" class="form-control mb-6 ml-2" placeholder="Buscar Mueble...">
+            <input type="text" id="buscar" class="form-control mb-6 ml-2" placeholder="Buscar Mueble..."  title="Buscar dentro de la tabla">
         </div>
 
     </div>
@@ -208,14 +213,6 @@
         <td class="text-center"><span th:text="${muebles.cantidad + muebles.asignacion}"></span></td>
 
 
-        <!--            <td>-->
-        <!--                <div>-->
-        <!--                    <img class="img-thumbnail rounded float-left"-->
-        <!--                         th:src="@{'/images/' + ${tempArticulo.imagen}}"-->
-        <!--                         th:alt="${tempArticulo.imagen}">-->
-        <!--                </div>-->
-
-        <!--            </td>-->
 
 
         <td class="text-center">
@@ -258,7 +255,7 @@
 </table>
 <div class="text-center">
     <div th:unless="${not #lists.isEmpty(muebles)}" class="alert alert-info" role="alert">
-        No hay muebles regsitrados.
+        <b>No hay muebles registrados.</b>
     </div>
     <a th:href="@{/muebles/lista}" class="btn btn-warning btn-sm mb-3 d-block mx-auto" style="width: 150px;">
         CARGAR
@@ -266,6 +263,7 @@
              alt="icon">
     </a>
 </div>
+
 <br>
 <br>
 <br>

@@ -1,13 +1,17 @@
 package com.eabmodel.inventario_uezep.Dao;
 
+import com.eabmodel.inventario_uezep.Entity.AulasMuebles;
 import com.eabmodel.inventario_uezep.Entity.DepartamentosMuebles;
+import com.eabmodel.inventario_uezep.RowMapper.AulasMueblesRowMapper;
 import com.eabmodel.inventario_uezep.RowMapper.DepartamentoMuebleRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.relational.core.sql.In;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 @Transactional
@@ -16,80 +20,81 @@ public class DepartamentosMueblesDao {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    public void asignarMuebles(int idDepartamento, List<Integer> idMuebles) {
-        for (Integer idMueble : idMuebles) {
-            String sqlExisteAsignacion = "SELECT COUNT(*) FROM departamentos_muebles WHERE id_departamentos = ? AND id_mueble = ?";
-            int count = jdbcTemplate.queryForObject(sqlExisteAsignacion, Integer.class, idDepartamento, idMueble);
-            if (count == 0) {
-                String sqlAsignarMueble = "INSERT INTO departamentos_muebles (id_departamentos, id_mueble) VALUES (?, ?)";
-                jdbcTemplate.update(sqlAsignarMueble, idDepartamento, idMueble);
-            }
-        }
-    }
+   public void asignarMueblesADepartamentosConCantidad(int idDepartamento, Map<Integer, Integer>mueblesconCantidad){
+   for (Map.Entry<Integer, Integer>entry : mueblesconCantidad.entrySet()){
+   Integer idMueble = entry.getKey();
+   Integer cantidad = entry.getValue();
 
-    public void actualizarAsignacionMueblesDepartamentos(int id_departamentos, int id_muebles) {
-        String sqlExisteAsignacion = "SELECT COUNT(*) FROM departamentos_muebles WHERE id_departamentos = ? AND id_mueble = ?";
-        int count = jdbcTemplate.queryForObject(sqlExisteAsignacion, Integer.class, id_departamentos, id_muebles);
-        if (count == 0) {
-            // Aquí puedes agregar la lógica para manejar el caso en el que no exista una asignación.
-        }
-    }
+   if (cantidad < 0) {
+       cantidad = 0;
+   }
+   String sqlMueblesDisponibles = "SELECT cantidad FROM muebles WHERE id_mueble =?";
+   Integer cantidadDisponible = jdbcTemplate.queryForObject(sqlMueblesDisponibles, Integer.class, idMueble);
 
-    public void eliminarAsignacionMueblesDepartamentos(int id_departamentos, int id_muebles) {
-        String sqlEliminarAsignacion = "DELETE FROM departamentos_muebles WHERE id_departamentos = ? AND id_mueble = ?";
-        jdbcTemplate.update(sqlEliminarAsignacion, id_departamentos, id_muebles);
-    }
+   if (cantidadDisponible >= cantidad){
+       String sqlExisteAsignacion = "SELECT COUNT (*) FROM departamentos_muebles (id_departamento, id_mueble, cantidad) VALUES (?,?,?)";
+       int count = jdbcTemplate.queryForObject(sqlExisteAsignacion, Integer.class, idDepartamento, idMueble);
 
-    public void eliminarAsignacionMueblesDepartamentosById(int id) {
+       if (count == 0) {
+           String sqlAsignacionMueble = "INSERT INTO departamentos_muebles (id_departamento, id_mueble, cantidad) VALUES (?,?,?)";
+           jdbcTemplate.update(sqlAsignacionMueble, idDepartamento, idMueble, cantidad);
+
+       } else {
+           String sqlActualizarAsignacion = "UPDATE muebles SET cantidad = cantidad - ?, asignacion = asignacion + ? WHERE id_mueble = ?";
+       jdbcTemplate.update(sqlActualizarAsignacion, cantidad,idDepartamento, idMueble);
+       }
+       String sqlActualizarMuebles = "UPDATE muebles SET cantidad = cantidad - ?, asignacion = asignacion + ? WHERE id_mueble = ?";
+       jdbcTemplate.update(sqlActualizarMuebles, cantidad, cantidad, idMueble);
+   } else {
+       // Manejar el caso en el que no haya suficientes muebles disponibles
+       throw new IllegalArgumentException("No hay suficientes muebles disponibles para asignar al aula.");
+   }
+   }
+   }
+    public void eliminarAsignacionMuebleDepartamentoById(int id) {
         String sqlEliminarAsignacion = "DELETE FROM departamentos_muebles WHERE id = ?";
         jdbcTemplate.update(sqlEliminarAsignacion, id);
     }
+    public void  eliminarAsignacionMueblesDepartamentosByIdAndReturnQuantity(int id){
+       String sqlobtenerAsignacion = "SELECT id_mueble, cantidad FROM departamentos_muebles WHERE id = ?";
+       Map<String, Object> asignacion = jdbcTemplate.queryForMap(sqlobtenerAsignacion, id);
 
-    public List<DepartamentosMuebles> findAllWithDetails() {
-        String sql = "SELECT dm.*, d.tipo_jornada AS tipo_jornada, m.nombre_mueble AS mueble_nombre " +
-                "FROM departamentos_muebles dm " +
-                "INNER JOIN departamentos d ON dm.id_departamentos = d.id_departamentos " +
-                "INNER JOIN muebles m ON dm.id_mueble = m.id_mueble";
+       Integer idMueble = (Integer) asignacion.get("id_mueble");
+       Integer cantidad = ( Integer) asignacion.get("cantidad");
+
+       String sqlActualizarMuebles= "UPDATE muebles SET cantidad = cantidad + ?, asignacion = asignacion - ? WHERE id_mueble = ?";
+        jdbcTemplate.update(sqlActualizarMuebles, cantidad, cantidad, idMueble);
+
+        String sqlEliminarAsignacion = "DELETE FROM departamentos_muebles WHERE id = ?";
+   }
+    public List<DepartamentosMuebles> findAllWithDetails3() {
+        String sql = "SELECT \n" +
+                "\t*,\n" +
+                "    d.*,\n" +
+                "    m.*\n" +
+                "FROM\n" +
+                "    departamentos_muebles dm\n" +
+                "JOIN departamentos d ON\n" +
+                "    dm.id_departamento = d.id_departamento\n" +
+                "JOIN muebles m ON\n" +
+                "    dm.id_mueble = m.id_mueble\n" +
+                "GROUP BY\n" +
+                "    d.id_departamento;\n";
         return jdbcTemplate.query(sql, new DepartamentoMuebleRowMapper());
     }
-
-    public List<DepartamentosMuebles> findAllDetails3() {
-        String sql = "SELECT dm.*, d.*, m.* " +
-                "FROM departamentos_muebles dm " +
-                "JOIN departamentos d ON dm.id_departamentos = d.id_departamentos " +
-                "JOIN muebles m ON dm.id_mueble = m.id_mueble " +
-                "GROUP BY d.id_departamentos";
-        return jdbcTemplate.query(sql, new DepartamentoMuebleRowMapper());
-    }
-
-    public List<DepartamentosMuebles> findAllDepartamentosMueblesWithDetailsGroupBy() {
-        String sql = "SELECT dm.id, d.id_departamentos, m.id_mueble, GROUP_CONCAT(m.id_mueble) AS id_muebles " +
-                "FROM departamentos_muebles dm " +
-                "INNER JOIN departamentos d ON dm.id_departamentos = d.id_departamentos " +
-                "INNER JOIN muebles m ON dm.id_mueble = m.id_mueble " +
-                "GROUP BY d.id_departamentos";
-        return jdbcTemplate.query(sql, new DepartamentoMuebleRowMapper());
-    }
-
-    public List<DepartamentosMuebles> findDetailsByDepartamentosId(int id_departamentos) {
-        String sql = "SELECT dm.*, d.*, m.* " +
-                "FROM departamentos_muebles dm " +
-                "INNER JOIN departamentos d ON dm.id_departamentos = d.id_departamentos " +
-                "INNER JOIN muebles m ON dm.id_mueble = m.id_mueble " +
-                "WHERE d.id_departamentos = ?";
-        return jdbcTemplate.query(sql, new DepartamentoMuebleRowMapper(), id_departamentos);
-    }
-
-    public List<DepartamentosMuebles> findMueblesOfDepartamentosById(int id_departamentos) {
-        String sql = "SELECT m.id_mueble, m.codigo_mueble, m.nombre_mueble, m.descripcion_mueble " +
-                "FROM departamentos_muebles dm " +
-                "INNER JOIN muebles m ON dm.id_mueble = m.id_mueble " +
-                "WHERE dm.id_departamentos = ?";
-        return jdbcTemplate.query(sql, new DepartamentoMuebleRowMapper(), id_departamentos);
-    }
-
-    public DepartamentosMuebles findAsignacionByIdDepartamentosAndIdMueble(int id_departamentos, int id_mueble) {
-        String sql = "SELECT * FROM departamentos_muebles WHERE id_departamentos = ? AND id_mueble = ?";
-        return jdbcTemplate.queryForObject(sql, new DepartamentoMuebleRowMapper(), id_departamentos, id_mueble);
-    }
+    public List<DepartamentosMuebles> findDetailsByDepartamentoId(int id_departamento) {
+        String sql = "SELECT\n" +
+                "    dm.*,\n" +
+                "    d.*,\n" +
+                "    m.*\n" +
+                "FROM\n" +
+                "    departamentos_muebles dm\n" +
+                "INNER JOIN departamentos d ON\n" +
+                "    dm.id_departamento = a.id_departamento\n" +
+                "INNER JOIN muebles m ON\n" +
+                "    dm.id_mueble = m.id_mueble\n" +
+                "WHERE\n" +
+                "    d.id_departamento = ?";
+        return jdbcTemplate.query(sql, new DepartamentoMuebleRowMapper(), id_departamento);
+   }
 }

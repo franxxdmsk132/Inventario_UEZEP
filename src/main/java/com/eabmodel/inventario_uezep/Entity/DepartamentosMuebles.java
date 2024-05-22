@@ -10,18 +10,19 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "departamento_mueble")
+@Table(name = "departamentos_muebles")
 public class DepartamentosMuebles {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    private Integer cantidad;
 
     @ManyToOne
     @JoinColumn(name = "id_departamento")
-    private Departamentos departamento;
+    private Departamentos departamentos;
 
     @ManyToOne
     @JoinColumn(name = "id_mueble")
-    private Muebles mueble;
+    private Muebles muebles;
 }

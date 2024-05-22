@@ -91,70 +91,84 @@
 
     <h3>
         <img th:src="@{/images/Logo-NBG.png}" class="d-inline-block align-text-top" width="40" height="40" alt="icon">
-        <b>Directorio de Aula</b>
+        <b><i>Directorio de Aula</i></b>
     </h3>
     <h4  hidden="hidden" ><a th:href="@{/aulas/lista}" class="btn btn-warning btn-sm mb-3 col-2 d-inline-block align-text-top ">ATRAS</a></h4>
     <hr>
-    <p class="h4 mb-4">Agregar otra aula </p>
+    <p class="h4 mb-4"><b>¡Agregar Otra Aula!</b></p>
 
-    <form action="#" th:action="@{/aulas/save}" th:object="${aulas}" method="POST" class="d-flex flex-column align-items-center">
-        <select id="tipoCurso" class="form-control mb-3 col-5" required onchange="mostrarOpcionesAdicionales()">
-            <option value="">Selecciona un tipo de curso</option>
-            <option value="inicial">Inicial</option>
-            <option value="basica">Básica</option>
-            <option value="superior">Básica Superior</option>
-            <option value="bachillerato">Bachillerato</option>
-        </select>
+    <form action="#" th:action="@{/aulas/save}" th:object="${aulas}" method="POST" class="d-flex flex-column align-items-center w-100">
+        <div class="form-row w-75">
+            <div class="col-ld-12 mb-3">
+                <div class="form-group w-100">
+                    <label class="col-4 col-form-label text-left"><h5><b>Curso:</b></h5></label>
+                    <select id="tipoCurso" class="form-control mb-3 col-8" required onchange="mostrarOpcionesAdicionales()">
+                        <option value="">Selecciona un tipo de curso</option>
+                        <option value="inicial">Inicial</option>
+                        <option value="basica">Básica</option>
+                        <option value="superior">Básica Superior</option>
+                        <option value="bachillerato">Bachillerato</option>
+                    </select>
 
-        <div id="opcionesAdicionales" style="display: none;">
-            <select th:field="*{curso}" class="form-control mb-3 col-5" required>
-                <option value="">Seleccionar una opción</option>
-                <!-- Opciones adicionales para cada tipo de curso -->
-                <optgroup id="opcionesInicial">
-                    <option value=" Inicial 1">Inicial 1</option>
-                    <option value="Inicial 2">Inicial 2</option>
-                </optgroup>
-                <optgroup id="opcionesBasica">
-                    <option value="Primero de básica">Primero de básica</option>
-                    <option value="Segundo de básica">Segundo de básica</option>
-                    <option value="Tercero de básica">Tercero de básica</option>
-                    <option value="Cuarto de básica">Cuarto de básica</option>
-                    <option value="Quinto de básica">Quinto de básica</option>
-                    <option value="Sexto de básica">Sexto de básica</option>
-                    <option value="Séptimo de básica">Séptimo de básica</option>
-                </optgroup>
-                <optgroup id="opcionesSuperior">
-                    <option value="Octavo de básica">Octavo de básica</option>
-                    <option value="Noveno de básica">Noveno de básica</option>
-                    <option value="Décimo de básica">Décimo de básica</option>
-                </optgroup>
-                <optgroup id="opcionesBachillerato">
-                    <option value="Primero de bachillerato">Primero de bachillerato</option>
-                    <option value="Segundo de bachillerato">Segundo de bachillerato</option>
-                    <option value="Tercero de bachillerato">Tercero de bachillerato</option>
-                </optgroup>
-            </select>
+                    <div id="opcionesAdicionales" style="display: none;">
+                        <select th:field="*{curso}" class="form-control mb-3 col-8" required>
+                            <option value="">Seleccionar una opción</option>
+                            <!-- Opciones adicionales para cada tipo de curso -->
+                            <optgroup id="opcionesInicial">
+                                <option value="Inicial 1">Inicial 1</option>
+                                <option value="Inicial 2">Inicial 2</option>
+                            </optgroup>
+                            <optgroup id="opcionesBasica">
+                                <option value="Primero de básica">Primero de básica</option>
+                                <option value="Segundo de básica">Segundo de básica</option>
+                                <option value="Tercero de básica">Tercero de básica</option>
+                                <option value="Cuarto de básica">Cuarto de básica</option>
+                                <option value="Quinto de básica">Quinto de básica</option>
+                                <option value="Sexto de básica">Sexto de básica</option>
+                                <option value="Séptimo de básica">Séptimo de básica</option>
+                            </optgroup>
+                            <optgroup id="opcionesSuperior">
+                                <option value="Octavo de básica">Octavo de básica</option>
+                                <option value="Noveno de básica">Noveno de básica</option>
+                                <option value="Décimo de básica">Décimo de básica</option>
+                            </optgroup>
+                            <optgroup id="opcionesBachillerato">
+                                <option value="Primero de bachillerato">Primero de bachillerato</option>
+                                <option value="Segundo de bachillerato">Segundo de bachillerato</option>
+                                <option value="Tercero de bachillerato">Tercero de bachillerato</option>
+                            </optgroup>
+                        </select>
+                    </div>
+
+                    <label class="col-4 col-form-label text-left"><h5><b>Paralelo:</b></h5></label>
+                    <select th:field="*{paralelo}" class="form-control mb-3 col-8" required>
+                        <option value="">Selecciona un paralelo</option>
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                        <option value="C">C</option>
+                        <option value="N/A">N/A</option>
+                    </select>
+
+                    <label class="col-4 col-form-label text-left"><h5><b>Ubicación:</b></h5></label>
+                    <select th:field="*{ubicacion_aula}" class="form-control mb-3 col-8" required>
+                        <option value="">Selecciona una ubicación</option>
+                        <option value="Jardín">Jardín</option>
+                        <option value="Escuela">Escuela</option>
+                        <option value="Colegio">Colegio</option>
+                    </select>
+
+                    <label class="col-4 col-form-label text-left"><h5><b>Encargado:</b></h5></label>
+                    <input type="text" th:field="*{encargado}" class="form-control mb-3 col-8" placeholder="Encargado" required>
+
+                    <button type="submit" class="btn btn-success mb-3 col-8">GUARDAR</button>
+                </div>
+            </div>
         </div>
-
-        <select th:field="*{paralelo}" class="form-control mb-3 col-5" required>
-            <option value="">Selecciona un paralelo</option>
-            <option value="A">A</option>
-            <option value="B">B</option>
-            <option value="C">C</option>
-            <option value="N/A">N/A</option>
-
-        </select>
-
-        <select th:field="*{ubicacion_aula}" class="form-control mb-3 col-5" required>
-            <option value="">Selecciona una ubicación</option>
-            <option value="Jardín">Jardín</option>
-            <option value="Escula">Escuela</option>
-            <option value="Colegio">Colegio</option>
-        </select>
-
-        <input type="text" th:field="*{encargado}" class="form-control mb-3 col-5" placeholder="Encargado" required>
-        <button type="submit" class="btn btn-success mb-3 col-5">GUARDAR</button>
     </form>
+
+
+
+
 
     <a th:href="@{/aulas/lista}" class="btn btn-warning mb-3 col-5">REGRESAR</a>
 </div>

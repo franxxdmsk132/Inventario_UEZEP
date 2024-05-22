@@ -85,7 +85,7 @@
 
 
     </style>
-    <title>Aulas</title>
+    <title><strong>Aulas</strong></title>
 
 </head>
 
@@ -104,7 +104,7 @@
                 <li class="nav-item"><a class="nav-link" href="/aulas/lista">Aulas</a></li>
                 <li class="nav-item"><a class="nav-link" href="/defmub/lista">Mobiliario de Aulas</a></li>
                 <li class="nav-item"><a class="nav-link" href="/departamentos/lista">Departamentos</a></li>
-                <li class="nav-item"><a class="nav-link" href="/departamentos/lista">Mobiliario de Departamentos</a></li>
+                <li class="nav-item"><a class="nav-link" href="/depmub/lista">Mobiliario de Departamentos</a></li>
             </ul>
 
             <ul class="navbar-nav">
@@ -122,22 +122,22 @@
 
     <h1 style="font-weight: bold; text-align: center; color: #545050;">
 
-        <b>
-            <img th:src="@{/images/aula.png}"
+        <b><i>            <img th:src="@{/images/aula.png}"
                  class="d-inline-block align-text-top" width="60" height="60"
                  alt="icon"> Listados de Aulas
-        </b></h1>
+            </i></b>
+    </h1>
     <hr>
     <div class="d-flex justify-content-between align-items-center">
         <div>
-            <a th:href="@{/aulas/nuevaAula}" class="btn btn-primary btn-sm mb-6" title="Registrar una nueva aula" >Agregar otra Aula <img
+            <a th:href="@{/aulas/nuevaAula}" class="btn btn-primary btn-sm mb-6" ><b>Agregar Aula</b> <img
                     th:src="@{/images/disquete.png}"
                     class="d-inline-block align-text-top" width="25" height="25"
                     alt="icon">
             </a>
 
 
-            <a th:href="@{/aulas/lista}" class="btn btn-warning btn-sm mb-6" title="Volver a cargar los datos" >CARGAR
+            <a th:href="@{/aulas/lista}" class="btn btn-warning btn-sm mb-6" ><b>Cargar</b>
                 <img th:src="@{/images/recargar.png}" class="d-inline-block align-text-top" width="25" height="25"
                      alt="icon" >
             </a>
@@ -146,22 +146,17 @@
         <div class="d-flex align-items-center">
             <button class="btn btn-info custom-btn btn-sm mb-6 mr-2" onclick="filtrarTabla('Inicial')">
                 <div class="d-flex align-items-center">
-                    <span class="ml-6">Filtrar Inicial</span>
+                    <span class="ml-6"><b>Filtrar Inicial</b></span>
                 </div>
             </button>
             <button class="btn btn-info custom-btn btn-sm mb-6 mr-2" onclick="filtrarTabla('Básica')">
                 <div class="d-flex align-items-center">
-                    <span class="ml-6">Filtrar Básicas</span>
+                    <span class="ml-6"><b>Filtrar Básicas</b></span>
                 </div>
             </button>
-<!--            <button class="btn btn-info custom-btn btn-sm mb-6 mr-2" onclick="filtrarTabla('Básica')">-->
-<!--                <div class="d-flex align-items-center">-->
-<!--                    <span class="ml-6">Filtrar Básica Superior</span>-->
-<!--                </div>-->
-<!--            </button>-->
             <button class="btn btn-info custom-btn btn-sm mb-6 mr-2" onclick="filtrarTabla('Bachillerato')">
                 <div class="d-flex align-items-center">
-                    <span class="ml-6">Filtrar Bachillerato</span>
+                    <span class="ml-6"><b>Filtrar Bachillerato</b></span>
                 </div>
             </button>
         </div>
@@ -197,15 +192,6 @@
             <td th:text="${aulas.paralelo}" class="text-center"></td>
             <td th:text="${aulas.ubicacion_aula}" class="text-center"></td>
             <td th:text="${aulas.encargado}" class="text-center"></td>
-
-                <!--            <td>-->
-                <!--                <div>-->
-                <!--                    <img class="img-thumbnail rounded float-left"-->
-                <!--                         th:src="@{'/images/' + ${tempArticulo.imagen}}"-->
-                <!--                         th:alt="${tempArticulo.imagen}">-->
-                <!--                </div>-->
-
-                <!--            </td>-->
 
 
             <td class="text-center">

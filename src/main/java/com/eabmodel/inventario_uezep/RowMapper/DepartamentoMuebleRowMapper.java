@@ -14,12 +14,13 @@ public class DepartamentoMuebleRowMapper implements RowMapper<DepartamentosMuebl
     public DepartamentosMuebles mapRow(ResultSet rs, int rowNum) throws SQLException {
         DepartamentosMuebles departamentosMuebles = new DepartamentosMuebles();
         departamentosMuebles.setId(rs.getInt("id"));
+        departamentosMuebles.setCantidad(rs.getInt("cantidad"));
 
         Departamentos departamentos = mapDepartamentos(rs);
-        departamentosMuebles.setDepartamento(departamentos);
+        departamentosMuebles.setDepartamentos(departamentos);
 
         Muebles muebles = mapMuebles(rs);
-        departamentosMuebles.setMueble(muebles);
+        departamentosMuebles.setMuebles(muebles);
 
         return departamentosMuebles;
     }

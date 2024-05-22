@@ -78,38 +78,76 @@
 
     <h3>
         <img th:src="@{/images/Logo-NBG.png}" class="d-inline-block align-text-top" width="40" height="40" alt="icon">
-        <b>Directorio de Muebles</b>
-    </h3>
-    <h4  hidden="hidden" ><a th:href="@{/muebles/lista}" class="btn btn-warning btn-sm mb-3 col-2 d-inline-block align-text-top ">ATRAS</a></h4>
-    <hr>
-    <p class="h4 mb-4">Actualizar Muebles</p>
+        <h3 class="mb-4"><b><i>Directorio de Muebles</i></b></h3>
+        <h4 hidden="hidden"><a th:href="@{/muebles/lista}" class="btn btn-warning btn-sm mb-3 col-2 d-inline-block align-text-top">ATRAS</a></h4>
+        <hr>
+        <div class="container">
+            <p class="h4 mb-4"><b>¡Actualizar el Mueble!</b></p>
+            <form action="#" th:action="@{/muebles/update}" th:object="${muebles}" method="POST" style="max-width: 600px;">
 
-    <form action="#" th:action="@{/muebles/update}" th:object="${muebles}" method="POST" class="d-flex flex-column align-items-center">
-        <input type="hidden" th:field="*{id_mueble}" class="form-control mb-3 col-5" placeholder="Id Mueble" >
-        <input type="text" th:field="*{codigo_mueble}" class="form-control mb-3 col-5" placeholder="Código del  Mueble" required readonly style="background-color: rgba(0,0,0,0.1); pointer-events: none;">
-        <input type="text" th:field="*{nombre_mueble}" class="form-control mb-3 col-5" placeholder="Nombre del Mueble" required>
-        <input type="text" th:field="*{descripcion_mueble}" class="form-control mb-3 col-5" placeholder="Descripción del Mueble" required>
-        <div class="form-group d-flex flex-column align-items-center">
-            <label class="mb-auto"><h5><b>Fecha de Ingreso</b></h5></label>
-            <div class="d-flex flex-column align-items-center">
-                <input type="text" th:field="*{fecha_ingreso}" name="fechaingreso" placeholder="yyyy-MM-dd HH:mm:ss" class="mr-2 mb-2" required>
-                <button type="button" onclick="seleccionarFechaActual()" class="btn btn-primary btn-sm">Seleccionar la Fecha y Hora Actual</button>
-            </div>
+                <div class="form-group row">
+                    <label class="col-4 col-form-label text-left"><h5><b>Codigo:</b></h5></label>
+                    <div class="col-8">
+                        <input type="text" th:field="*{codigo_mueble}" class="form-control mb-3" placeholder="Código del Mueble" required readonly style="background-color: rgba(0,0,0,0.1); pointer-events: none;">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-4 col-form-label text-left"><h5><b>Tipo de mueble:</b></h5></label>
+                    <div class="col-8">
+                        <input type="text" th:field="*{nombre_mueble}" class="form-control mb-3" placeholder="Nombre del Mueble" required>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-4 col-form-label text-left"><h5><b>Descripción:</b></h5></label>
+                    <div class="col-8">
+                        <input type="text" th:field="*{descripcion_mueble}" class="form-control mb-3" placeholder="Descripción del Mueble" required>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-4 col-form-label text-left"><h5><b>Estado:</b></h5></label>
+                    <div class="col-8">
+                        <select th:field="*{estado}" class="form-control mb-3" required>
+                            <option value="true">Activo</option>
+                            <option value="false">Inactivo</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-4 col-form-label"><h5><b>Fecha de Ingreso:</b></h5></label>
+                    <div class="col-8">
+                        <div class="d-flex flex-column align-items-start">
+                            <input type="text" th:field="*{fecha_ingreso}" name="fechaingreso" placeholder="yyyy-MM-dd HH:mm:ss" class="mr-2 mb-2 form-control" required>
+                            <button type="button" onclick="seleccionarFechaActual()" class="btn btn-primary btn-sm">Seleccionar la Fecha y Hora Actual</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-4 col-form-label text-left"><h5><b>Cantidad:</b></h5></label>
+                    <div class="col-8">
+                        <input type="number" th:field="*{cantidad}" class="form-control mb-3" placeholder="Cantidad" required min="1" oninput="validarCantidad(this)">
+                    </div>
+                </div>
+
+                <input hidden="hidden" type="number" th:field="*{asignacion}" class="form-control mb-3" placeholder="Asignacion">
+
+
+
+        <input type="number" th:field="*{asignacion}" class="form-control mb-3" placeholder="Asignacion" hidden="hidden">
+                <div class="row">
+                    <div class="col-md-6">
+                        <button type="submit" class="btn btn-success mb-3 col-12">GUARDAR</button>
+                    </div>
+                    <div class="col-md-6">
+                        <a th:href="@{/muebles/lista}" class="btn btn-warning mb-3 col-12">REGRESAR</a>
+                    </div>
+                </div>
+            </form>
         </div>
-        <input type="number" th:field="*{cantidad}" class="form-control mb-3 col-5" placeholder="Cantidad" required min="1" oninput="validarCantidad(this)">
-
-        <select th:field="*{estado}" class="form-control mb-3 col-5" required>
-            <option value="true">Activo</option>
-            <option value="false">Inactivo</option>
-        </select>
-        <input hidden="hidden" type="number" th:field="*{asignacion}" class="form-control mb-3 col-5" placeholder="Asignacion" >
-        <button type="submit" class="btn btn-success mb-3 col-5">GUARDAR</button>
-    </form>
-
-    <a th:href="@{/muebles/lista}" class="btn btn-warning mb-3 col-5">REGRESAR</a>
-</div>
-
-</body>
 <script>
     function validarCantidad(input) {
         if (input.value <= -1) {

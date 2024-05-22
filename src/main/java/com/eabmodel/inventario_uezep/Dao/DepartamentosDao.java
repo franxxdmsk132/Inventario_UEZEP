@@ -55,8 +55,8 @@ public class DepartamentosDao {
 
         if (departamentos != null && muebles != null) {
             DepartamentosMuebles departamentosMuebles = new DepartamentosMuebles();
-            departamentosMuebles.setDepartamento(departamentos);
-            departamentosMuebles.setMueble(muebles);
+            departamentosMuebles.setDepartamentos(departamentos);
+            departamentosMuebles.setMuebles(muebles);
             entityManager.persist(departamentosMuebles);
         } else {
             throw new RuntimeException("No se encontró el departamento o el mueble");
