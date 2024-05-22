@@ -83,72 +83,68 @@
         <hr>
         <div class="container">
             <p class="h4 mb-4"><b>¡Actualizar el Mueble!</b></p>
-            <form action="#" th:action="@{/muebles/update}" th:object="${muebles}" method="POST" style="max-width: 600px;">
-
-                <div class="form-group row">
-                    <label class="col-4 col-form-label text-left"><h5><b>Codigo:</b></h5></label>
-                    <div class="col-8">
-                        <input type="text" th:field="*{codigo_mueble}" class="form-control mb-3" placeholder="Código del Mueble" required readonly style="background-color: rgba(0,0,0,0.1); pointer-events: none;">
+            <form action="#" th:action="@{/muebles/update}" th:object="${muebles}" method="POST" class="d-flex flex-column align-items-center w-100">
+                <div class="form-row w-75">
+                    <div class="form-group row w-100">
+                        <label class="col-4 col-form-label text-left"><h5><b>Código:</b></h5></label>
+                        <div class="col-8">
+                            <input type="text" th:field="*{codigo_mueble}" class="form-control mb-3" placeholder="Código del Mueble" required readonly style="background-color: rgba(0,0,0,0.1); pointer-events: none;">
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group row">
-                    <label class="col-4 col-form-label text-left"><h5><b>Tipo de mueble:</b></h5></label>
-                    <div class="col-8">
-                        <input type="text" th:field="*{nombre_mueble}" class="form-control mb-3" placeholder="Nombre del Mueble" required>
+                    <div class="form-group row w-100">
+                        <label class="col-4 col-form-label text-left"><h5><b>Tipo de mueble:</b></h5></label>
+                        <div class="col-8">
+                            <input type="text" th:field="*{nombre_mueble}" class="form-control mb-3" placeholder="Nombre del Mueble" required>
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group row">
-                    <label class="col-4 col-form-label text-left"><h5><b>Descripción:</b></h5></label>
-                    <div class="col-8">
-                        <input type="text" th:field="*{descripcion_mueble}" class="form-control mb-3" placeholder="Descripción del Mueble" required>
+                    <div class="form-group row w-100">
+                        <label class="col-4 col-form-label text-left"><h5><b>Descripción:</b></h5></label>
+                        <div class="col-8">
+                            <input type="text" th:field="*{descripcion_mueble}" class="form-control mb-3" placeholder="Descripción del Mueble" required>
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group row">
-                    <label class="col-4 col-form-label text-left"><h5><b>Estado:</b></h5></label>
-                    <div class="col-8">
-                        <select th:field="*{estado}" class="form-control mb-3" required>
-                            <option value="true">Activo</option>
-                            <option value="false">Inactivo</option>
-                        </select>
+                    <div class="form-group row w-100">
+                        <label class="col-4 col-form-label text-left"><h5><b>Estado:</b></h5></label>
+                        <div class="col-8">
+                            <select th:field="*{estado}" class="form-control mb-3" required>
+                                <option value="true">Activo</option>
+                                <option value="false">Inactivo</option>
+                            </select>
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group row">
-                    <label class="col-4 col-form-label"><h5><b>Fecha de Ingreso:</b></h5></label>
-                    <div class="col-8">
-                        <div class="d-flex flex-column align-items-start">
-                            <input type="text" th:field="*{fecha_ingreso}" name="fechaingreso" placeholder="yyyy-MM-dd HH:mm:ss" class="mr-2 mb-2 form-control" required>
+                    <div class="form-group row w-100">
+                        <label class="col-4 col-form-label text-left"><h5><b>Fecha de Ingreso:</b></h5></label>
+                        <div class="col-8">
+                            <input type="text" th:field="*{fecha_ingreso}" name="fechaingreso" placeholder="yyyy-MM-dd HH:mm:ss" class="form-control mb-2" required>
                             <button type="button" onclick="seleccionarFechaActual()" class="btn btn-primary btn-sm">Seleccionar la Fecha y Hora Actual</button>
                         </div>
                     </div>
-                </div>
 
-                <div class="form-group row">
-                    <label class="col-4 col-form-label text-left"><h5><b>Cantidad:</b></h5></label>
-                    <div class="col-8">
-                        <input type="number" th:field="*{cantidad}" class="form-control mb-3" placeholder="Cantidad" required min="1" oninput="validarCantidad(this)">
+                    <div class="form-group row w-100">
+                        <label class="col-4 col-form-label text-left"><h5><b>Cantidad:</b></h5></label>
+                        <div class="col-8">
+                            <input type="number" th:field="*{cantidad}" class="form-control mb-3" placeholder="Cantidad" required min="1" oninput="validarCantidad(this)">
+                        </div>
                     </div>
-                </div>
 
-                <input hidden="hidden" type="number" th:field="*{asignacion}" class="form-control mb-3" placeholder="Asignacion">
+                    <input hidden="hidden" type="number" th:field="*{asignacion}" class="form-control mb-3" placeholder="Asignacion">
 
-
-
-        <input type="number" th:field="*{asignacion}" class="form-control mb-3" placeholder="Asignacion" hidden="hidden">
-                <div class="row">
-                    <div class="col-md-6">
-                        <button type="submit" class="btn btn-success mb-3 col-12">GUARDAR</button>
-                    </div>
-                    <div class="col-md-6">
-                        <a th:href="@{/muebles/lista}" class="btn btn-warning mb-3 col-12">REGRESAR</a>
+                    <div class="form-group row w-100">
+                        <div class="col-6">
+                            <button type="submit" class="btn btn-success mb-3 col-12">GUARDAR</button>
+                        </div>
+                        <div class="col-6">
+                            <a th:href="@{/muebles/lista}" class="btn btn-warning mb-3 col-12">REGRESAR</a>
+                        </div>
                     </div>
                 </div>
             </form>
-        </div>
-<script>
+
+            <script>
     function validarCantidad(input) {
         if (input.value <= -1) {
             input.value = 1; // Restablece el valor a 1 si es menor o igual a cero

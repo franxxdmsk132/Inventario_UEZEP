@@ -93,31 +93,60 @@
 
     <h3>
         <img th:src="@{/images/Logo-NBG.png}" class="d-inline-block align-text-top" width="40" height="40" alt="icon">
-        <b>DIRECTORIO DE LAS  AULA</b>
+        <b><i>DIRECTORIO DE LAS  AULA</i></b>
     </h3>
     <h4  align="center" hidden="hidden" ><a th:href="@{/aulas/lista}" class="btn btn-warning btn-sm mb-3 d-inline-block align-text-top"  >ATRAS</a> </h4>
     <br>
     <hr>
 
-    <p class="h4 mb-4">ACTUALIZAR LAS AULAS</p>
+    <p class="h4 mb-4"><b>¡Actualizar la Aula!</b></p>
+    <form action="#" th:action="@{/aulas/update}" th:object="${aulas}" method="POST" class="d-flex flex-column align-items-center w-100">
+        <div class="form-row w-75">
+            <div class="form-group row w-100">
+                <input type="hidden" th:field="*{id_aula}" class="form-control mb-2 col-12" placeholder="ID Articulo" />
+            </div>
 
-    <form action="#" th:action="@{/aulas/update}"
-          th:object="${aulas}" method="POST"  class="d-flex flex-column align-items-center">
-        <!-- Add hidden form field to handle update -->
-        <input type="hidden" th:field="*{id_aula}" class="form-control mb-2 col-5"  placeholder="ID Articulo"/>
-        <input type="text" th:field="*{curso}" class="form-control mb-2 col-5"  placeholder="Curso"  required/>
-        <input type="text" th:field="*{paralelo}" class="form-control mb-2 col-5"  placeholder="Paralelo"  required/>
-        <input type="text" th:field="*{ubicacion_aula}" class="form-control mb-2 col-5"  placeholder="Ubicacion" required>
-        <input type="text" th:field="*{encargado}" class="form-control mb-2 col-5"  placeholder="Encargado" required >
+            <div class="form-group row w-100">
+                <label class="col-4 col-form-label text-left"><h5><b>Curso:</b></h5></label>
+                <div class="col-8">
+                    <input type="text" th:field="*{curso}" class="form-control mb-2" placeholder="Curso" required />
+                </div>
+            </div>
 
+            <div class="form-group row w-100">
+                <label class="col-4 col-form-label text-left"><h5><b>Paralelo:</b></h5></label>
+                <div class="col-8">
+                    <input type="text" th:field="*{paralelo}" class="form-control mb-2" placeholder="Paralelo" required />
+                </div>
+            </div>
 
-        <button type="submit" class="btn btn-success mb-2 col-2">GUARDAR</button>
+            <div class="form-group row w-100">
+                <label class="col-4 col-form-label text-left"><h5><b>Ubicación:</b></h5></label>
+                <div class="col-8">
+                    <input type="text" th:field="*{ubicacion_aula}" class="form-control mb-2" placeholder="Ubicación" required />
+                </div>
+            </div>
+
+            <div class="form-group row w-100">
+                <label class="col-4 col-form-label text-left"><h5><b>Encargado:</b></h5></label>
+                <div class="col-8">
+                    <input type="text" th:field="*{encargado}" class="form-control mb-2" placeholder="Encargado" required />
+                </div>
+            </div>
+
+            <div class="form-group row w-100">
+                <div class="col-6">
+                    <button type="submit" class="btn btn-success mb-3 col-12">GUARDAR</button>
+                </div>
+                <div class="col-6">
+                    <a th:href="@{/aulas/lista}" class="btn btn-warning mb-3 col-12">REGRESAR</a>
+                </div>
+            </div>
+        </div>
     </form>
-    <a th:href="@{/aulas/lista}" class="btn btn-warning mb-2 col-2">ATRAS
-    </a>
-</div>
-</body>
-<script>
+
+
+    <script>
     function validarCantidad(input) {
         if (input.value <= -1) {
             input.value = 1; // Restablece el valor a 1 si es menor o igual a cero

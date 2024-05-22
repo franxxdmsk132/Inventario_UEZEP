@@ -85,7 +85,7 @@
 
 
     </style>
-    <title>Asignacion de Muebles</title>
+    <title>Muebles - Aulas</title>
 
 </head>
 
@@ -98,11 +98,11 @@
                 <h3>
                     <img th:src="@{/images/Logo-NBG.png}" class="d-inline-block align-text-top" width="40" height="40"
                          alt="icon">
-                    <b>Mobiliario de Aulas</b>
+                    <b><em>Mobiliario En Aulas</em></b>
                 </h3>
-                <h4><a th:href="@{/defmub/lista}" class="btn btn-warning btn-sm mb-3 d-inline-block align-text-top">ATRAS</a></h4>
                 <hr>
-                <h2>Asignar Muebles en una Aula</h2>
+                <h2><b>¡Asignar Muebles en una Aula!</b></h2>
+
             </div>
             <form action="/defmub/save" method="post" th:object="${asignacionForm}" onsubmit="validarFormulario(event)" class="d-flex flex-column align-items-center">
 
@@ -178,6 +178,8 @@
                 </div>
 
                 <button type="submit" class="btn btn-primary">Asignar Muebles</button>
+                <h4><a th:href="@{/defmub/lista}" class="btn btn-warning btn-sm mb-3 d-inline-block align-text-top">ATRAS</a></h4>
+
             </form>
             <br>
         </div>

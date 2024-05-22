@@ -83,7 +83,7 @@
 
 
     </style>
-    <title>DETALLES DE AULAS</title>
+    <title>Detalles de Aulas</title>
 </head>
 <body>
 
@@ -94,35 +94,35 @@
     <h3 align="center">
         <img th:src="@{/images/aula.png}"
              class="d-inline-block align-text-top" width="40" height="40"
-             alt="icon"> <b>Aulas</b>
+             alt="icon"> <b><i>Aulas</b>
     </h3>
-    <h4 align="center"><a th:href="@{/aulas/lista}"
-                          class="btn btn-warning btn-sm mb-3 d-inline-block align-text-top">ATRAS</a></h4>
+<!--    <h4 align="center"><a th:href="@{/aulas/lista}"-->
+<!--                          class="btn btn-warning btn-sm mb-3 d-inline-block align-text-top">ATRAS</a></h4>-->
     <hr>
-    <p class="h4 mb-4">DETALLES DE LAS AULAS</p>
+    <p class="h4 mb-4"><b>¡Detalle de Aula!</i></b></p>
 
 
     <table class="table  table-hover  table-striped">
         <thead class="thead-info">
         <tr th:if="${aulas}">
-            <th>ID Aula</th>
+            <th>ID Aula:</th>
             <td th:text="${aulas.id_aula}"></td>
         </tr>
         </thead>
         <tr th:if="${aulas}">
-            <th>Curso</th>
+            <th>Curso:</th>
             <td th:text="${aulas.curso}"></td>
         </tr>
         <tr th:if="${aulas}">
-            <th>Paralelo</th>
+            <th>Paralelo:</th>
             <td th:text="${aulas.paralelo}"></td>
         </tr>
         <tr th:if="${aulas}">
-            <th>Ubicacion</th>
+            <th>Ubicacion:</th>
             <td th:text="${aulas.ubicacion_aula}"></td>
         </tr>
         <tr th:if="${aulas}">
-            <th>Personal a cargo</th>
+            <th>Encargado:</th>
             <td th:text="${aulas.encargado}"></td>
         </tr>
 
@@ -131,7 +131,7 @@
         </tbody>
 
     </table>
-    <div align="left">
+    <div align="center">
         <a th:href="@{/aulas/lista}" class="btn btn-warning btn-sm mb-3">ATRAS</a>
         <a th:href="@{/aulas/nuevaAula}" class="btn btn-primary btn-sm mb-3"> AGREGAR OTRA AULA</a>
         <a th:href="@{/aulas/cambiarAula(id_aula=${aulas.id_aula})}" class="btn btn-info btn-sm mb-3">
