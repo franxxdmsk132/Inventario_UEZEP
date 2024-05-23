@@ -182,6 +182,7 @@
         <th>Descripción</th>
         <th hidden="hidden" onclick="ordenarPorFechaIngreso()">Fecha Ingreso</th>
         <th>Estado</th>
+        <th>Condicion</th>
         <th>Disponible</th>
         <th>Ocupado</th>
         <th>Total</th>
@@ -206,6 +207,7 @@
             </span>
             </div>
         </td>
+        <td th:text="${muebles.condicion}" class="text-center"></td>
 
 
         <td th:text="${muebles.cantidad}" class="text-center"></td>

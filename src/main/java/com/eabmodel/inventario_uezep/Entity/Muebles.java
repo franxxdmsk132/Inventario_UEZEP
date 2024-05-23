@@ -22,6 +22,7 @@ public class Muebles {
     private String descripcion_mueble;
     private String fecha_ingreso;
     private Boolean estado;
+    private String condicion;
     private Integer cantidad;
     private Integer asignacion;
     @OneToMany(mappedBy = "muebles")

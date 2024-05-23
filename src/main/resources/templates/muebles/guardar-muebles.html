@@ -153,6 +153,18 @@
                     </div>
                 </div>
 
+                <div class="form-group mt-3 w-100 d-flex align-items-center">
+                    <label for="condicionSelect" class="col-4 col-form-label text-left"><b>Condición:</b></label>
+                    <div class="col-8">
+                        <select id="condicionSelect" class="form-control" th:field="*{condicion}" required>
+                            <option value="" disabled selected>Debe seleccionar una condición</option>
+                            <option value="Buena">Buena</option>
+                            <option value="Regular">Regular </option>
+                            <option value="Mala">Mala</option>
+                        </select>
+                    </div>
+                </div>
+
                 <input type="number" th:field="*{asignacion}" class="form-control mb-3" placeholder="Asignacion" hidden="hidden">
 
                 <div class="form-group row w-100">

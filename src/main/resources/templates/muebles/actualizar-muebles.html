@@ -85,6 +85,9 @@
             <p class="h4 mb-4"><b>¡Actualizar el Mueble!</b></p>
             <form action="#" th:action="@{/muebles/update}" th:object="${muebles}" method="POST" class="d-flex flex-column align-items-center w-100">
                 <div class="form-row w-75">
+                    <div class="form-group col-md-8">
+                        <input type="hidden" th:field="*{id_mueble}" class="form-control mb-2" placeholder="ID Mueble"/>
+                    </div>
                     <div class="form-group row w-100">
                         <label class="col-4 col-form-label text-left"><h5><b>Código:</b></h5></label>
                         <div class="col-8">
@@ -112,6 +115,17 @@
                             <select th:field="*{estado}" class="form-control mb-3" required>
                                 <option value="true">Activo</option>
                                 <option value="false">Inactivo</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row w-100">
+                        <label class="col-4 col-form-label text-left"><h5><b>Condicion:</b></h5></label>
+                        <div class="col-8">
+                            <select id="condicionSelect" class="form-control" th:field="*{condicion}" required>
+                                <option value="" disabled selected>Debe seleccionar una condición</option>
+                                <option value="Buena">Buena</option>
+                                <option value="Regular">Regular </option>
+                                <option value="Mala">Mala</option>
                             </select>
                         </div>
                     </div>

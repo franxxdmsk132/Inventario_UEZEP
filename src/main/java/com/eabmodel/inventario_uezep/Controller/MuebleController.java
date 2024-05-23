@@ -40,22 +40,16 @@ public class MuebleController {
     //Formulario para guardar
     @GetMapping("/nuevoMueble")
     public String nuevoMueble(Model theModel) {
-
         Muebles muebles = new Muebles();
-
         theModel.addAttribute("muebles", muebles);
-
         return "muebles/guardar-muebles";
     }
 
     //Formulario para Actualizar
     @GetMapping("/cambiarMueble")
     public String showFormForUpdate(@RequestParam("id_mueble") int id_mueble, Model theModel) {
-
         Muebles muebles = muebleService.findById(id_mueble);
-
         theModel.addAttribute("muebles", muebles);
-
         return "muebles/actualizar-muebles";
     }
 
@@ -65,25 +59,13 @@ public class MuebleController {
     //Guardar mueble
     @PostMapping("/save")
     public String saveMueble(@ModelAttribute("muebles") Muebles muebles) {
-
         muebleService.save(muebles);
-
         return "redirect:/muebles/lista";
     }
 
-    //Actualizar mueble
-//    @PostMapping("/update")
-//    public String updateMuebles(@ModelAttribute("muebles") Muebles muebles) {
-//
-//        muebleService.update(muebles);
-//
-//        return "redirect:/muebles/lista";
-//    }
     @PostMapping("/update")
-    public String updateMuebles2(@ModelAttribute("muebles") Muebles muebles) {
-
+    public String updateMuebles(@ModelAttribute("muebles") Muebles muebles) {
         muebleService.update(muebles);
-
         return "redirect:/muebles/lista";
     }
 
@@ -93,6 +75,7 @@ public class MuebleController {
         muebleService.deleteByIdMueble(id_mueble);
         return "redirect:/muebles/lista";
     }
+
     @PostMapping("/cambiarEstado")
     public String cambiarEstado(@RequestParam("id_mueble") int id_mueble) {
         muebleService.cambiarEstadoByIdMueble(id_mueble);

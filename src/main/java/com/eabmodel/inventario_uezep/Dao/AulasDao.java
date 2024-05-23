@@ -71,7 +71,7 @@ public class AulasDao {
 
     public void update(Aulas aulas) {
         String sql = "UPDATE aulas SET curso = ?,paralelo = ?,  encargado = ?, ubicacion_aula = ? WHERE id_aula = ?";
-        jdbcTemplate.update(sql, aulas.getCurso(), aulas.getEncargado(), aulas.getUbicacion_aula(), aulas.getId_aula());
+        jdbcTemplate.update(sql, aulas.getCurso(), aulas.getEncargado(),aulas.getParalelo(), aulas.getUbicacion_aula(), aulas.getId_aula());
     }
 
     public void addMuebleToAula(int id_aula, int id_mueble) {
