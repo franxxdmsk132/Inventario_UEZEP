@@ -65,7 +65,7 @@
             font-weight: bold;
         }
     </style>
-    <title>DETALLES DE LOS Departamentos</title>
+    <title>Detalle de Departamentos</title>
 </head>
 <body>
 
@@ -76,31 +76,31 @@
     <h3 align="center">
         <img th:src="@{/images/departamento.png}"
              class="d-inline-block align-text-top" width="40" height="40"
-             alt="icon"> Departamentos
+             alt="icon"><b><i>Departamentos</i></b>
     </h3>
-    <h4 align="center"><a th:href="@{/departamentos/lista}"
-                          class="btn btn-warning btn-sm mb-3 d-inline-block align-text-top">ATRAS</a></h4>
+<!--    <h4 align="center"><a th:href="@{/departamentos/lista}"-->
+<!--                          class="btn btn-warning btn-sm mb-3 d-inline-block align-text-top">ATRAS</a></h4>-->
     <hr>
-    <p class="h4 mb-4">Detalle de los Departamentos</p>
+    <p class="h4 mb-4">¡Detalle de Departamento!</p>
 
 
     <table class="table  table-hover  table-striped">
         <thead class="thead-info">
         <tr th:if="${departamentos}">
-            <th>ID Departamento</th>
+            <th>ID Departamento:</th>
             <td th:text="${departamentos.id_departamento}"></td>
         </tr>
         </thead>
         <tr th:if="${departamentos}">
-            <th>Tipo de Jornada</th>
+            <th>Tipo de Jornada:</th>
             <td th:text="${departamentos.tipo_departamento}"></td>
         </tr>
         <tr th:if="${departamentos}">
-            <th>Tipo de Departamento</th>
+            <th>Tipo de Departamento:</th>
             <td th:text="${departamentos.tipo_jornada}"></td>
         </tr>
         <tr th:if="${departamentos}">
-            <th>Encargado</th>
+            <th>Encargado:</th>
             <td th:text="${departamentos.encargado_departamento}"></td>
         </tr>
 
@@ -108,17 +108,43 @@
         </tbody>
 
     </table>
-    <div align="left">
-        <a th:href="@{/departamentos/lista}" class="btn btn-warning btn-sm mb-3">ATRAS</a>
-        <a th:href="@{/departamentos/nuevoDepartamento}" class="btn btn-primary btn-sm mb-3"> AGREGAR OTRO DEPARTAMENTO</a>
-        <a th:href="@{/departamentos/cambiarDepartamento(id_departamento=${departamentos.id_departamento})}" class="btn btn-info btn-sm mb-3">
-            ACTUALIZACIONES </a>
-<!--        <a th:href="@{/cambiarDepartamento/delete(id_departamento=${departamentos.id_departamento})}  " class="btn btn-danger  btn-sm mb-3"-->
-<!--           onclick="if (!(confirm('¿Está seguro que desea eliminar la sección de Departamentos?'))) return false">-->
-<!--            ELIMINAR </a>-->
-    </div>
-
 </div>
-
+<div class="form-group row w-100">
+    <div align="center" class="w-100">
+        <a th:href="@{/departamentos/lista}" class="btn btn-warning btn-sm mb-3 mx-1 col-2 d-inline-block">ATRAS</a>
+        <a th:href="@{/departamentos/nuevoDepartamento}" class="btn btn-primary btn-sm mb-3 mx-1 col-2 d-inline-block">AGREGAR OTRO DEPARTAMENTO</a>
+        <a th:href="@{/departamentos/cambiarDepartamento(id_departamento=${departamentos.id_departamento})}" class="btn btn-info btn-sm mb-3 mx-1 col-2 d-inline-block">ACTUALIZACIONES</a>
+        <form id="delete-form" th:action="@{/departamentos/delete}" method="post" style="display: inline;">
+            <input type="hidden" name="id_departamento" th:value="${departamentos.id_departamento}" />
+            <button type="button" class="btn btn-danger btn-sm mb-3 mx-1 col-2 d-inline-block" onclick="confirmarEliminar()">ELIMINAR</button>
+        </form>
+    </div>
+</div>
+</div>
+</form>
+</div>
+    </form>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script>
+    function confirmarEliminar() {
+        Swal.fire({
+            title: '¿Está seguro que desea eliminar este Departamento?',
+            text: 'Esta acción no se puede deshacer',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Si se confirma la eliminación, enviar el formulario
+                document.getElementById('delete-form').submit();
+            }
+        });
+    }
+</script>
 </body>
+</script>
 </html>

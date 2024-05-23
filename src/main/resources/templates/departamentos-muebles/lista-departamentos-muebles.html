@@ -89,7 +89,7 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="/">
                         <img th:src="@{/images/home.png}" class="d-inline-block align-text-center" width="35"
-                             height="35" alt="icon"> Home
+                             height="35" alt="icon"> Inicio
                     </a>
                 </li>
             </ul>
@@ -113,25 +113,31 @@
 </section>
 
 <br>
-<div class="container-fluid text-center">
-    <h1 style="font-weight: bold; color: #545050;">
+<div class="container-fluid" align="center">
+    <h1 style="font-weight: bold; text-align: center; color: #545050;">
+        <b><i>
         <img th:src="@{/images/objetos.png}" class="d-inline-block align-text-top" width="60" height="60" alt="icon">
-        Mobiliario de Departamentos
+        Mobiliario Departamentos
+        </i></b>
     </h1>
     <hr>
     <div class="d-flex justify-content-between mb-3">
-        <a th:href="@{/depmub/nuevoMuebleDepartamento}" class="btn btn-primary btn-sm">Agregar otro Departamento <img
-                th:src="@{/images/disquete.png}" class="d-inline-block align-text-top" width="25" height="25"
-                alt="icon"></a>
+        <a th:href="@{/depmub/nuevoMuebleDepartamento}" class="btn btn-primary btn-sm mb-3"><b>Agregar Muebles en Departamento</b> <img
+                th:src="@{/images/disquete.png}"
+                class="d-inline-block align-text-top"
+                width="25" height="25"
+                alt="icon">
+        </a>
     </div>
 
     <div class="row">
         <div class="col">
-            <h2>Lista de Departamentos</h2>
+            <h2><b>Departamentos</b></h2>
             <table id="tablaDepartamentos" class="table table-hover">
                 <thead class="thead-darkGray text-center">
                 <tr>
-                    <th>ID</th>
+<!--                    <th hidden="hidden">ID</th>-->
+                    <th>ID </th>
                     <th>JORNADA</th>
                     <th>DEPARTAMENTO</th>
                     <th>ENCARGADO</th>
@@ -151,11 +157,12 @@
                             <img th:src="@{/images/ver.png}" class="d-inline-block align-text-top" width="20"
                                  height="20" alt="icon">
                         </a>
-                        <a th:href="@{/depmub/cambiarMueblesDepartamentos(id_departamento=${departamentosMuebles.departamentos.id_departamento})}"
-                           class="btn btn-info btn-sm mr-2" title="Actualizar Informacion"> ACTUALIZACIONES
-                            <img th:src="@{/images/editar.png}" class="d-inline-block align-text-top" width="20"
-                                 height="20" alt="icon">
-                        </a>
+<!--                        <a th:href="@{/depmub/cambiarMueblesDepartamentos(id_departamento=${departamentosMuebles.departamentos.id_departamento})}"-->
+<!--                           class="btn btn-info btn-sm mr-2" title="Actualizar Informacion"> ACTUALIZACIONES-->
+<!--                            <img th:src="@{/images/editar.png}" class="d-inline-block align-text-top" width="20"-->
+<!--                                 height="20" alt="icon">-->
+<!--                        </a>-->
+
                     </td>
                 </tr>
                 </tbody>
@@ -164,23 +171,28 @@
                 No hay registros.
             </div>
             <a th:href="@{/depmub/lista}" class="btn btn-warning btn-sm mb-3">CARGAR <img
-                    th:src="@{/images/recargar.png}" class="d-inline-block align-text-top" width="20" height="20"
-                    alt="icon"></a>
+                    th:src="@{/images/recargar.png}"
+                    class="d-inline-block align-text-top"
+                    width="20" height="20"
+                    alt="icon">
+            </a>
         </div>
         <div class="col">
-            <h2>Muebles en el departamento seleccionado</h2>
+            <h2><b>Muebles</b></h2>
             <div class="container" align="left" >
-            <table class="table" id="tablaTemporal">
-                <thead class="thead-darkGray">
-                <tr>
-                    <th>ID M.</th>
-                    <th>Nombre</th>
-                    <th>Descripción</th>
-                    <th>Codigo M.</th> <!-- Agregamos el encabezado para el ID del aula -->
-                    <th>Cantidad</th>
-                    <th id="cEliminar">Eliminar</th>
+                <table class="table" id="tablaTemporal">
+                    <thead class="thead-darkGray">
+                    <tr>
+                        <!--                        <th>ID M.</th>-->
+                        <th>Código </th>
+                        <th>Nombre</th>
+                        <th>Descripción</th>
+                        <!-- Agregamos el encabezado para el ID del aula -->
+                        <th>Cantidad</th>
+                        <th id="cEliminar">Eliminar</th>
 
-                    <!-- Agrega más encabezados de columnas según sea necesario -->
+
+                        <!-- Agrega más encabezados de columnas según sea necesario -->
                 </tr>
                 </thead>
             </table>

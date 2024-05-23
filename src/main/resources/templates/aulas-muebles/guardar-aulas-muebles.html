@@ -98,30 +98,31 @@
                 <h3>
                     <img th:src="@{/images/Logo-NBG.png}" class="d-inline-block align-text-top" width="40" height="40"
                          alt="icon">
-                    <b><em>Mobiliario En Aulas</em></b>
+                    <b><em>Mobiliario Aulas</em></b>
                 </h3>
                 <hr>
-                <h2><b>¡Asignar Muebles en una Aula!</b></h2>
-
-            </div>
-            <form action="/defmub/save" method="post" th:object="${asignacionForm}" onsubmit="validarFormulario(event)" class="d-flex flex-column align-items-center">
-
-                <!-- Select de aulas -->
-                <div class="form-group">
-                    <label for="id_aula" class="h4">Selecciona un Aula:</label>
-                    <select id="id_aula" name="id_aula" class="form-control">
-                        <option value="" disabled selected>Selecciona un aula</option>
-                        <!-- Iterar sobre la lista de aulas disponibles -->
-                        <option th:each="aula : ${allAulas}" th:value="${aula.id_aula}"
-                                th:text="${aula.curso + ' - ' + aula.paralelo}"></option>
-                    </select>
-                    <div id="selectError" class="invalid-feedback" style="display: none;">Por favor, selecciona un aula para continuar</div>
+                <div>
+                    <h2 class="mb-4"><b>¡Asignación de Muebles por Aula!</b></h2>
                 </div>
+                <form action="/defmub/save" method="post" th:object="${asignacionForm}" onsubmit="validarFormulario(event)" class="d-flex flex-column text-left mb-4">
+                <div class="form-group row">
+                    <label for="id_aula" class="col-sm-4 col-form-label h4 font-weight-bold">Selecciona Una Aula:</label>
+                    <div class="col-sm-8">
 
+                    <select id="id_aula" name="id_aula" class="form-control">
+                            <option value="" disabled selected>Selecciona una aula</option>
+                            <!-- Iterar sobre la lista de aulas disponibles -->
+                            <option th:each="aula : ${allAulas}" th:value="${aula.id_aula}" th:text="${aula.curso + ' - ' + aula.paralelo}"></option>
+                        </select>
+                        <div id="selectError" class="invalid-feedback" style="display: none;">Por favor, selecciona un aula para continuar</div>
+                    </div>
+                </div>
 
                 <!-- Lista de muebles -->
                 <div class="form-group">
-                    <label class="h4">Selecciona los Muebles:</label>
+                    <label class="h5 "><b>Seleccionar Muebles:</b></label>
+
+
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
@@ -177,16 +178,10 @@
                     </div>
                 </div>
 
-                <button type="submit" class="btn btn-primary">Asignar Muebles</button>
-                <h4><a th:href="@{/defmub/lista}" class="btn btn-warning btn-sm mb-3 d-inline-block align-text-top">ATRAS</a></h4>
+                <button type="submit" class="btn btn-primary btn-block">Asignar Muebles</button>
+                <a th:href="@{/defmub/lista}" class="btn btn-warning btn-sm btn-block mb-3 d-inline-block align-text-top">ATRAS</a>
 
-            </form>
-            <br>
-        </div>
-    </div>
-</div>
-</body>
-<script>
+                <script>
     function habilitarCantidad(checkbox) {
     // Obtener el campo de cantidad asociado al checkbox actual
     var cantidadInput = checkbox.parentElement.parentElement.nextElementSibling.querySelector('input[name="cantidad"]');

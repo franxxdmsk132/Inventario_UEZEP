@@ -96,7 +96,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav">
         <li class="nav-item active"><a class="nav-link" href="/">
-          <img th:src="@{/images/home.png}" class="d-inline-block align-text-center" width="35" height="35" alt="icon"> Home </a></li>
+          <img th:src="@{/images/home.png}" class="d-inline-block align-text-center" width="35" height="35" alt="icon"> Inicio </a></li>
       </ul>
       <ul class="navbar-nav mx-auto">
         <li class="nav-item"><a class="nav-link" href="/muebles/lista">Muebles</a></li>
@@ -118,19 +118,46 @@
 
   <h1 style="font-weight: bold; text-align: center; color: #545050;">
 
-    <b>
+    <b><i>
       <img th:src="@{/images/departamento.png}"
            class="d-inline-block align-text-top" width="60" height="60"
-           alt="icon"> LISTADO DE LOS DEPARTAMENTOS
-    </b></h1>
+           alt="icon"> Listados de Departamentos
+    </i></b>
+  </h1>
+
   <hr>
-  <div class="d-flex justify-content-between">
-    <a th:href="@{/departamentos/nuevoDepartamento}" class="btn btn-primary btn-sm mb-3">Agregar otro Departamento<img
-            th:src="@{/images/disquete.png}"
-            class="d-inline-block align-text-top" width="25" height="25"
-            alt="icon"></a>
-    <br>
+  <div class="d-flex justify-content-between align-items-center">
+    <div>
+      <a th:href="@{/departamentos/nuevoDepartamento}" class="btn btn-primary btn-sm mb-6"><b>Agregar Departamento</b>
+        <img th:src="@{/images/disquete.png}" class="d-inline-block align-text-top" width="25" height="25" alt="icon">
+      </a>
+      <a th:href="@{/muebles/lista}" class="btn btn-warning btn-sm mb-6"><b>Cargar</b>
+        <img th:src="@{/images/recargar.png}" class="d-inline-block align-text-top" width="25" height="25" alt="icon">
+      </a>
+    </div>
+
+  <div class="d-flex justify-content-center">
+    <button class="btn btn-warning custom-btn btn-sm mb-6 mr-2" onclick="filtrarTabla('Matutin')">
+      <div class="d-flex align-items-center">
+        <span class="ml-6"><b> Filtrar Matutino</b></span>
+      </div>
+    </button>
+    <button class="btn btn-warning custom-btn btn-sm mb-6 mr-2" onclick="filtrarTabla('Vespertin')">
+      <div class="d-flex align-items-center">
+        <span class="ml-6"><b>Filtrar Vespertino</b></span>
+      </div>
+    </button>
+
+    <div class="d-flex align-items-center">
+      <img th:src="@{/images/lupa.png}" class="d-inline-block align-text-top" width="30" height="30" alt="icon">
+      <input type="text" id="buscar" class="form-control mb-6 ml-2" placeholder="Buscar Aula..."  title="Buscar dentro de la tabla">
+    </div>
+
   </div>
+  </div>
+</div>
+
+<br>
 
   <table class="table  table-hover " id="tabladepartamentos">
     <thead class="thead-darkGray text-center">
@@ -141,10 +168,6 @@
       <th>ENCARGADO</th>
       <th>ACCIONES</th>
 
-
-
-
-
     </tr>
     </thead>
     <tr th:each="departamento, i: ${departamentos}">
@@ -152,19 +175,6 @@
       <td th:text="${departamento.tipo_jornada}" class="text-center"/>
       <td th:text="${departamento.tipo_departamento}" class="text-center"/>
       <td th:text="${departamento.encargado_departamento}" class="text-center"/>
-
-
-
-      <!--            <td>-->
-      <!--                <div>-->
-      <!--                    <img class="img-thumbnail rounded float-left"-->
-      <!--                         th:src="@{'/images/' + ${tempArticulo.imagen}}"-->
-      <!--                         th:alt="${tempArticulo.imagen}">-->
-      <!--                </div>-->
-
-      <!--            </td>-->
-
-
 
 
 
@@ -202,34 +212,19 @@
 
     </tbody>
 
-    <div class="d-flex justify-content-center">
-      <button class="btn btn-info custom-btn btn-sm mb-6 mr-2" onclick="filtrarTabla('Matutin')">
-        <div class="d-flex align-items-center">
-          <span class="ml-6">Matutino</span>
-        </div>
-      </button>
-      <button class="btn btn-info custom-btn btn-sm mb-6 mr-2" onclick="filtrarTabla('Vespertin')">
-        <div class="d-flex align-items-center">
-          <span class="ml-6">Vespertino</span>
-        </div>
-      </button>
-    </div>
-    <br>
-
-
   </table>
+<div class="text-center">
   <div th:unless="${not #lists.isEmpty(departamentos)}" class="alert alert-info" role="alert">
     No hay Departamentos registrados.
   </div>
   <a th:href="@{/departamentos/lista}" class="btn btn-warning btn-sm mb-3">CARGAR <img th:src="@{/images/recargar.png}"
-                                                                               class="d-inline-block align-text-top"
-                                                                               width="20" height="20"
-                                                                               alt="icon">
-
+                                                                                       class="d-inline-block align-text-top"
+                                                                                       width="20" height="20"
+                                                                                       alt="icon">
   </a>
   <p class="text-danger warning" th:if="${searchWarning}" th:text="${searchWarning}"></p>
-
 </div>
+
 </body>
 
 <script>
@@ -254,6 +249,31 @@
       tr[i].style.display = encontrado ? "" : "none";
     }
   }
+</script>
+<script>
+  // Función para filtrar las filas de la tabla a medida que se escribe en el cuadro de búsqueda
+  document.getElementById('buscar').addEventListener('input', function () {
+    var input, filtro, tabla, tr, td, i, txtValor;
+    input = document.getElementById("buscar");
+    filtro = input.value.toUpperCase();
+    tabla = document.getElementById("tabladepartamentos");
+    tr = tabla.getElementsByTagName("tr");
+
+    // Recorre todas las filas de la tabla (incluyendo la fila de encabezado)
+    for (i = 0; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("td");
+      var encontrado = false; // Indica si se encontró coincidencia en alguna celda
+      for (var j = 0; j < td.length; j++) {
+        txtValor = td[j].textContent || td[j].innerText;
+        if (txtValor.toUpperCase().indexOf(filtro.toUpperCase()) > -1) {
+          encontrado = true;
+          break; // Si se encuentra una coincidencia, no es necesario continuar buscando en esta fila
+        }
+      }
+      // Muestra u oculta la fila de datos dependiendo de si se encontró coincidencia en alguna celda
+      tr[i].style.display = encontrado ? "" : "none";
+    }
+  });
 </script>
 
 

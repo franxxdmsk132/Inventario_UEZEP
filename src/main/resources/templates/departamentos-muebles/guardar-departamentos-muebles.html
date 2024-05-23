@@ -85,7 +85,7 @@
 
 
     </style>
-    <title>Asignacion de Muebles</title>
+    <title>Departamentos - Aulas</title>
 
 </head>
 
@@ -98,17 +98,16 @@
                 <h3>
                     <img th:src="@{/images/Logo-NBG.png}" class="d-inline-block align-text-top" width="40" height="40"
                          alt="icon">
-                    <b>Mobiliario de Departamentos</b>
+                    <b><em>Mobiliario de Departamentos</em></b>
                 </h3>
-                <h4><a th:href="@{/depmub/lista}" class="btn btn-warning btn-sm mb-3 d-inline-block align-text-top">ATRAS</a></h4>
                 <hr>
-                <h2>Asignar Muebles en una Departamento</h2>
+                <div>
+                    <h2 class="mb-4"><b>¡Asignación de Muebles por Departamento!</b></h2>
             </div>
-            <form action="/depmub/save" method="post" th:object="${asignacionForm}" onsubmit="validarFormulario(event)" class="d-flex flex-column align-items-center">
-
-                <!-- Select de aulas -->
-                <div class="form-group">
-                    <label for="id_departamento" class="h4">Selecciona un Departamento:</label>
+                <form action="/depmub/save" method="post" th:object="${asignacionForm}" onsubmit="validarFormulario(event)" class="d-flex flex-column text-left mb-4">
+                    <div class="form-group row mb-4">
+                    <label for="id_departamento" class="h4"><b>Selecciona un Departamento:</b></label>
+                    <div class="col-sm-8">
                     <select id="id_departamento" name="id_departamento" class="form-control">
                         <option value="" disabled selected>Selecciona un Departamento</option>
                         <!-- Iterar sobre la lista de Departamentos disponibles -->
@@ -121,7 +120,7 @@
 
                 <!-- Lista de muebles -->
                 <div class="form-group">
-                    <label class="h4">Selecciona los Muebles:</label>
+                    <label class="h4"><b>Selecciona los Muebles:</b></label>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
@@ -177,13 +176,10 @@
                     </div>
                 </div>
 
-                <button type="submit" class="btn btn-primary">Asignar Muebles</button>
-            </form>
-            <br>
-        </div>
-    </div>
-</div>
-</body>
+                <button type="submit" class="btn-primary btn-block">Asignar Muebles</button>
+                    <a th:href="@{/depmub/lista}" class="btn btn-warning btn-sm btn-block mb-3 d-inline-block align-text-top">ATRAS</a>
+
+
 <script>
     function habilitarCantidad(checkbox) {
         // Obtener el campo de cantidad asociado al checkbox actual

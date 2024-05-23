@@ -93,10 +93,11 @@
     <table class="table">
         <thead class="thead-darkGray">
         <tr>
-            <th>ID M.</th>
+<!--            <th>ID</th>-->
+            <th>Código</th>
             <th>Nombre</th>
             <th>Descripción</th>
-            <th>Codigo M.</th> <!-- Agregamos el encabezado para el ID del aula -->
+             <!-- Agregamos el encabezado para el ID del aula -->
             <th>Cantidad</th>
             <th id="cEliminar" >Eliminar</th>
 
@@ -106,26 +107,27 @@
         <tbody>
         <!-- Iterar sobre la lista de AulasMuebles -->
         <tr th:each="aulmue : ${aulmue}">
-            <td th:text="${aulmue.muebles.id_mueble}"></td>
+            <td hidden="hidden" th:text="${aulmue.muebles.id_mueble}"></td>
+            <td th:text="${aulmue.muebles.codigo_mueble}"></td>
             <td th:text="${aulmue.muebles.nombre_mueble}"></td>
             <td th:text="${aulmue.muebles.descripcion_mueble}"></td>
-            <td th:text="${aulmue.muebles.codigo_mueble}"></td>
+
             <td th:text="${aulmue.cantidad}"></td>
 
             <!-- Agrega más celdas según tus necesidades -->
 
             <td>
-                <form id="eliminarAsignacion" th:action="@{/defmub/eliminarAsignacion}" th:method="post">
-                    <input type="hidden" name="id" th:value="${aulmue.id}">
-                    <button type="submit" class="btn btn-danger btn-sm" title="Eliminar" onclick="return confirm('¿Estás seguro de eliminar esta asignación?');">
-                        ELIMINAR
-                        <img th:src="@{/images/borrar.png}" class="d-inline-block align-text-top" width="20" height="20" alt="icon">
-                    </button>
-                </form>
+<!--                <form id="eliminarAsignacion" th:action="@{/defmub/eliminarAsignacion}" th:method="post">-->
+<!--                    <input type="hidden" name="id" th:value="${aulmue.id}">-->
+<!--                    <button type="submit" class="btn btn-danger btn-sm" title="Eliminar" onclick="return confirm('¿Estás seguro de eliminar esta asignación?');">-->
+<!--                        ELIMINAR-->
+<!--                        <img th:src="@{/images/borrar.png}" class="d-inline-block align-text-top" width="20" height="20" alt="icon">-->
+<!--                    </button>-->
+<!--                </form>-->
                 <form id="eliminarAsignacion2" th:action="@{/defmub/eliminar}" th:method="post">
                     <input type="hidden" name="id" th:value="${aulmue.id}">
-                    <button type="submit" class="btn btn-danger btn-sm" title="Eliminar" onclick="return confirm('¿Estás seguro de eliminar esta asignación?');">
-                        ELIMINARCa
+                    <button type="submit" class="btn btn-danger btn-sm" title="Eliminar cantidad" onclick="return confirm('¿Estás seguro de eliminar la cantidad?');">
+                        ELIMINAR
                         <img th:src="@{/images/borrar.png}" class="d-inline-block align-text-top" width="20" height="20" alt="icon">
                     </button>
                 </form>

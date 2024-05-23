@@ -125,12 +125,12 @@
         <b><i>
             <img th:src="@{/images/objetos.png}"
                  class="d-inline-block align-text-top" width="60" height="60"
-                 alt="icon"> Mobiliarios En Aulas
+                 alt="icon"> Mobiliario Aulas
         </i></b>
     </h1>
     <hr>
     <div class="d-flex justify-content-between">
-        <a th:href="@{/defmub/nuevoMuebleAula}" class="btn btn-primary btn-sm mb-3" ><b>Agregar Muebles En Aula </b><img
+        <a th:href="@{/defmub/nuevoMuebleAula}" class="btn btn-primary btn-sm mb-3" ><b>Agregar Muebles en Aula </b><img
                 th:src="@{/images/disquete.png}"
                 class="d-inline-block align-text-top" width="25" height="25"
                 alt="icon"></a>
@@ -140,7 +140,7 @@
 
     <div class="row">
         <div class="col">
-            <h2><b>Lista Aulas</b></h2>
+            <h2><b>Aulas</b></h2>
             <table id="tablaAulas" class="table table-hover">
                 <thead class="thead-darkGray text-center">
                 <tr>
@@ -176,12 +176,12 @@
                                      alt="icon"></a>
 
 
-                            <a th:href="@{/defmub/cambiarMueblesAulas(id_aula=${aulasmuebles.aulas.id_aula})}"
-                               class="btn btn-info btn-sm mr-2" title="Actualizar Informacion"> ACTUALIZACIONES
-                                <img th:src="@{/images/editar.png}" class="d-inline-block align-text-top" width="20"
-                                     height="20"
-                                     alt="icon">
-                            </a>
+<!--                            <a th:href="@{/defmub/cambiarMueblesAulas(id_aula=${aulasmuebles.aulas.id_aula})}"-->
+<!--                               class="btn btn-info btn-sm mr-2" title="Actualizar Informacion"> ACTUALIZACIONES-->
+<!--                                <img th:src="@{/images/editar.png}" class="d-inline-block align-text-top" width="20"-->
+<!--                                     height="20"-->
+<!--                                     alt="icon">-->
+<!--                            </a>-->
 
 
 <!--                            <form id="eliminarAulaForm" th:action="@{/aulas/delete}" th:method="post">-->
@@ -215,14 +215,31 @@
         </div>
         <div class="col">
             <h2><b>Muebles</b></h2>
+            <div class="container" align="left" >
+                <table class="table" id="tablaTemporal">
+                    <thead class="thead-darkGray">
+                    <tr>
+<!--                        <th>ID M.</th>-->
+                        <th>Código </th>
+                        <th>Nombre</th>
+                        <th>Descripción</th>
+                         <!-- Agregamos el encabezado para el ID del aula -->
+                        <th>Cantidad</th>
+                        <th id="cEliminar">Eliminar</th>
+
+                        <!-- Agrega más encabezados de columnas según sea necesario -->
+                    </tr>
+                    </thead>
+                </table>
+            </div>
             <div id="detallesAulaContainer"></div>
         </div>
     </div>
 
 
-    <div th:unless="${not #lists.isEmpty(aulasmueble)}" class="alert alert-info" role="alert">
-        No hay registros.
-    </div>
+<!--    <div th:unless="${not #lists.isEmpty(aulasmueble)}" class="alert alert-info" role="alert">-->
+<!--        No hay registros.-->
+<!--    </div>-->
     <!--    <a th:href="@{/defmub/lista}" class="btn btn-warning btn-sm mb-3">CARGAR <img th:src="@{/images/recargar.png}"-->
     <!--                                                                                  class="d-inline-block align-text-top"-->
     <!--                                                                                  width="20" height="20"-->
@@ -245,6 +262,8 @@
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("tablaTemporal").style.display = "none";
+
                 // Actualiza el contenido de detalles del aula con la respuesta
                 document.getElementById("detallesAulaContainer").innerHTML = this.responseText;
             }

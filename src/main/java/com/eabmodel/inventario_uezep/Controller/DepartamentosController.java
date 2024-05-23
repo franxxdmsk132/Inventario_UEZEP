@@ -79,7 +79,7 @@ public class DepartamentosController {
     }
 
     @PostMapping("/delete")
-    public String deleteDepartamentos(@RequestParam("id_departamentos") int id_departamentos){
+    public String deleteDepartamentos(@RequestParam("id_departamento") int id_departamentos){
         departamentoService.deleteByIdDepartamentos(id_departamentos);
         return "redirect:/departamentos/lista";
     }
