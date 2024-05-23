@@ -16,6 +16,7 @@
             transform: scale(1.2); /* Aumenta el tamaño del botón al 110% cuando se pasa el cursor sobre él */
             transition: transform 0.2s; /* Agrega una transición suave de 0.2 segundos */
         }
+
         .thead-darkGray {
             background-color: #4b4c4f; /* Puedes ajustar el color según tus preferencias */
             color: white;
@@ -80,20 +81,22 @@
         <b><i>Directorio de Mueble</i></b>
     </h3>
 
-    <h4  hidden="hidden" ><a th:href="@{/muebles/lista}" class="btn btn-warning btn-sm mb-3 col-2 d-inline-block align-text-top ">ATRAS</a></h4>
+    <h4 hidden="hidden"><a th:href="@{/muebles/lista}"
+                           class="btn btn-warning btn-sm mb-3 col-2 d-inline-block align-text-top ">ATRAS</a></h4>
     <hr>
     <p class="h4 mb-4"><b>¡Agregar Otro Mueble!</b></p>
 
 
-
-    <form action="#" th:action="@{/muebles/save}" th:object="${muebles}" method="POST" class="d-flex flex-column align-items-center w-100">
+    <form action="#" th:action="@{/muebles/save}" th:object="${muebles}" method="POST"
+          class="d-flex flex-column align-items-center w-100">
         <div class="form-row w-75">
             <div class="form-group row w-100">
 
                 <div class="form-group w-100 d-flex align-items-center">
                     <label for="selectMueble" class="col-4 col-form-label text-left"><b>Tipo de mueble: </b></label>
                     <div class="col-8 d-flex align-items-center">
-                        <select th:field="*{nombre_mueble}" id="selectMueble" class="form-control mr-2" required onchange="checkIfOther(this)">
+                        <select th:field="*{nombre_mueble}" id="selectMueble" class="form-control mr-2" required
+                                onchange="checkIfOther(this)">
                             <option value="">Selecciona el tipo de mueble</option>
                             <option value="Silla">Silla</option>
                             <option value="Mesa">Mesa</option>
@@ -101,45 +104,56 @@
                             <option value="Armario">Armario</option>
                             <option value="Otro">Otro</option>
                         </select>
-                        <button type="button" onclick="limpiarOtroInput()" class="btn btn-secondary" title="Solo cuando se selecciona 'Otro'">Limpiar</button>
+                        <button type="button" onclick="limpiarOtroInput()" class="btn btn-secondary"
+                                title="Solo cuando se selecciona 'Otro'">Limpiar
+                        </button>
                     </div>
                 </div>
 
                 <div class="form-group w-100 d-flex align-items-center">
                     <label class="col-4 col-form-label text-left"></label>
                     <div class="col-8">
-                        <input type="text" id="otroMuebleInput" name="nombre_mueble" class="form-control mb-3" placeholder="Escribe el tipo de mueble" style="display: none;">
-                        <small id="otroMuebleMessage" class="form-text text-muted" style="display: none;">Se ha seleccionado "Otro". Por favor, especifique el tipo de mueble.</small>
+                        <input type="text" id="otroMuebleInput" name="nombre_mueble" class="form-control mb-3"
+                               placeholder="Escribe el tipo de mueble" style="display: none;">
+                        <small id="otroMuebleMessage" class="form-text text-muted" style="display: none;">Se ha
+                            seleccionado "Otro". Por favor, especifique el tipo de mueble.</small>
                     </div>
                 </div>
 
                 <div class="form-group w-100 d-flex align-items-center">
                     <label for="codigo_mueble" class="col-4 col-form-label text-left"><b>Código:</b></label>
                     <div class="col-8">
-                        <input type="text" th:field="*{codigo_mueble}" id="codigo_mueble" class="form-control mb-3" placeholder="Código del Mueble" required>
-                        <small class="text-muted">El código se genera automáticamente según el tipo de mueble seleccionado.</small>
+                        <input type="text" th:field="*{codigo_mueble}" id="codigo_mueble" class="form-control mb-3"
+                               placeholder="Código del Mueble" required>
+                        <small class="text-muted">El código se genera automáticamente según el tipo de mueble
+                            seleccionado.</small>
                     </div>
                 </div>
 
                 <div class="form-group w-100 d-flex align-items-center">
                     <label for="descripcion_mueble" class="col-4 col-form-label text-left"><b>Descripción:</b></label>
                     <div class="col-8">
-                        <input type="text" th:field="*{descripcion_mueble}" id="descripcion_mueble" class="form-control mb-3" placeholder="Descripción del Mueble" required>
+                        <input type="text" th:field="*{descripcion_mueble}" id="descripcion_mueble"
+                               class="form-control mb-3" placeholder="Descripción del Mueble" required>
                     </div>
                 </div>
 
                 <div class="form-group w-100 d-flex align-items-center">
                     <label class="col-4 col-form-label text-left"><b>Fecha de Ingreso:</b></label>
                     <div class="col-8 d-flex flex-column align-items-start">
-                        <input type="text" th:field="*{fecha_ingreso}" name="fechaingreso" placeholder="yyyy-MM-dd HH:mm:ss" class="mb-2 form-control w-100" required>
-                        <button type="button" onclick="seleccionarFechaActual()" class="btn btn-primary btn-sm">Seleccionar la Fecha y Hora Actual</button>
+                        <input type="text" th:field="*{fecha_ingreso}" name="fechaingreso"
+                               placeholder="yyyy-MM-dd HH:mm:ss" class="mb-2 form-control w-100" required>
+                        <button type="button" onclick="seleccionarFechaActual()" class="btn btn-primary btn-sm">
+                            Seleccionar la Fecha y Hora Actual
+                        </button>
                     </div>
                 </div>
 
                 <div class="form-group w-100 d-flex align-items-center">
                     <label for="cantidad" class="col-4 col-form-label text-left"><b>Cantidad:</b></label>
                     <div class="col-8">
-                        <input type="number" th:field="*{cantidad}" id="cantidad" class="form-control mb-3" placeholder="Cantidad" required min="1" oninput="validarCantidad(this)">
+                        <input type="number" th:field="*{cantidad}" id="cantidad" class="form-control mb-3"
+                               placeholder="Cantidad" required min="1" oninput="validarCantidad(this)">
                     </div>
                 </div>
 
@@ -159,13 +173,14 @@
                         <select id="condicionSelect" class="form-control" th:field="*{condicion}" required>
                             <option value="" disabled selected>Debe seleccionar una condición</option>
                             <option value="Buena">Buena</option>
-                            <option value="Regular">Regular </option>
+                            <option value="Regular">Regular</option>
                             <option value="Mala">Mala</option>
                         </select>
                     </div>
                 </div>
 
-                <input type="number" th:field="*{asignacion}" class="form-control mb-3" placeholder="Asignacion" hidden="hidden">
+                <input type="number" th:field="*{asignacion}" class="form-control mb-3" placeholder="Asignacion"
+                       hidden="hidden">
 
                 <div class="form-group row w-100">
                     <div class="col-6">
@@ -176,21 +191,25 @@
                     </div>
                 </div>
             </div>
+        </div>
     </form>
+</div>
 
 
-    <script>
+<script>
     function validarCantidad(input) {
         if (input.value <= 0) {
             input.value = 1; // Restablece el valor a 1 si es menor o igual a cero
         }
     }
+
     function seleccionarFechaActual() {
         var fechaActual = new Date().toISOString().split('T')[0]; // Obtener la fecha actual en formato yyyy-MM-dd
-        var horaActual = new Date().toLocaleTimeString([], { hour12: false }); // Obtener la hora actual en formato HH:mm:ss
+        var horaActual = new Date().toLocaleTimeString([], {hour12: false}); // Obtener la hora actual en formato HH:mm:ss
         var fechaHoraActual = fechaActual + " " + horaActual; // Combinar fecha y hora
         document.getElementById("fecha_ingreso").value = fechaHoraActual; // Establecer la fecha y hora actual en el campo de entrada
     }
+
     function checkIfOther(select) {
         var otroInput = document.getElementById("otroMuebleInput");
         var selectMueble = document.getElementById("selectMueble");
@@ -208,6 +227,7 @@
         }
         generarCodigo(select.value);
     }
+
     function limpiarOtroInput() {
         var otroInput = document.getElementById("otroMuebleInput");
         var selectMueble = document.getElementById("selectMueble");
@@ -216,6 +236,7 @@
         otroInput.style.display = "none"; // Ocultar el campo "Otro"
         selectMueble.disabled = false; // Activar el select de nombres de muebles
     }
+
     // Objeto para mantener el registro de códigos generados para cada tipo de mueble
     var codigosGenerados = {
         "Silla": new Set(),
@@ -244,6 +265,7 @@
         // Establecer el código generado en el campo correspondiente
         document.getElementById("codigo_mueble").value = codigo;
     }
+
     function checkIfOther(select) {
         var otroInput = document.getElementById("otroMuebleInput");
         var otroMessage = document.getElementById("otroMuebleMessage");
