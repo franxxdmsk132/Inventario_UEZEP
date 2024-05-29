@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html>
+<html lang="es">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -163,6 +163,13 @@
                             <option value="C">C</option>
                             <option value="N/A">N/A</option>
                         </select>
+                        <select th:field="*{paralelo}" class="form-control mb-3" >
+                            <option value="">Selecciona un paralelo</option>
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                            <option value="N/A">N/A</option>
+                        </select>
                     </div>
                 </div>
 
@@ -171,9 +178,32 @@
                     <div class="col-8">
                         <select th:field="*{ubicacion_aula}" class="form-control mb-3" required>
                             <option value="">Selecciona una ubicación</option>
-                            <option value="Jardín">Jardín</option>
-                            <option value="Escuela">Escuela</option>
-                            <option value="Colegio">Colegio</option>
+                            <option value="Aula-1">Aula-1</option>
+                            <option value="Aula-2">Aula-2</option>
+                            <option value="Aula-3">Aula-3</option>
+                            <option value="Aula-4">Aula-4</option>
+                            <option value="Aula-5">Aula-5</option>
+                            <option value="Aula-6">Aula-6</option>
+                            <option value="Aula-7">Aula-7</option>
+                            <option value="Aula-8">Aula-8</option>
+                            <option value="Aula-9">Aula-9</option>
+                            <option value="Aula-10">Aula-10</option>
+                            <option value="Aula-11">Aula-11</option>
+                            <option value="Aula-12">Aula-12</option>
+                            <option value="Aula-13">Aula-13</option>
+                            <option value="Aula-14">Aula-14</option>
+                            <option value="Aula-15">Aula-15</option>
+                            <option value="Aula-16">Aula-16</option>
+                            <option value="Aula-17">Aula-17</option>
+                            <option value="Aula-18">Aula-18</option>
+                            <option value="Aula-19">Aula-19</option>
+                            <option value="Aula-20">Aula-20</option>
+                            <option value="Aula-21">Aula-21</option>
+                            <option value="Aula-22">Aula-22</option>
+                            <option value="Aula-23">Aula-23</option>
+                            <option value="Aula-24">Aula-24</option>
+                            <option value="Aula-25">Aula-25</option>
+
                         </select>
                     </div>
                 </div>
@@ -197,124 +227,126 @@
             </div>
         </div>
     </form>
+</div>
 
 
-    <script>
-        function mostrarOpcionesAdicionales() {
-            var tipoCurso = document.getElementById("tipoCurso").value;
-            var opcionesAdicionales = document.getElementById("opcionesAdicionales");
-            opcionesAdicionales.style.display = tipoCurso !== "" ? "block" : "none";
+<script>
+    function mostrarOpcionesAdicionales() {
+        var tipoCurso = document.getElementById("tipoCurso").value;
+        var opcionesAdicionales = document.getElementById("opcionesAdicionales");
+        opcionesAdicionales.style.display = tipoCurso !== "" ? "block" : "none";
 
-            // Oculta todas las opciones adicionales
-            document.querySelectorAll("#opcionesAdicionales optgroup").forEach(function (optgroup) {
-                optgroup.style.display = "none";
-            });
+        // Oculta todas las opciones adicionales
+        document.querySelectorAll("#opcionesAdicionales optgroup").forEach(function (optgroup) {
+            optgroup.style.display = "none";
+        });
 
-            // Muestra las opciones adicionales correspondientes al tipo de curso seleccionado
-            document.getElementById("opciones" + tipoCurso.charAt(0).toUpperCase() + tipoCurso.slice(1)).style.display = "block";
-            document.getElementById("opcionesInicial" + tipoCurso.charAt(0).toUpperCase() + tipoCurso.slice(1)).style.display = "block";
-            document.getElementById("opcionesBasica" + tipoCurso.charAt(0).toUpperCase() + tipoCurso.slice(1)).style.display = "block";
-            //document.getElementById("Superior" + tipoCurso.charAt(0).toUpperCase() + tipoCurso.slice(1)).style.display = "block";
-            document.getElementById("opcionesSuperior" + tipoCurso.charAt(0).toUpperCase() + tipoCurso.slice(1)).style.display = "block";
+        // Muestra las opciones adicionales correspondientes al tipo de curso seleccionado
+        document.getElementById("opciones" + tipoCurso.charAt(0).toUpperCase() + tipoCurso.slice(1)).style.display = "block";
+        document.getElementById("opcionesInicial" + tipoCurso.charAt(0).toUpperCase() + tipoCurso.slice(1)).style.display = "block";
+        document.getElementById("opcionesBasica" + tipoCurso.charAt(0).toUpperCase() + tipoCurso.slice(1)).style.display = "block";
+        //document.getElementById("Superior" + tipoCurso.charAt(0).toUpperCase() + tipoCurso.slice(1)).style.display = "block";
+        document.getElementById("opcionesSuperior" + tipoCurso.charAt(0).toUpperCase() + tipoCurso.slice(1)).style.display = "block";
 
-            document.getElementById("opcionesBachillerato" + tipoCurso.charAt(0).toUpperCase() + tipoCurso.slice(1)).style.display = "block";
+        document.getElementById("opcionesBachillerato" + tipoCurso.charAt(0).toUpperCase() + tipoCurso.slice(1)).style.display = "block";
 
-        }
+    }
 
-        function mostrarOpcionesParalelo() {
-            var paraleloSeleccionado = document.getElementById("paralelo").value;
-            var opcionesParalelo = document.getElementById("opcionesParalelo");
-            opcionesParalelo.style.display = paraleloSeleccionado !== "" ? "block" : "none";
+    function mostrarOpcionesParalelo() {
+        var paraleloSeleccionado = document.getElementById("paralelo").value;
+        var opcionesParalelo = document.getElementById("opcionesParalelo");
+        opcionesParalelo.style.display = paraleloSeleccionado !== "" ? "block" : "none";
 
-            // Ocultar todas las opciones adicionales de paralelo
-            document.querySelectorAll("#opcionesParalelo optgroup").forEach(function (optgroup) {
-                optgroup.style.display = "none";
-            });
+        // Ocultar todas las opciones adicionales de paralelo
+        document.querySelectorAll("#opcionesParalelo optgroup").forEach(function (optgroup) {
+            optgroup.style.display = "none";
+        });
 
-            // Mostrar las opciones adicionales correspondientes al paralelo seleccionado
-            document.getElementById("opciones" + paraleloSeleccionado).style.display = "block";
-        }
+        // Mostrar las opciones adicionales correspondientes al paralelo seleccionado
+        document.getElementById("opciones" + paraleloSeleccionado).style.display = "block";
+    }
 
 
-        // Guardar todas las opciones en un array
-        var options = Array.from(select.options).map(option => option.value);
+    // Guardar todas las opciones en un array
+    var options = Array.from(select.options).map(option => option.value);
 
-        // Función para encontrar la opción más parecida
-        function findClosestOption(input) {
-            var minDistance = Infinity;
-            var closestOption = '';
+    // Función para encontrar la opción más parecida
+    function findClosestOption(input) {
+        var minDistance = Infinity;
+        var closestOption = '';
 
-            options.forEach(option => {
-                var distance = levenshteinDistance(input, option);
-                if (distance < minDistance) {
-                    minDistance = distance;
-                    closestOption = option;
-                }
-            });
-
-            return closestOption;
-        }
-
-        // Función para calcular la distancia de Levenshtein entre dos strings
-        function levenshteinDistance(a, b) {
-            if (a.length === 0) return b.length;
-            if (b.length === 0) return a.length;
-
-            var matrix = [];
-
-            // Inicializar la primera fila y la primera columna
-            for (var i = 0; i <= b.length; i++) {
-                matrix[i] = [i];
-            }
-
-            for (var j = 0; j <= a.length; j++) {
-                matrix[0][j] = j;
-            }
-
-            // Calcular la distancia de Levenshtein
-            for (var i = 1; i <= b.length; i++) {
-                for (var j = 1; j <= a.length; j++) {
-                    if (b.charAt(i - 1) === a.charAt(j - 1)) {
-                        matrix[i][j] = matrix[i - 1][j - 1];
-                    } else {
-                        matrix[i][j] = Math.min(
-                            matrix[i - 1][j - 1] + 1,
-                            matrix[i][j - 1] + 1,
-                            matrix[i - 1][j] + 1
-                        );
-                    }
-                }
-            }
-
-            return matrix[b.length][a.length];
-        }
-
-        // Evento de entrada para el autocompletado
-        select.addEventListener('input', function () {
-            var inputValue = this.value;
-            if (inputValue.length > 0) {
-                var closestOption = findClosestOption(inputValue);
-                this.value = closestOption;
+        options.forEach(option => {
+            var distance = levenshteinDistance(input, option);
+            if (distance < minDistance) {
+                minDistance = distance;
+                closestOption = option;
             }
         });
 
-        function alternarFiltro(tipoUbicacion) {
-            // Obtener todas las filas de la tabla
-            var filas = document.querySelectorAll("#tablaAulas tbody tr");
+        return closestOption;
+    }
 
-            // Filtrar las filas según el tipo de ubicación
-            filas.forEach(function (fila) {
-                var ubicacion = fila.querySelector("td:nth-child(3)").textContent.trim().toLowerCase();
-                if (ubicacion === tipoUbicacion.toLowerCase() || tipoUbicacion === "") {
-                    fila.style.display = ""; // Mostrar la fila si coincide con la ubicación seleccionada o si no se ha seleccionado ninguna ubicación
-                } else {
-                    fila.style.display = "none"; // Ocultar la fila si no coincide con la ubicación seleccionada
-                }
-            });
+    // Función para calcular la distancia de Levenshtein entre dos strings
+    function levenshteinDistance(a, b) {
+        if (a.length === 0) return b.length;
+        if (b.length === 0) return a.length;
 
+        var matrix = [];
+
+        // Inicializar la primera fila y la primera columna
+        for (var i = 0; i <= b.length; i++) {
+            matrix[i] = [i];
         }
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+        for (var j = 0; j <= a.length; j++) {
+            matrix[0][j] = j;
+        }
+
+        // Calcular la distancia de Levenshtein
+        for (var i = 1; i <= b.length; i++) {
+            for (var j = 1; j <= a.length; j++) {
+                if (b.charAt(i - 1) === a.charAt(j - 1)) {
+                    matrix[i][j] = matrix[i - 1][j - 1];
+                } else {
+                    matrix[i][j] = Math.min(
+                        matrix[i - 1][j - 1] + 1,
+                        matrix[i][j - 1] + 1,
+                        matrix[i - 1][j] + 1
+                    );
+                }
+            }
+        }
+
+        return matrix[b.length][a.length];
+    }
+
+    // Evento de entrada para el autocompletado
+    select.addEventListener('input', function () {
+        var inputValue = this.value;
+        if (inputValue.length > 0) {
+            var closestOption = findClosestOption(inputValue);
+            this.value = closestOption;
+        }
+    });
+
+    function alternarFiltro(tipoUbicacion) {
+        // Obtener todas las filas de la tabla
+        var filas = document.querySelectorAll("#tablaAulas tbody tr");
+
+        // Filtrar las filas según el tipo de ubicación
+        filas.forEach(function (fila) {
+            var ubicacion = fila.querySelector("td:nth-child(3)").textContent.trim().toLowerCase();
+            if (ubicacion === tipoUbicacion.toLowerCase() || tipoUbicacion === "") {
+                fila.style.display = ""; // Mostrar la fila si coincide con la ubicación seleccionada o si no se ha seleccionado ninguna ubicación
+            } else {
+                fila.style.display = "none"; // Ocultar la fila si no coincide con la ubicación seleccionada
+            }
+        });
+
+    }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+</body>
 
 
 </html>
