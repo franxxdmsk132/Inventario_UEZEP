@@ -1,3 +1,3 @@
 Manifest-Version: 1.0
-Main-Class: com.tf4beta.ems.main.EmsCrudApplication
+Main-Class: com.eabmodel.inventario_uezep.InventarioUezepApplication
 
