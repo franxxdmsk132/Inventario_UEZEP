@@ -104,12 +104,12 @@
     <form action="#" th:action="@{/aulas/save}" th:object="${aulas}" method="POST" class="w-100">
         <div class="form-row w-75 mx-auto">
             <div class="col-12 mb-3">
+                <!-- Selección para el primer curso -->
                 <div class="form-group row align-items-center">
                     <label class="col-4 col-form-label text-left"><h5><b>Curso:</b></h5></label>
                     <div class="col-8">
-                        <select id="tipoCurso" class="form-control mb-3" required
-                                onchange="mostrarOpcionesAdicionales()">
-                            <option value="">Selecciona un tipo de curso</option>
+                        <select id="tipoCurso1" class="form-control mb-3" required onchange="mostrarOpcionesAdicionales(1)">
+                            <option value="">Seleccione un tipo de curso</option>
                             <option value="inicial">Inicial</option>
                             <option value="basica">Básica</option>
                             <option value="superior">Básica Superior</option>
@@ -117,18 +117,18 @@
                         </select>
                     </div>
                 </div>
-                <div id="opcionesAdicionales" style="display: none;">
+                <div id="opcionesAdicionales1" style="display: none;">
                     <div class="form-group row align-items-center">
                         <label class="col-4 col-form-label text-left"><h5><b>Opciones Adicionales:</b></h5></label>
                         <div class="col-8">
-                            <select th:field="*{curso}" class="form-control mb-3" required>
+                            <select id="cursoSelect1" th:field="*{curso}" class="form-control mb-3" required>
                                 <option value="">Seleccionar una opción</option>
                                 <!-- Opciones adicionales para cada tipo de curso -->
-                                <optgroup id="opcionesInicial">
+                                <optgroup id="opcionesInicial1">
                                     <option value="Inicial 1">Inicial 1</option>
                                     <option value="Inicial 2">Inicial 2</option>
                                 </optgroup>
-                                <optgroup id="opcionesBasica">
+                                <optgroup id="opcionesBasica1">
                                     <option value="Primero de básica">Primero de básica</option>
                                     <option value="Segundo de básica">Segundo de básica</option>
                                     <option value="Tercero de básica">Tercero de básica</option>
@@ -137,12 +137,63 @@
                                     <option value="Sexto de básica">Sexto de básica</option>
                                     <option value="Séptimo de básica">Séptimo de básica</option>
                                 </optgroup>
-                                <optgroup id="opcionesSuperior">
+                                <optgroup id="opcionesSuperior1">
                                     <option value="Octavo de básica">Octavo de básica</option>
                                     <option value="Noveno de básica">Noveno de básica</option>
                                     <option value="Décimo de básica">Décimo de básica</option>
                                 </optgroup>
-                                <optgroup id="opcionesBachillerato">
+                                <optgroup id="opcionesBachillerato1">
+                                    <option value="Primero de bachillerato">Primero de bachillerato</option>
+                                    <option value="Segundo de bachillerato">Segundo de bachillerato</option>
+                                    <option value="Tercero de bachillerato">Tercero de bachillerato</option>
+                                </optgroup>
+                                <optgroup id="opcionNo">
+                                    <option value="No Comparte ">No Comparte</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Selección para el segundo curso -->
+                <div class="form-group row align-items-center mt-4">
+                    <label class="col-4 col-form-label text-left"><h5><b>Curso Adicional:</b></h5></label>
+                    <div class="col-8">
+                        <select id="tipoCurso2" class="form-control mb-3" onchange="mostrarOpcionesAdicionales(2)">
+                            <option value="">Seleccione un tipo de curso</option>
+                            <option value="inicial">Inicial</option>
+                            <option value="basica">Básica</option>
+                            <option value="superior">Básica Superior</option>
+                            <option value="bachillerato">Bachillerato</option>
+                            <option value="No compartido">No compartido</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="opcionesAdicionales2" style="display: none;">
+                    <div class="form-group row align-items-center">
+                        <label class="col-4 col-form-label text-left"><h5><b>Opciones Adicionales:</b></h5></label>
+                        <div class="col-8">
+                            <select id="cursoSelect2" th:field="*{curso}" class="form-control mb-3" >
+                                <option value="">Seleccionar una opción</option>
+                                <!-- Opciones adicionales para cada tipo de curso -->
+                                <optgroup id="opcionesInicial2">
+                                    <option value="Inicial 1">Inicial 1</option>
+                                    <option value="Inicial 2">Inicial 2</option>
+                                </optgroup>
+                                <optgroup id="opcionesBasica2">
+                                    <option value="Primero de básica">Primero de básica</option>
+                                    <option value="Segundo de básica">Segundo de básica</option>
+                                    <option value="Tercero de básica">Tercero de básica</option>
+                                    <option value="Cuarto de básica">Cuarto de básica</option>
+                                    <option value="Quinto de básica">Quinto de básica</option>
+                                    <option value="Sexto de básica">Sexto de básica</option>
+                                    <option value="Séptimo de básica">Séptimo de básica</option>
+                                </optgroup>
+                                <optgroup id="opcionesSuperior2">
+                                    <option value="Octavo de básica">Octavo de básica</option>
+                                    <option value="Noveno de básica">Noveno de básica</option>
+                                    <option value="Décimo de básica">Décimo de básica</option>
+                                </optgroup>
+                                <optgroup id="opcionesBachillerato2">
                                     <option value="Primero de bachillerato">Primero de bachillerato</option>
                                     <option value="Segundo de bachillerato">Segundo de bachillerato</option>
                                     <option value="Tercero de bachillerato">Tercero de bachillerato</option>
@@ -168,7 +219,8 @@
                             <option value="A">A</option>
                             <option value="B">B</option>
                             <option value="C">C</option>
-                            <option value="N/A">N/A</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
                         </select>
                     </div>
                 </div>
@@ -231,25 +283,21 @@
 
 
 <script>
-    function mostrarOpcionesAdicionales() {
-        var tipoCurso = document.getElementById("tipoCurso").value;
-        var opcionesAdicionales = document.getElementById("opcionesAdicionales");
+    function mostrarOpcionesAdicionales(index) {
+        var tipoCurso = document.getElementById("tipoCurso" + index).value;
+        var opcionesAdicionales = document.getElementById("opcionesAdicionales" + index);
         opcionesAdicionales.style.display = tipoCurso !== "" ? "block" : "none";
 
         // Oculta todas las opciones adicionales
-        document.querySelectorAll("#opcionesAdicionales optgroup").forEach(function (optgroup) {
+        document.querySelectorAll("#opcionesAdicionales" + index + " optgroup").forEach(function (optgroup) {
             optgroup.style.display = "none";
         });
 
         // Muestra las opciones adicionales correspondientes al tipo de curso seleccionado
-        document.getElementById("opciones" + tipoCurso.charAt(0).toUpperCase() + tipoCurso.slice(1)).style.display = "block";
-        document.getElementById("opcionesInicial" + tipoCurso.charAt(0).toUpperCase() + tipoCurso.slice(1)).style.display = "block";
-        document.getElementById("opcionesBasica" + tipoCurso.charAt(0).toUpperCase() + tipoCurso.slice(1)).style.display = "block";
-        //document.getElementById("Superior" + tipoCurso.charAt(0).toUpperCase() + tipoCurso.slice(1)).style.display = "block";
-        document.getElementById("opcionesSuperior" + tipoCurso.charAt(0).toUpperCase() + tipoCurso.slice(1)).style.display = "block";
-
-        document.getElementById("opcionesBachillerato" + tipoCurso.charAt(0).toUpperCase() + tipoCurso.slice(1)).style.display = "block";
-
+        if (tipoCurso) {
+            var optgroupId = "opciones" + tipoCurso.charAt(0).toUpperCase() + tipoCurso.slice(1) + index;
+            document.getElementById(optgroupId).style.display = "block";
+        }
     }
 
     function mostrarOpcionesParalelo() {
