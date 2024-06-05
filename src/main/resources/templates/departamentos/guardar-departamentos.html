@@ -86,10 +86,11 @@
                 <div class="form-group w-100 d-flex align-items-center">
                     <label class="col-4 col-form-label text-left"><h5><b>Jornada:</b></h5></label>
                     <div class="col-8">
-                    <select th:field="*{tipo_jornada}" class="form-control mb-3" required onchange="validarTipoJornada(this)">
+                    <select th:field="*{tipo_jornada}" class="form-control mb-3" required onchange="validarTipoJornada()">
             <option value="">Seleccionar la Jornada</option>
             <option value="Matutina">Matutina</option>
             <option value="Vespertina">Vespertina</option>
+                        <option value="Mixta">Mixta</option>
         </select>
                     </div>
                 </div>
@@ -204,11 +205,12 @@
         switch (tipoJornada) {
             case "Matutina":
             case "Vespertina":
-                alert("Jornada seleccionada: " + tipoJornada);
+            case "Mixta":
+
                 break;
             default:
                 // Si no se reconoce la jornada, puedes mostrar un mensaje de error o tomar otra acción
-                alert("Tipo de jornada no reconocido");
+
                 // Aquí podrías restablecer el valor seleccionado o tomar otra acción adecuada
                 break;
         }

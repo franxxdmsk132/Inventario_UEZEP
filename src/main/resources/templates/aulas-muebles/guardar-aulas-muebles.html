@@ -112,7 +112,8 @@
                     <select id="id_aula" name="id_aula" class="form-control">
                             <option value="" disabled selected>Selecciona una aula</option>
                             <!-- Iterar sobre la lista de aulas disponibles -->
-                            <option th:each="aula : ${allAulas}" th:value="${aula.id_aula}" th:text="${aula.curso + ' - ' + aula.paralelo}"></option>
+<!--                            <option th:each="aula : ${allAulas}" th:value="${aula.id_aula}" th:text="${aula.curso + ' - ' + aula.paralelo}"></option>-->
+                        <option th:each="aula : ${allAulas}" th:value="${aula.id_aula}" th:text="${aula.ubicacion_aula+ ' - ' }"></option>
                         </select>
                         <div id="selectError" class="invalid-feedback" style="display: none;">Por favor, selecciona un aula para continuar</div>
                     </div>
